@@ -1,0 +1,54 @@
+.notfound {
+    .container {
+        #error-page {
+            margin-top: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #fff;
+            box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+
+            .content {
+                width: 600px;
+                text-align: center;
+
+                h2 {
+                    font-size: 9vw !important;
+                    //line-height: 1em;
+                }
+
+                h4 {
+                    font-size: 1.5em;
+                    margin-bottom: 20px;
+                    text-transform: uppercase;
+                    color: #000;
+                    font-size: 2em;
+                    max-width: 600px;
+                }
+
+                .home {
+                    margin: 2rem 0;
+                    padding: 3rem;
+                    background: #26ae61;
+                    font-size: 14px;
+                    padding: 10px 30px;
+                    border-radius: 30px;
+                    letter-spacing: 1px;
+                    font-weight: 400;
+                    color: #fff;
+                    border: none;
+                    text-decoration: none;
+                    text-transform: uppercase;
+                    transition: all .3s ease-in-out;
+                    display: inline-block;
+                    cursor: pointer;
+                }
+
+                .home:hover {
+                    color: #fff;
+                    box-shadow: 0 5px 11px 0 rgba(0, 0, 0, .15), 0 4px 15px 0 rgba(0, 0, 0, .15);
+                }
+            }
+        }
+    }
+}

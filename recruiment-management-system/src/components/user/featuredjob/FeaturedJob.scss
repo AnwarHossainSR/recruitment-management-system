@@ -1,0 +1,71 @@
+//@import '../../../App.scss';
+.featured_job{
+    
+    padding: 2rem 0;
+    .container{
+        .featured_job-info{
+            margin-top: 6rem;
+            text-align: center;
+            line-height: 2;
+            h1{
+                font-size: 30px;
+            }
+        }
+        .card-wrapper{
+            margin-top: 3rem;
+            display: grid;
+            grid-template-columns: repeat(3,1fr);
+            grid-column-gap: 1rem;
+            grid-row-gap: 1rem;
+            
+            .card{
+                transition: all .3s linear;
+                border: 1px solid #f1f1f1;
+                margin-top: -1px;
+                background: #fff;
+                padding: 20px;
+                overflow: hidden;
+                display: flex;
+                margin-right: -1px;
+                position: relative;
+                box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+                .left{
+                    width: 25%;
+                    height: 25%;
+                    padding: 10px;
+                }
+                .right{
+                    width: 75%;
+                    height: auto;
+                    text-align: left;
+                    margin-left: 3rem!important;
+                    h1{
+                        margin-top: 1.2rem;
+                        color: var(--dark);
+                    }
+                    a{
+                        margin-top: 1rem;
+                        text-decoration: none;
+                        font-size: 14px;
+                        display: inline-block;
+                        padding: 5px 15px;
+                        border-radius: 50px;
+                        cursor: pointer;
+                        text-transform: uppercase;
+                        background: #D5FFE7;
+                        color: var(--green);
+                        transition: all .3s ease-in-out;
+                        cursor: pointer;
+                        font-weight: bolder;
+                    }
+                }
+            }
+            .card:hover{
+                box-shadow: 1px 8px 20px grey;
+                transition:  box-shadow .6s linear;
+                border-left: 1rem var(--green);
+                cursor: pointer;
+            }
+        }
+    }
+}
