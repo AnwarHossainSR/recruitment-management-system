@@ -13,6 +13,8 @@ import Dashboard from "./components/admin/main/dashboard/Dashboard";
 import AddJob from "./components/admin/main/job/AddJob";
 import JobManage from "./components/admin/main/job/JobManage";
 import ManageApplication from "./components/admin/main/job/ManageApplication";
+import RejectedJobs from "./components/admin/main/job/RejectedJobs";
+import ManageCategory from "./components/admin/main/categories/ManageCategory";
 
 const App = () => {
   return (
@@ -45,6 +47,13 @@ const App = () => {
         </Route>
         <Route exact path="/admin/manage-application">
           <ManageApplication cmp="application" />
+        </Route>
+        <Route exact path="/admin/manage-application/rejected">
+          <RejectedJobs />
+        </Route>
+        {/* Categories */}
+        <Route exact path="/admin/add-categories">
+          <ManageCategory cmp="cat" />
         </Route>
         <Route path="*">
           <NotFound hero="Not Found" />

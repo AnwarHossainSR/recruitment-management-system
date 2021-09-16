@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Sidebar from "../../navigation/sidebar/Sidebar";
 import Header from "../../navigation/navbar/Hedaer";
 
-const RejectedJobs = () => {
+const ManageCategory = (props) => {
   return (
     <>
       <div className="admin-container">
@@ -12,7 +12,15 @@ const RejectedJobs = () => {
           <div className="main__container">
             <div className="card-main">
               <div className="header-div">
-                <h1>Rejected Jobs</h1>
+                <h1>Manage Categories</h1>
+                <div className="right">
+                  <Link
+                    to="/admin/add-categories"
+                    style={{ color: "green", marginRight: "1rem" }}
+                  >
+                    Add
+                  </Link>
+                </div>
               </div>
               <div className="table-wrap">
                 <table className="table">
@@ -20,31 +28,27 @@ const RejectedJobs = () => {
                     <tr className="alert">
                       <td>
                         <div className="outer-div">
-                          <h3>Web Designer</h3>
-                          <p>Dhaka, Bangladesh</p>
+                          <h3>Web</h3>
                         </div>
                       </td>
                       <td>
-                        <span className="status">Full Time</span>
+                        <span className="status">Running</span>
                       </td>
                       <td>
-                        <span>23rd septembor, 2021</span>
-                      </td>
-                      <td className="cv">
-                        <Link>Download</Link>
+                        <span>23rd sep,21 - 23rd dec,21</span>
                       </td>
                       <td>
-                        <span className="rejected">Rejected</span>
+                        <span className="status">21 trainee</span>
                       </td>
                       <td>
                         <div className="action">
-                          <span aria-hidden="true">
-                            <i className="fa fa-check" />
+                          <span>
+                            <i className="fa fa-eye" />
                           </span>
-                          <span
-                            aria-hidden="true"
-                            className="action-button close"
-                          >
+                          <span className="action-edit">
+                            <i className="fa fa-edit" />
+                          </span>
+                          <span className="action-button close">
                             <i className="fa fa-close" />
                           </span>
                         </div>
@@ -56,10 +60,10 @@ const RejectedJobs = () => {
             </div>
           </div>
         </main>
-        <Sidebar />
+        <Sidebar cmp={props.cmp} />
       </div>
     </>
   );
 };
 
-export default RejectedJobs;
+export default ManageCategory;

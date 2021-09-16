@@ -102,9 +102,22 @@
                             0.808);
 
                     td {
+                        .fa-cloud-download {
+                            font-size: 2rem !important;
+                            cursor: pointer;
+                        }
+
                         .status {
                             color: #38B66F;
                             background-color: #D5FFE7;
+                            padding: .6rem;
+                            border-radius: 2rem;
+                            font-weight: bold;
+                        }
+
+                        .rejected {
+                            color: #FF6046;
+                            background-color: #FFD8D2;
                             padding: .6rem;
                             border-radius: 2rem;
                             font-weight: bold;
@@ -140,6 +153,10 @@
                                 i {
                                     color: crimson;
                                 }
+                            }
+
+                            .action-edit {
+                                margin-left: 1rem;
                             }
                         }
                     }

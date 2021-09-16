@@ -53,9 +53,13 @@ const Sidebar = (props) => {
           <a href="#">Contracts</a>
         </div> */}
         <h2>Training</h2>
-        <div className="sidebar__link">
+        <div
+          className={`sidebar__link ${
+            props.cmp == "cat" ? "active_menu_link" : ""
+          }`}
+        >
           <i className="fa fa-question" />
-          <a href="#">Category</a>
+          <NavLink to="/admin/add-categories">Categories</NavLink>
         </div>
         <div className="sidebar__link">
           <i className="fa fa-sign-out" />
