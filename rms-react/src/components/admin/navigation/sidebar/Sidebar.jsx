@@ -59,7 +59,7 @@ const Sidebar = (props) => {
           }`}
         >
           <i className="fa fa-question" />
-          <NavLink to="/admin/add-categories">Categories</NavLink>
+          <NavLink to="/admin/manage-categories">Categories</NavLink>
         </div>
         <div className="sidebar__link">
           <i className="fa fa-sign-out" />
