@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Sidebar from "../../navigation/sidebar/Sidebar";
 import Header from "../../navigation/navbar/Hedaer";
 
-const ManageApplication = (props) => {
+const ManageTrainers = (props) => {
   return (
     <>
       <div className="admin-container">
@@ -229,4 +229,4 @@ const ManageApplication = (props) => {
   );
 };
 
-export default ManageApplication;
+export default ManageTrainers;

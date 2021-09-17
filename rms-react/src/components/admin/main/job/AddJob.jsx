@@ -13,7 +13,7 @@ const AddJob = (props) => {
         <main>
           <div className="main__container">
             <div className="card-main">
-              <h1>Post a new Job</h1>
+              <h1>Post new Job</h1>
               <div className="job-form">
                 <form>
                   <div className="input-row">

@@ -14,7 +14,7 @@ const JobManage = (props) => {
           <div className="main__container">
             <div className="card-main">
               <div className="header-div">
-                <h1>Manage Applications</h1>
+                <h1>Manage Jobs</h1>
               </div>
               <div className="table-wrap">
                 <table className="table">

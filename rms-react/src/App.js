@@ -16,6 +16,9 @@ import ManageApplication from "./components/admin/main/job/ManageApplication";
 import RejectedJobs from "./components/admin/main/job/RejectedJobs";
 import ManageCategory from "./components/admin/main/categories/ManageCategory";
 import AddCategory from "./components/admin/main/categories/AddCategory";
+import ManageTraining from "./components/admin/main/training/ManageTraining";
+import ManageTrainers from "./components/admin/main/training/ManageTrainers";
+import TrainDetails from "./components/admin/main/training/TrainDetails";
 
 const App = () => {
   return (
@@ -40,25 +43,35 @@ const App = () => {
         <Route exact path="/admin/dashboard">
           <Dashboard cmp="dashboard" />
         </Route>
-        <Route exact path="/admin/add-job">
+        <Route path="/admin/add-job">
           <AddJob cmp="addjob" />
         </Route>
-        <Route exact path="/admin/manage-job">
+        <Route path="/admin/manage-job">
           <JobManage cmp="mngjob" />
         </Route>
         <Route exact path="/admin/manage-application">
           <ManageApplication cmp="application" />
         </Route>
-        <Route exact path="/admin/manage-application/rejected">
+        <Route path="/admin/manage-application/rejected">
           <RejectedJobs />
         </Route>
         {/* Categories */}
         <Route exact path="/admin/manage-categories">
           <ManageCategory cmp="cat" />
         </Route>
-        <Route exact path="/admin/add-categories">
+        <Route path="/admin/add-categories">
           <AddCategory cmp="cat" />
         </Route>
+        <Route exact path="/admin/manage-training">
+          <ManageTraining cmp="train" />
+        </Route>
+        <Route path="/admin/manage-training/slug">
+          <TrainDetails />
+        </Route>
+        <Route exact path="/admin/manage-trainers">
+          <ManageTrainers cmp="trainers" />
+        </Route>
+
         <Route path="*">
           <NotFound hero="Not Found" />
         </Route>

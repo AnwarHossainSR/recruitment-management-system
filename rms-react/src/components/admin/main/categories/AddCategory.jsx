@@ -30,14 +30,6 @@ const AddCategory = (props) => {
                         <option value="">Inactive</option>
                       </select>
                     </div>
-                    <div className="input-row flex-item">
-                      <p className="title"> Start Date </p>
-                      <input type="date" className="form-control" />
-                    </div>
-                    <div className="input-row flex-item">
-                      <p className="title"> End Date </p>
-                      <input type="date" className="form-control" />
-                    </div>
                   </div>
                   <div className="input-row">
                     <button className="button">Add Category</button>

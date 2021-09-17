@@ -1,9 +1,10 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useRouteMatch } from "react-router-dom";
 import Sidebar from "../../navigation/sidebar/Sidebar";
 import Header from "../../navigation/navbar/Hedaer";
 
-const ManageCategory = (props) => {
+const ManageTraining = (props) => {
+  const { match, url } = useRouteMatch();
   return (
     <>
       <div className="admin-container">
@@ -12,13 +13,10 @@ const ManageCategory = (props) => {
           <div className="main__container">
             <div className="card-main">
               <div className="header-div">
-                <h1>Manage Categories</h1>
+                <h1>Manage Training</h1>
                 <div className="right">
-                  <Link
-                    to="/admin/add-categories"
-                    style={{ color: "green", marginRight: "1rem" }}
-                  >
-                    Add
+                  <Link to={`${url}/add-training`} style={{ color: "green" }}>
+                    Add Training
                   </Link>
                 </div>
               </div>
@@ -28,21 +26,31 @@ const ManageCategory = (props) => {
                     <tr className="alert">
                       <td>
                         <div className="outer-div">
-                          <h3>Web</h3>
+                          <h3>Web Training</h3>
                         </div>
                       </td>
                       <td>
-                        <span className="status">Running</span>
+                        <span className="status">Full Time</span>
                       </td>
                       <td>
                         <span>23rd sep,21 - 23rd dec,21</span>
                       </td>
+
+                      <td>
+                        <span className="status">Active</span>
+                      </td>
                       <td>
                         <div className="action">
-                          <span className="action-edit">
+                          <Link to={`${url}/slug`} aria-hidden="true">
+                            <i className="fa fa-eye" />
+                          </Link>
+                          <span aria-hidden="true" className="action-edit">
                             <i className="fa fa-edit" />
                           </span>
-                          <span className="action-button close">
+                          <span
+                            aria-hidden="true"
+                            className="action-button close"
+                          >
                             <i className="fa fa-close" />
                           </span>
                         </div>
@@ -60,4 +68,4 @@ const ManageCategory = (props) => {
   );
 };
 
-export default ManageCategory;
+export default ManageTraining;

@@ -61,13 +61,21 @@ const Sidebar = (props) => {
           <i className="fa fa-question" />
           <NavLink to="/admin/manage-categories">Categories</NavLink>
         </div>
-        <div className="sidebar__link">
-          <i className="fa fa-sign-out" />
-          <a href="#">Manage Training</a>
+        <div
+          className={`sidebar__link ${
+            props.cmp == "train" ? "active_menu_link" : ""
+          }`}
+        >
+          <i className="fa fa-sign-out " />
+          <NavLink to="/admin/manage-training">Manage Training</NavLink>
         </div>
-        <div className="sidebar__link">
+        <div
+          className={`sidebar__link ${
+            props.cmp == "trainers" ? "active_menu_link" : ""
+          }`}
+        >
           <i className="fa fa-user" />
-          <a href="#">Manage Trainers</a>
+          <NavLink to="/admin/manage-trainers">Manage Trainers</NavLink>
         </div>
         <div className="sidebar__link">
           {/* <i className="fa fa-files-o" /> */}
