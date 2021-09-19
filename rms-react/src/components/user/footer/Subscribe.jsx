@@ -11,13 +11,13 @@ const Subscribe = () => {
       </div>
       <div className="social">
         <a href="#">
-          <i class="fa fa-facebook" aria-hidden="true"></i>
+          <i className="fa fa-facebook" aria-hidden="true"></i>
         </a>
         <a href="#">
-          <i class="fa fa-twitter" aria-hidden="true"></i>
+          <i className="fa fa-twitter" aria-hidden="true"></i>
         </a>
         <a href="#">
-          <i class="fa fa-linkedin" aria-hidden="true"></i>
+          <i className="fa fa-linkedin" aria-hidden="true"></i>
         </a>
       </div>
     </div>

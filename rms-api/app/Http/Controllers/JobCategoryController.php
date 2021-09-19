@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\JobCategory;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 class JobCategoryController extends Controller
 {
@@ -14,17 +17,15 @@ class JobCategoryController extends Controller
      */
     public function index()
     {
-        return JobCategory::all();
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        $categories = JobCategory::where('status', 'active')->get()->random(8);
+        try {
+            return \response([
+                'message' => 'success',
+                'categories' => $categories,
+            ]);
+        } catch (\Exception $th) {
+            return response(['message' => $th->getMessage()], 400);
+        }
     }
 
     /**
@@ -35,7 +36,27 @@ class JobCategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            if ($request->hasFile('icon')) {
+                $image = $request->file('icon');
+                $imageName = time() . '.' . $image->extension();
+                $image->move(public_path('images/icons'), $imageName);
+            } else {
+                $imageName = "default.jpg";
+            }
+            JobCategory::create([
+                'name' => $request->name,
+                'slug' => Str::slug($request->name),
+                'icon' => $imageName,
+            ]);
+            return \response([
+                'message' => 'success'
+            ], 201);
+        } catch (Exception $th) {
+            return \response([
+                'message' => $th->getMessage(),
+            ], 400);
+        }
     }
 
     /**
@@ -44,20 +65,17 @@ class JobCategoryController extends Controller
      * @param  \App\JobCategory  $jobCategory
      * @return \Illuminate\Http\Response
      */
-    public function show(JobCategory $jobCategory)
+    public function show($slug)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\JobCategory  $jobCategory
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(JobCategory $jobCategory)
-    {
-        //
+        try {
+            $category = JobCategory::where([['slug', $slug]])->first();
+            return \response([
+                'message' => 'success',
+                'category' => $category
+            ]);
+        } catch (\Exception $th) {
+            return \response(['message' => $th->getMessage()]);
+        }
     }
 
     /**
@@ -67,9 +85,28 @@ class JobCategoryController extends Controller
      * @param  \App\JobCategory  $jobCategory
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, JobCategory $jobCategory)
+    public function update(Request $request, $id)
     {
-        //
+        try {
+            $category = JobCategory::find($id);
+            if ($request->hasFile('icon')) {
+                $image = $request->file('icon');
+                $imageName = time() . '.' . $image->extension();
+                $image->move(public_path('images/icons'), $imageName);
+            } else {
+                $imageName = $category->icon;
+            }
+            $category->name = $request->name;
+            $category->slug = Str::slug($request->name);
+            $category->icon = $imageName;
+            $category->save();
+            return \response([
+                'message' => 'success',
+                'category' => $category
+            ]);
+        } catch (\Exception $th) {
+            return \response(['message' => $th->getMessage()]);
+        }
     }
 
     /**
@@ -78,8 +115,17 @@ class JobCategoryController extends Controller
      * @param  \App\JobCategory  $jobCategory
      * @return \Illuminate\Http\Response
      */
-    public function destroy(JobCategory $jobCategory)
+    public function destroy($id)
     {
-        //
+
+        try {
+            $category = JobCategory::findOrFail($id);
+            $category->delete();
+            return \response([
+                'message' => 'success'
+            ]);
+        } catch (\Exception $th) {
+            return \response(['message' => $th->getMessage()]);
+        }
     }
 }

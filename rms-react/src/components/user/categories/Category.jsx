@@ -2,7 +2,8 @@ import React from "react";
 import "./Category.scss";
 import CategoryItem from "./CategoryItem";
 
-const Category = () => {
+const Category = ({ categories }) => {
+  console.log(categories);
   return (
     <section className="category">
       <div className="container">
@@ -13,14 +14,15 @@ const Category = () => {
           </p>
         </div>
         <div className="card-wrapper">
-          <CategoryItem />
-          <CategoryItem />
-          <CategoryItem />
-          <CategoryItem />
-          <CategoryItem />
-          <CategoryItem />
-          <CategoryItem />
-          <CategoryItem />
+          {categories &&
+            categories.map((category, i) => (
+              <CategoryItem
+                key={i}
+                name={category.name}
+                icon={category.icon}
+                count={category.job_count}
+              />
+            ))}
         </div>
       </div>
     </section>

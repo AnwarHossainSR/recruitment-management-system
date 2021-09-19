@@ -17,9 +17,9 @@ class CreateJobCategoriesTable extends Migration
             $table->bigIncrements('id');
             $table->string('name')->unique();
             $table->string('slug')->unique();
-            $table->string('icon')->nullable();
+            $table->string('icon')->deafult('default.png')->nullable();
             $table->enum('status', ['active', 'inactive'])->default('active');
-            $table->string('job_count');
+            $table->unsignedBigInteger('job_count')->default(0);
             $table->timestamps();
         });
     }

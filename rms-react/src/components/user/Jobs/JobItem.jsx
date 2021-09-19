@@ -8,7 +8,7 @@ const JobItem = () => {
       <div className="left">
         <img src={Graphics} />
       </div>
-      <div class="line"></div>
+      <div className="line"></div>
       <div className="right">
         <div className="part1">
           <h1>Software Engineer</h1>
@@ -19,7 +19,7 @@ const JobItem = () => {
           </Link>
         </div>
         <div className="part2">
-          <i class="fa fa-heart-o" aria-hidden="true"></i>
+          <i className="fa fa-heart-o" aria-hidden="true"></i>
         </div>
       </div>
     </div>
