@@ -2,7 +2,7 @@ import React from "react";
 import FeaturedJobItem from "./FeaturedJobItem";
 import "./FeaturedJob.scss";
 
-const FeaturedJob = () => {
+const FeaturedJob = ({ featured }) => {
   return (
     <section className="featured_job">
       <div className="container">
@@ -13,12 +13,15 @@ const FeaturedJob = () => {
           </p>
         </div>
         <div className="card-wrapper">
-          <FeaturedJobItem />
-          <FeaturedJobItem />
-          <FeaturedJobItem />
-          <FeaturedJobItem />
-          <FeaturedJobItem />
-          <FeaturedJobItem />
+          {featured &&
+            featured.map((job, i) => (
+              <FeaturedJobItem
+                key={i}
+                title={job.title}
+                type={job.type}
+                company={job.company}
+              />
+            ))}
         </div>
       </div>
     </section>

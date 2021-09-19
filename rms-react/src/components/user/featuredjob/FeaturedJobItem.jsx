@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Graphics from "../images/graphics.png";
 
-const FeaturedJobItem = () => {
+const FeaturedJobItem = ({ title, type, company }) => {
   return (
     <>
       <div className="card">
@@ -10,11 +10,10 @@ const FeaturedJobItem = () => {
           <img src={Graphics} />
         </div>
         <div className="right">
-          <h1>Software Engineer</h1>
-          <p>BJIT</p>
-          <p>Dhaka</p>
+          <h1>{title}</h1>
+          <p>{company}</p>
           <Link className="status" to="/job-details/jobid">
-            FULL TIME
+            {type}
           </Link>
         </div>
       </div>

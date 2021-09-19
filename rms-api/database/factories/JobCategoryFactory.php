@@ -8,7 +8,7 @@ use Faker\Generator as Faker;
 
 $factory->define(JobCategory::class, function (Faker $faker) {
     return [
-        'name' => $faker->sentence(1, true),
+        'name' => $faker->sentence(2, true),
         'slug' => $faker->unique()->slug,
         'icon' => $faker->imageUrl(100, 100),
         'status' => $faker->randomElement(['active', 'inactive']),

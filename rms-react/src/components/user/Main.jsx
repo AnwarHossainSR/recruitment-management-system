@@ -10,15 +10,15 @@ import { fetchAll } from "../../api/ApiCall";
 const Main = () => {
   const [data, setData] = useState([]);
   useEffect(async () => {
-    setData(await fetchAll(`categories`));
+    setData(await fetchAll(`home`));
   }, []);
-  
+
   return (
     <>
       <Header />
       <Category categories={data.categories} />
-      <FeaturedJob />
-      <Jobs />
+      <FeaturedJob featured={data.featured} />
+      <Jobs latest={data.latest} />
       <Footer />
     </>
   );

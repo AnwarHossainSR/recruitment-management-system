@@ -2,7 +2,8 @@ import React from "react";
 import JobItem from "./JobItem";
 import "./Job.scss";
 
-const Jobs = () => {
+const Jobs = ({ latest }) => {
+  //console.log(latest && latest[0].title);
   return (
     <section className="job">
       <div className="container">
@@ -14,12 +15,15 @@ const Jobs = () => {
           </p>
         </div>
         <div className="card-wrapper">
-          <JobItem />
-          <JobItem />
-          <JobItem />
-          <JobItem />
-          <JobItem />
-          <JobItem />
+          {latest &&
+            latest.map((job, i) => (
+              <JobItem
+                key={i}
+                title={job.title}
+                type={job.type}
+                company={job.company}
+              />
+            ))}
         </div>
       </div>
     </section>

@@ -9,9 +9,9 @@ Route::get('login', function () {
 
 
 Route::middleware(['cors'])->group(function () {
-    Route::apiResource('categories', 'JobCategoryController');
     Route::post('login', 'AuthController@login')->name('login');
     Route::post('register', 'AuthController@register');
+    Route::apiResource('home', 'JobCategoryController');
 
     Route::middleware(['auth:api'])->group(function () {
         Route::post('logout', 'AuthController@logout');

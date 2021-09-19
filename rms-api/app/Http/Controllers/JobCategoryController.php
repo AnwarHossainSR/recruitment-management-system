@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Job;
 use App\JobCategory;
 use Exception;
 use Illuminate\Http\Request;
@@ -18,10 +19,14 @@ class JobCategoryController extends Controller
     public function index()
     {
         $categories = JobCategory::where('status', 'active')->get()->random(8);
+        $featured_job = Job::where([['status', 'active'], ['is_featured', true]])->get()->random(6);
+        $latest = Job::where('status', 'active')->latest('created_at')->get()->random(6);
         try {
             return \response([
                 'message' => 'success',
                 'categories' => $categories,
+                'featured' => $featured_job,
+                'latest' => $latest
             ]);
         } catch (\Exception $th) {
             return response(['message' => $th->getMessage()], 400);
