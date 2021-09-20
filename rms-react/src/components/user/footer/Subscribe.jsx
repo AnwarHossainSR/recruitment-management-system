@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Subscribe = () => {
   return (
@@ -10,15 +11,15 @@ const Subscribe = () => {
         <button className="button-footer">Submit</button>
       </div>
       <div className="social">
-        <a href="#">
+        <Link to="/">
           <i className="fa fa-facebook" aria-hidden="true"></i>
-        </a>
-        <a href="#">
+        </Link>
+        <Link to="/">
           <i className="fa fa-twitter" aria-hidden="true"></i>
-        </a>
-        <a href="#">
+        </Link>
+        <Link to="/">
           <i className="fa fa-linkedin" aria-hidden="true"></i>
-        </a>
+        </Link>
       </div>
     </div>
   );

@@ -4,10 +4,10 @@ import Hero from "../Navigation/Hero";
 
 const NavBar = (props) => {
   return (
-    <header className="header" style={{background:'#F0F0F0' }}>
+    <header className="header" style={{ background: "#F0F0F0" }}>
       <div className="container">
         <Nav />
-        <Hero hero={props.hero} />
+        <Hero job={props.job} hero={props.hero} />
       </div>
     </header>
   );

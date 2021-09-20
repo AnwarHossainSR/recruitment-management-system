@@ -20,6 +20,7 @@ const FeaturedJob = ({ featured }) => {
                 title={job.title}
                 type={job.type}
                 company={job.company}
+                slug={job.slug}
               />
             ))}
         </div>

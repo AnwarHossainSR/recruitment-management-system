@@ -1,16 +1,17 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const Condition = () => {
+const Links = () => {
   return (
     <div className="quick_links">
-      <h1>Conditions</h1>
+      <h1>Quick Links</h1>
       <div className="links">
-        <Link to="#">Tearm & Conditions</Link>
-        <Link to="#">Privacy</Link>
+        <Link to="/">About</Link>
+        <Link to="/">Support</Link>
+        <Link to="/">Contact</Link>
       </div>
     </div>
   );
 };
 
-export default Condition;
+export default Links;

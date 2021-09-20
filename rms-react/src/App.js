@@ -1,14 +1,12 @@
 import React from "react";
 import "./App.scss";
-import { Route, Switch, Redirect } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import Main from "./components/user/Main";
 import AllJobs from "./components/user/pages/JobPage/AllJobs";
 import JobDetails from "./components/user/pages/JobPage/JobDetails";
 import NotFound from "./components/user/pages/NotFound";
 import Login from "./components/user/pages/Authentication/Login";
 import Contact from "./components/user/pages/Contact";
-//admin
-//import Layout from "./components/admin/Layout";
 import Dashboard from "./components/admin/main/dashboard/Dashboard";
 import AddJob from "./components/admin/main/job/AddJob";
 import JobManage from "./components/admin/main/job/JobManage";
@@ -19,6 +17,7 @@ import AddCategory from "./components/admin/main/categories/AddCategory";
 import ManageTraining from "./components/admin/main/training/ManageTraining";
 import ManageTrainers from "./components/admin/main/training/ManageTrainers";
 import TrainDetails from "./components/admin/main/training/TrainDetails";
+import SearchJob from "./components/user/pages/JobPage/SearchJob";
 
 const App = () => {
   return (
@@ -27,45 +26,48 @@ const App = () => {
         <Route exact path="/">
           <Main />
         </Route>
-        <Route path="/jobs">
+        <Route exatc path="/jobs">
           <AllJobs hero="jobs" />
         </Route>
-        <Route path="/job-details/:slug">
+        <Route exact path="/search/jobs/:search">
+          <SearchJob hero="search" />
+        </Route>
+        <Route exact path="/job-details/:slug">
           <JobDetails hero="details" />
         </Route>
-        <Route path="/user/sign-in">
+        <Route exact path="/user/sign-in">
           <Login hero="login" />
         </Route>
-        <Route path="/contact">
+        <Route exact path="/contact">
           <Contact hero="contact" />
         </Route>
         {/* Admin routes */}
         <Route exact path="/admin/dashboard">
           <Dashboard cmp="dashboard" />
         </Route>
-        <Route path="/admin/add-job">
+        <Route exact path="/admin/add-job">
           <AddJob cmp="addjob" />
         </Route>
-        <Route path="/admin/manage-job">
+        <Route exact path="/admin/manage-job">
           <JobManage cmp="mngjob" />
         </Route>
         <Route exact path="/admin/manage-application">
           <ManageApplication cmp="application" />
         </Route>
-        <Route path="/admin/manage-application/rejected">
+        <Route exact path="/admin/manage-application/rejected">
           <RejectedJobs />
         </Route>
         {/* Categories */}
         <Route exact path="/admin/manage-categories">
           <ManageCategory cmp="cat" />
         </Route>
-        <Route path="/admin/add-categories">
+        <Route exact path="/admin/add-categories">
           <AddCategory cmp="cat" />
         </Route>
         <Route exact path="/admin/manage-training">
           <ManageTraining cmp="train" />
         </Route>
-        <Route path="/admin/manage-training/slug">
+        <Route exact path="/admin/manage-training/slug">
           <TrainDetails />
         </Route>
         <Route exact path="/admin/manage-trainers">

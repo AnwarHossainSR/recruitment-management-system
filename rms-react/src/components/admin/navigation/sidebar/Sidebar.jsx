@@ -17,7 +17,7 @@ const Sidebar = (props) => {
       <div className="sidebar__menu">
         <div
           className={`sidebar__link  ${
-            props.cmp == "dashboard" ? "active_menu_link" : ""
+            props.cmp === "dashboard" ? "active_menu_link" : ""
           }`}
         >
           <i className="fa fa-home" />
@@ -26,7 +26,7 @@ const Sidebar = (props) => {
         <h2>Jobs</h2>
         <div
           className={`sidebar__link  ${
-            props.cmp == "addjob" ? "active_menu_link" : ""
+            props.cmp === "addjob" ? "active_menu_link" : ""
           }`}
         >
           <i className="fa fa-user-secret" aria-hidden="true" />
@@ -34,7 +34,7 @@ const Sidebar = (props) => {
         </div>
         <div
           className={`sidebar__link ${
-            props.cmp == "mngjob" ? "active_menu_link" : ""
+            props.cmp === "mngjob" ? "active_menu_link" : ""
           }`}
         >
           <i className="fa fa-building-o" />
@@ -42,7 +42,7 @@ const Sidebar = (props) => {
         </div>
         <div
           className={`sidebar__link ${
-            props.cmp == "application" ? "active_menu_link" : ""
+            props.cmp === "application" ? "active_menu_link" : ""
           }`}
         >
           <i className="fa fa-wrench" />
@@ -50,12 +50,12 @@ const Sidebar = (props) => {
         </div>
         {/* <div className="sidebar__link">
           <i className="fa fa-handshake-o" />
-          <a href="#">Contracts</a>
+          <Link to="#">Contracts</Link>
         </div> */}
         <h2>Training</h2>
         <div
           className={`sidebar__link ${
-            props.cmp == "cat" ? "active_menu_link" : ""
+            props.cmp === "cat" ? "active_menu_link" : ""
           }`}
         >
           <i className="fa fa-question" />
@@ -63,7 +63,7 @@ const Sidebar = (props) => {
         </div>
         <div
           className={`sidebar__link ${
-            props.cmp == "train" ? "active_menu_link" : ""
+            props.cmp === "train" ? "active_menu_link" : ""
           }`}
         >
           <i className="fa fa-sign-out " />
@@ -71,7 +71,7 @@ const Sidebar = (props) => {
         </div>
         <div
           className={`sidebar__link ${
-            props.cmp == "trainers" ? "active_menu_link" : ""
+            props.cmp === "trainers" ? "active_menu_link" : ""
           }`}
         >
           <i className="fa fa-user" />
@@ -80,24 +80,24 @@ const Sidebar = (props) => {
         <div className="sidebar__link">
           {/* <i className="fa fa-files-o" /> */}
           <i className="fa fa-calendar-check-o" />
-          <a href="#">Link</a>
+          <Link to="#">Link</Link>
         </div>
         <div className="sidebar__logout">
           <i className="fa fa-power-off" />
-          <a href="#">Log out</a>
+          <Link to="#">Log out</Link>
         </div>
         {/* <h2>PAYROLL</h2>
         <div className="sidebar__link">
           <i className="fa fa-money" />
-          <a href="#">Payroll</a>
+          <Link to="#">Payroll</Link>
         </div>
         <div className="sidebar__link">
           <i className="fa fa-briefcase" />
-          <a href="#">Paygrade</a>
+          <Link to="#">Paygrade</Link>
         </div>
         <div className="sidebar__logout">
           <i className="fa fa-power-off" />
-          <a href="#">Log out</a>
+          <Link to="#">Log out</Link>
         </div> */}
       </div>
     </div>

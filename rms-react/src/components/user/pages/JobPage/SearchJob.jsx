@@ -3,16 +3,19 @@ import Footer from "../../footer/Footer";
 import NavBar from "../Navigation/NavBar";
 import "./AllJobs.scss";
 import JobItemSection from "./JobItemSection";
-import { fetchAll } from "../../../../api/ApiCall";
+import { getData } from "../../../../api/ApiCall";
+import { useParams } from "react-router";
 
-const AllJobs = (props) => {
+const SearchJob = (props) => {
+  const { search } = useParams();
   const [jobs, setJob] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
-      setJob(await fetchAll(`jobs`));
+      setJob(await getData(`jobs/${search}`));
     };
     fetchData();
-  }, []);
+  }, [search]);
+  console.log(jobs);
   return (
     <>
       <NavBar hero={props.hero} />
@@ -22,4 +25,4 @@ const AllJobs = (props) => {
   );
 };
 
-export default AllJobs;
+export default SearchJob;

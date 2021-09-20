@@ -11,7 +11,7 @@ $factory->define(JobCategory::class, function (Faker $faker) {
         'name' => $faker->sentence(2, true),
         'slug' => $faker->unique()->slug,
         'icon' => $faker->imageUrl(100, 100),
-        'status' => $faker->randomElement(['active', 'inactive']),
+        'status' => $faker->randomElement(['active']),
         'job_count' => $faker->numberBetween(0, 10),
         'created_at' => $faker->dateTimeThisYear(),
         'updated_at' => $faker->dateTimeThisYear()

@@ -16,14 +16,14 @@ const Hedaer = ({ sidebarOpen, openSidebar }) => {
       </div>
       <div className="admin-navbar__left">
         <Link to="/">Home</Link>
-        {/* <a className="active_link" href="#">
+        {/* <Link className="active_link" to="/">
           Admin
-        </a> */}
+        </Link> */}
       </div>
       <div className="admin-navbar__right">
-        <a href="#">
+        <Link to="/">
           <i className="fa fa-bell-o" aria-hidden="true"></i>
-        </a>
+        </Link>
 
         <div className="dropdown-container" id="menu">
           <img
@@ -34,12 +34,12 @@ const Hedaer = ({ sidebarOpen, openSidebar }) => {
             alt="user"
           />
           <div className={menu ? "dropdown-content" : "dropdown-content hide"}>
-            <a className="sub-link" href="#0">
+            <Link className="sub-link" to="#0">
               Settings
-            </a>
-            <a className="sub-link" href="#0">
+            </Link>
+            <Link className="sub-link" to="#0">
               Logout
-            </a>
+            </Link>
           </div>
         </div>
       </div>

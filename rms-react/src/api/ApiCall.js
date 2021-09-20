@@ -11,16 +11,16 @@ export const fetchAll = async (url) => {
   }
 };
 
-// //get sigle data
-// export const getData = async (url) => {
-//   try {
-//     return await (
-//       await axios.get(url)
-//     ).data;
-//   } catch (error) {
-//     return error;
-//   }
-// };
+//get sigle data
+export const getData = async (url) => {
+  try {
+    return await (
+      await axios.get(url)
+    ).data;
+  } catch (error) {
+    return error;
+  }
+};
 
 // //store data
 // export const storeApiData = async (url, data) => {

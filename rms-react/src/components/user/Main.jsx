@@ -5,12 +5,14 @@ import Footer from "./footer/Footer";
 import Header from "./header/Header";
 import Jobs from "./Jobs/Jobs";
 import { fetchAll } from "../../api/ApiCall";
-//import axios from "axios";
 
 const Main = () => {
   const [data, setData] = useState([]);
-  useEffect(async () => {
-    setData(await fetchAll(`home`));
+  useEffect(() => {
+    const fetchData = async () => {
+      setData(await fetchAll(`home`));
+    };
+    fetchData();
   }, []);
 
   return (

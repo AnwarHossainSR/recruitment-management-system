@@ -3,7 +3,6 @@ import JobItem from "./JobItem";
 import "./Job.scss";
 
 const Jobs = ({ latest }) => {
-  //console.log(latest && latest[0].title);
   return (
     <section className="job">
       <div className="container">

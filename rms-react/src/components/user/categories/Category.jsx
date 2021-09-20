@@ -3,7 +3,6 @@ import "./Category.scss";
 import CategoryItem from "./CategoryItem";
 
 const Category = ({ categories }) => {
-  console.log(categories);
   return (
     <section className="category">
       <div className="container">

@@ -4,7 +4,7 @@ import Sidebar from "../../navigation/sidebar/Sidebar";
 import Header from "../../navigation/navbar/Hedaer";
 
 const ManageTraining = (props) => {
-  const { match, url } = useRouteMatch();
+  const { url } = useRouteMatch();
   return (
     <>
       <div className="admin-container">

@@ -14,17 +14,15 @@ class JobController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        $jobs = Job::where([['status', 'active']])->get();
+        try {
+            return \response([
+                'message' => 'success',
+                'jobs' => $jobs
+            ]);
+        } catch (\Exception $th) {
+            return response(['message' => $th->getMessage()], 400);
+        }
     }
 
     /**

@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const CategoryItem = ({ name, icon, count }) => {
   return (
@@ -6,9 +7,9 @@ const CategoryItem = ({ name, icon, count }) => {
       <span>
         <i className="fa fa-home"></i>
       </span>
-      <a>
+      <Link to="/">
         <h1>{name}</h1>
-      </a>
+      </Link>
       <p>({count})</p>
     </div>
   );

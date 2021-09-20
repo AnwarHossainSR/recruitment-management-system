@@ -1,21 +1,34 @@
 import React from "react";
-import FeaturedJobItem from '../../featuredjob/FeaturedJobItem'
+import { useParams } from "react-router";
+import FeaturedJobItem from "../../featuredjob/FeaturedJobItem";
 
-const JobItemSection = () => {
+const JobItemSection = ({ jobs }) => {
+  const { search } = useParams();
   return (
     <section className="featured_job ">
       <div className="container">
+        {jobs && (
+          <h1>
+            We have found{" "}
+            <span style={{ color: "#26AE61" }}>{jobs.length}</span> jobs for :
+            <span style={{ color: "#26AE61" }}>{search}</span>
+          </h1>
+        )}
         <div className="card-wrapper">
-          <FeaturedJobItem />
-          <FeaturedJobItem />
-          <FeaturedJobItem />
-          <FeaturedJobItem />
-          <FeaturedJobItem />
-          <FeaturedJobItem /> 
+          {jobs &&
+            jobs.map((job, i) => (
+              <FeaturedJobItem
+                title={job.title}
+                type={job.type}
+                company={job.company}
+                slug={job.slug}
+                key={i}
+              />
+            ))}
         </div>
         <div className="load-data">
-            <button>Browse More</button>
-          </div>
+          <button>Browse More</button>
+        </div>
       </div>
     </section>
   );

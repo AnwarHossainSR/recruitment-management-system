@@ -1,7 +1,7 @@
 import React from "react";
 import Condition from "./Condition";
 import Info from "./Info";
-import Link from "./Link";
+import Links from "./Links";
 import Subscribe from "./Subscribe";
 import "./Footer.scss";
 
@@ -11,7 +11,7 @@ const Footer = () => {
       <div className="container">
         <div className="footer">
           <Info />
-          <Link />
+          <Links />
           <Condition />
           <Subscribe />
         </div>
