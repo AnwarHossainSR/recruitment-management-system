@@ -22,16 +22,17 @@ export const getData = async (url) => {
   }
 };
 
-// //store data
-// export const storeApiData = async (url, data) => {
-//   try {
-//     return await (
-//       await axios.post(url, data)
-//     ).data;
-//   } catch (error) {
-//     return error;
-//   }
-// };
+//store data
+export const storeApiData = async (url, data) => {
+  try {
+    axios.post(url, data).then((response) => {
+      const data = response.data;
+      return data;
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 // //update data
 // export const updateData = async (url, data) => {

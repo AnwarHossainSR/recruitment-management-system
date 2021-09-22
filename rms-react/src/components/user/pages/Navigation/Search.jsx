@@ -4,7 +4,15 @@ import { useHistory } from "react-router";
 const Search = () => {
   const [search, setSearch] = useState("");
   const histry = new useHistory();
-  useEffect(() => {}, [search]);
+  useEffect(() => { }, [search]);
+  const searchHandle = () => {
+    if (search) {
+      histry.push(`/search/jobs/${search}`)
+    } else {
+      alert('please type something')
+    }
+    
+  }
   return (
     <>
       <input
@@ -16,7 +24,7 @@ const Search = () => {
         placeholder="Search..."
       />
 
-      <button onClick={() => histry.push(`/search/jobs/${search}`)}>
+      <button onClick={searchHandle}>
         Search
       </button>
     </>

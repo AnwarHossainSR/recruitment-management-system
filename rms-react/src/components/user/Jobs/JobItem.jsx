@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Graphics from "../images/graphics.png";
 
-const JobItem = ({ title, type, company }) => {
+const JobItem = ({ title, type, company, slug }) => {
   return (
     <div className="card">
       <div className="left">
@@ -13,7 +13,7 @@ const JobItem = ({ title, type, company }) => {
         <div className="part1">
           <h1>{title}</h1>
           <p>{company}</p>
-          <Link className="status" to="job-details/jobid">
+          <Link className="status" to={`/job-details/${slug}`}>
             {type}
           </Link>
         </div>

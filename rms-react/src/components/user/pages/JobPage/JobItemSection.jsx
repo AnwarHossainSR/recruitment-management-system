@@ -7,7 +7,13 @@ const JobItemSection = ({ jobs }) => {
   return (
     <section className="featured_job ">
       <div className="container">
-        {jobs && (
+        {!jobs && search && (
+          <h1>
+            We have found <span style={{ color: "#26AE61" }}>0</span> jobs for :
+            <span style={{ color: "#26AE61" }}>{search}</span>
+          </h1>
+        )}
+        {jobs && search && (
           <h1>
             We have found{" "}
             <span style={{ color: "#26AE61" }}>{jobs.length}</span> jobs for :

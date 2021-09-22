@@ -20,6 +20,7 @@ const Category = ({ categories }) => {
                 name={category.name}
                 icon={category.icon}
                 count={category.job_count}
+                slug={category.slug}
               />
             ))}
         </div>

@@ -1,8 +1,19 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "font-awesome/css/font-awesome.min.css";
-import HeroImage from '../images/hero.svg'
+import HeroImage from "../images/hero.svg";
+import { useHistory } from "react-router";
 
 const Hero = () => {
+  const [search, setSearch] = useState("");
+  const histry = new useHistory();
+  useEffect(() => {}, [search]);
+  const searchHandle = () => {
+    if (search) {
+      histry.push(`/search/jobs/${search}`);
+    } else {
+      alert("please type something");
+    }
+  };
   return (
     <div className="hero flex items-center">
       <div className="left flex-1">
@@ -17,10 +28,12 @@ const Hero = () => {
           <input
             type="text"
             className="form-control"
-            placeholder="Job Title or Category"
+            defaultValue={search}
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder="Find your desire job here.."
           />
           <span className="search_btn">
-            <i className="fa fa-search" />
+            <i className="fa fa-search" onClick={searchHandle} />
           </span>
         </div>
       </div>

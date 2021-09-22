@@ -25,19 +25,20 @@ class AuthController extends Controller
 
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
             try {
+                //return response()->json(['email'=>$request->email])
                 /* @var User user */
                 $user = Auth::user();
                 $token = $user->createToken('app')->accessToken;
                 return response()->json([
-                    'message' => 'success',
-                    'token_type' => 'Bearer',
-                    'token' => $token,
+                    'status' => true,
+                    'message' => 'authenticated !',
+                    'token' => $token
                 ]);
             } catch (\Exception $th) {
-                return response(['message' => $th->getMessage()], 400);
+                return response()->json(['message' => $th->getMessage(), 'status' => false], 400);
             }
         } else {
-            return \response(['message' => 'Invalid email or password'], 401);
+            return response()->json(['message' => 'Invalid email or password', 'status' => false]);
         }
     }
 

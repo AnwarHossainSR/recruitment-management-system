@@ -6,10 +6,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('login', function () {
     return "Un Authorized";
 });
-
+Route::post('/register', 'AuthController@register');
+Route::post('/auth/login', 'AuthController@login')->name('login');
 Route::middleware(['cors'])->group(function () {
-    Route::post('register', 'AuthController@register');
-    Route::post('login', 'AuthController@login')->name('login');
+
     Route::get('/jobs/{query}', 'HomeController@searchJob');
 
     Route::apiResource('home', 'HomeController');

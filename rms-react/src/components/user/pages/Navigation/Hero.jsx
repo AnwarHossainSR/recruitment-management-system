@@ -1,5 +1,5 @@
 import React from "react";
-import { useParams } from "react-router";
+//import { useParams } from "react-router";
 import Image from "../../images/graphics.png";
 import Search from "./Search";
 
