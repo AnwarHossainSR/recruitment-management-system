@@ -27,12 +27,24 @@ export const storeApiData = async (url, data) => {
   try {
     axios.post(url, data).then((response) => {
       const data = response.data;
+      console.log(data);
       return data;
     });
   } catch (error) {
     console.log(error);
   }
 };
+
+// export const logout = async (url) => {
+//   try {
+//     console.log(axios.defaults.headers.common)
+//     axios.post(url).then((response) => {
+//       console.log(response.data);
+//     });
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
 
 // //update data
 // export const updateData = async (url, data) => {

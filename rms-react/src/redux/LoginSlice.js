@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import axios from "../config";
 import { notify } from "../services/Notification";
 import { storeApiData } from "../api/ApiCall";
 
@@ -28,12 +27,17 @@ const loginSlice = createSlice({
       state.error = "";
       notify(payload.payload, "success");
     },
+    logOut(state) {
+      storeApiData("auth/logout");
+      localStorage.clear();
+      notify("logged out !", "success");
+    },
   },
 });
 
 //const { reducer, actions } = loginSlice;
 
-export const { loginPending, loginSuccess, loginFail, errorMessage } =
+export const { loginPending, loginSuccess, logOut, loginFail, errorMessage } =
   loginSlice.actions;
 
 export default loginSlice.reducer;

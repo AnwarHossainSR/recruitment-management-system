@@ -67,6 +67,7 @@ class AuthController extends Controller
                 // 'status' => 'active',
             ]);
             return \response([
+                'status' => true,
                 'message' => 'success'
             ], 201);
         } catch (Exception $th) {
@@ -76,11 +77,21 @@ class AuthController extends Controller
         }
     }
 
-    public function logout(Request $request)
+    public function logout()
     {
-        $request->user()->token()->revoke();
-        return  response([
-            'message' => 'success'
-        ]);
+        $user = Auth::user()->token();
+        $user->revoke();
+        // try {
+        //     $user = Auth::user()->token();
+        //     $user->revoke();
+        //     // return  response([
+        //     //     'status' => true,
+        //     //     'message' => 'success'
+        //     // ]);
+        // } catch (\Throwable $th) {
+        //     return  response([
+        //         'message' => $th->getMessage()
+        //     ]);
+        // }
     }
 }

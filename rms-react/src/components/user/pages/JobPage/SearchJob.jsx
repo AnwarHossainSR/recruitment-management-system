@@ -5,22 +5,31 @@ import "./AllJobs.scss";
 import JobItemSection from "./JobItemSection";
 import { getData } from "../../../../api/ApiCall";
 import { useParams } from "react-router";
+import Loader from "../../../../services/Loader";
 
 const SearchJob = (props) => {
   const { search } = useParams();
   const [jobs, setJob] = useState([]);
+  const [loader, setloader] = useState(true);
+
   useEffect(() => {
-    const fetchData = async () => {
-      setJob(await getData(`jobs/${search}`));
-    };
-    fetchData();
+    setTimeout(() => {
+      const fetchData = async () => {
+        setJob(await getData(`jobs/${search}`));
+        setloader(false);
+      };
+      fetchData();
+    }, 1000);
   }, [search]);
-  console.log(jobs);
   return (
     <>
-      <NavBar hero={props.hero} />
-      <JobItemSection jobs={jobs.jobs} />
-      <Footer />
+      {(loader && <Loader />) || (
+        <>
+          <NavBar hero={props.hero} />
+          <JobItemSection jobs={jobs.jobs} />
+          <Footer />
+        </>
+      )}
     </>
   );
 };

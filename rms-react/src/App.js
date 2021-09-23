@@ -18,6 +18,7 @@ import ManageTraining from "./components/admin/main/training/ManageTraining";
 import ManageTrainers from "./components/admin/main/training/ManageTrainers";
 import TrainDetails from "./components/admin/main/training/TrainDetails";
 import SearchJob from "./components/user/pages/JobPage/SearchJob";
+import ProtectedRoute from "./services/ProtectedRoute";
 
 const App = () => {
   return (
@@ -42,38 +43,69 @@ const App = () => {
           <Contact hero="contact" />
         </Route>
         {/* Admin routes */}
-        <Route exact path="/admin/dashboard">
-          <Dashboard cmp="dashboard" />
-        </Route>
-        <Route exact path="/admin/add-job">
-          <AddJob cmp="addjob" />
-        </Route>
-        <Route exact path="/admin/manage-job">
-          <JobManage cmp="mngjob" />
-        </Route>
-        <Route exact path="/admin/manage-application">
-          <ManageApplication cmp="application" />
-        </Route>
-        <Route exact path="/admin/manage-application/rejected">
-          <RejectedJobs />
-        </Route>
-        {/* Categories */}
-        <Route exact path="/admin/manage-categories">
-          <ManageCategory cmp="cat" />
-        </Route>
-        <Route exact path="/admin/add-categories">
-          <AddCategory cmp="cat" />
-        </Route>
-        <Route exact path="/admin/manage-training">
-          <ManageTraining cmp="train" />
-        </Route>
-        <Route exact path="/admin/manage-training/slug">
-          <TrainDetails />
-        </Route>
-        <Route exact path="/admin/manage-trainers">
-          <ManageTrainers cmp="trainers" />
-        </Route>
+        <ProtectedRoute
+          exact
+          path="/admin/dashboard"
+          component={Dashboard}
+          cmp="dashboard"
+        />
+        <ProtectedRoute
+          exact
+          path="/admin/add-job"
+          component={AddJob}
+          cmp="addjob"
+        />
 
+        <ProtectedRoute
+          exact
+          path="/admin/manage-job"
+          component={JobManage}
+          cmp="mngjob"
+        />
+        <ProtectedRoute
+          exact
+          path="/admin/manage-application"
+          component={ManageApplication}
+          cmp="application"
+        />
+        <ProtectedRoute
+          exact
+          path="/admin/manage-application/rejected"
+          component={RejectedJobs}
+          cmp="application"
+        />
+
+        {/* Categories */}
+        <ProtectedRoute
+          exact
+          path="/admin/manage-categories"
+          component={ManageCategory}
+          cmp="cat"
+        />
+        <ProtectedRoute
+          exact
+          path="/admin/add-categories"
+          component={AddCategory}
+          cmp="cat"
+        />
+        <ProtectedRoute
+          exact
+          path="/admin/manage-training"
+          component={ManageTraining}
+          cmp="train"
+        />
+        <ProtectedRoute
+          exact
+          path="/admin/manage-training/slug"
+          component={TrainDetails}
+          cmp="train"
+        />
+        <ProtectedRoute
+          exact
+          path="/admin/manage-trainers"
+          component={ManageTrainers}
+          cmp="trainers"
+        />
         <Route path="*">
           <NotFound hero="Not Found" />
         </Route>

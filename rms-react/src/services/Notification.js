@@ -1,13 +1,13 @@
 import { toast } from "react-toastify";
 
 const design = {
-  position: "top-right",
-  autoClose: 8000,
+  position: "bottom-right",
+  autoClose: 3000,
   hideProgressBar: false,
   closeOnClick: true,
   pauseOnHover: true,
   draggable: true,
-  theme: "colored",
+  theme: "dark",
   progress: undefined,
 };
 

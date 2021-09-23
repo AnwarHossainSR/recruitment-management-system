@@ -1,14 +1,26 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useState } from "react/cjs/react.development";
 import Avater from "../../assets/avatar.svg";
 import "./Header.scss";
+import { useDispatch } from "react-redux";
+import { logOut } from "../../../../redux/LoginSlice";
 
 const Hedaer = ({ sidebarOpen, openSidebar }) => {
   const [menu, setMenu] = useState(false);
+  const [isAuthenticated, setAuthenticated] = useState(
+    localStorage.getItem("token")
+  );
   const dropdown = () => {
     setMenu(menu ? false : true);
   };
+  const dispatch = useDispatch();
+  const loggedOutHandler = () => {
+    dispatch(logOut());
+    setAuthenticated("");
+  };
+  useEffect(() => {}, [isAuthenticated]);
+
   return (
     <nav className="admin-navbar">
       <div className="admin-nav_icon">
@@ -37,7 +49,7 @@ const Hedaer = ({ sidebarOpen, openSidebar }) => {
             <Link className="sub-link" to="#0">
               Settings
             </Link>
-            <Link className="sub-link" to="#0">
+            <Link to="" className="sub-link" onClick={loggedOutHandler}>
               Logout
             </Link>
           </div>
