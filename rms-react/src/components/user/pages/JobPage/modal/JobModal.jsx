@@ -4,12 +4,12 @@ import axios from "../../../../../config";
 import { notify } from "../../../../../services/Notification";
 
 const JobModal = ({ jobId, setOpenModal }) => {
-  const [file, setFile] = useState(null);
-  const [email, setEmail] = useState(null);
-  const [error, setError] = useState(null);
+  const [file, setFile] = useState("");
+  const [email, setEmail] = useState("");
+  const [error, setError] = useState("");
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (file == null || email == null) {
+    if (file === "" || email === "") {
       setError("Please provide both fields !");
     } else {
       const formData = new FormData();
@@ -17,10 +17,13 @@ const JobModal = ({ jobId, setOpenModal }) => {
       formData.append("job_id", jobId);
       formData.append("email", email);
       axios.post("applications", formData).then((response) => {
-        if (response.data.status == false) {
+        if (response.data.status === false) {
           setError(response.data.message[0]);
           notify(response.data.message, "error");
         } else {
+          setFile("");
+          setEmail("");
+          setError("");
           notify("Applied successfully !", "success");
         }
       });
@@ -52,6 +55,7 @@ const JobModal = ({ jobId, setOpenModal }) => {
                 <input
                   type="email"
                   className="form-control"
+                  value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
               </div>

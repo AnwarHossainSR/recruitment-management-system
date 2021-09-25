@@ -5,14 +5,22 @@ import Header from "../../navigation/navbar/Hedaer";
 //import Dashboard from "../dashboard/Dashboard";
 import "../../Layout.scss";
 import Loader from "../../../../services/Loader";
+import { fetchAll } from "../../../../api/ApiCall";
 
 const Dashboard = (props) => {
   const [loader, setloader] = useState(true);
+  const [data, setData] = useState([]);
   useEffect(() => {
     setTimeout(() => {
       setloader(false);
     }, 1000);
   }, [loader]);
+  useEffect(() => {
+    const fetchData = async () => {
+      setData(await (await fetchAll(`admin/dashboard`)).data);
+    };
+    fetchData();
+  }, []);
   return (
     <>
       {(loader && <Loader />) || (
@@ -34,7 +42,9 @@ const Dashboard = (props) => {
                   />
                   <div className="card_inner">
                     <p className="text-primary-p">Applicants</p>
-                    <span className="font-bold text-title">578</span>
+                    <span className="font-bold text-title">
+                      {data.applicants}
+                    </span>
                   </div>
                 </div>
                 <div className="dashboard-card">
@@ -43,8 +53,8 @@ const Dashboard = (props) => {
                     aria-hidden="true"
                   />
                   <div className="card_inner">
-                    <p className="text-primary-p">Jobs</p>
-                    <span className="font-bold text-title">2467</span>
+                    <p className="text-primary-p">Active Jobs</p>
+                    <span className="font-bold text-title">{data.jobs}</span>
                   </div>
                 </div>
                 <div className="dashboard-card">
@@ -54,7 +64,9 @@ const Dashboard = (props) => {
                   ></i>
                   <div className="card_inner">
                     <p className="text-primary-p">Accepted</p>
-                    <span className="font-bold text-title">340</span>
+                    <span className="font-bold text-title">
+                      {data.accepted}
+                    </span>
                   </div>
                 </div>
                 <div className="dashboard-card">
@@ -64,7 +76,9 @@ const Dashboard = (props) => {
                   />
                   <div className="card_inner">
                     <p className="text-primary-p">Rejected</p>
-                    <span className="font-bold text-title">645</span>
+                    <span className="font-bold text-title">
+                      {data.rejected}
+                    </span>
                   </div>
                 </div>
               </div>
