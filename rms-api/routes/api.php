@@ -15,6 +15,7 @@ Route::middleware(['cors'])->group(function () {
     Route::apiResource('home', 'HomeController');
     Route::apiResource('categories', 'JobCategoryController');
     Route::apiResource('jobs', 'JobController');
+    Route::apiResource('applications', 'ApplicationController');
 
     Route::middleware(['auth:api'])->group(function () {
         Route::post('/auth/logout', 'AuthController@logout');

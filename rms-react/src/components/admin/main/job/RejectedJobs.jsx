@@ -39,7 +39,7 @@ const RejectedJobs = () => {
                           <span>23rd septembor, 2021</span>
                         </td>
                         <td className="cv">
-                          <Link>Download</Link>
+                          <Link to="#">Download</Link>
                         </td>
                         <td>
                           <span className="rejected">Rejected</span>

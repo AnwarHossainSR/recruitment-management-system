@@ -1,16 +1,28 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import JobFeatured from "./JobFeatured";
+import JobModal from "./modal/JobModal";
 
 const JobDetailsItem = ({ job, similar }) => {
+  const [modalOpen, setModalOpen] = useState(false);
   return (
     <section className="details_info">
       <div className="container">
         <div className="row">
           <div className="left">
+            {modalOpen && (
+              <JobModal jobId={job.id} setOpenModal={setModalOpen} />
+            )}
             <h1>Job Description</h1>
             <p>{job && job.description}</p>
-            <Link to="/" className="button">
+            <Link
+              to="/"
+              className="button"
+              onClick={(e) => {
+                e.preventDefault();
+                setModalOpen(true);
+              }}
+            >
               apply job
             </Link>
           </div>

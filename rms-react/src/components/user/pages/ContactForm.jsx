@@ -24,22 +24,22 @@ const ContactForm = () => {
           </div>
           <div className="contact_address">
             <div className="row">
-              <i class="fa fa-map-marker" aria-hidden="true"></i>
+              <i className="fa fa-map-marker" aria-hidden="true"></i>
               <div className="info">
                 <p>Main Office: NO.22-23 Street Name- City,Country </p>
                 <p> Customer Center: NO.130-45 Streen Name- City, Country</p>
               </div>
             </div>
             <div className="row">
-              <i class="fa fa-envelope" aria-hidden="true"></i>
+              <i className="fa fa-envelope" aria-hidden="true"></i>
               <div className="info">
-              <p>Main Office: NO.22-23 Street Name- City,Country </p>
+                <p>Main Office: NO.22-23 Street Name- City,Country </p>
                 <p> Customer Center: NO.130-45 Streen Name- City, Country</p>
               </div>
             </div>
 
             <div className="row">
-              <i class="fa fa-volume-control-phone" aria-hidden="true"></i>
+              <i className="fa fa-volume-control-phone" aria-hidden="true"></i>
               <div className="info">
                 <p>Main Office: NO.22-23 Street Name- City,Country </p>
                 <p> Customer Center: NO.130-45 Streen Name- City, Country</p>

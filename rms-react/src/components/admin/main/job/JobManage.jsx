@@ -44,7 +44,7 @@ const JobManage = (props) => {
                           <span className="status">Full Time</span>
                         </td>
                         <td className="img">
-                          <img src={Image} alt="" srcset="" />
+                          <img src={Image} alt="" />
                         </td>
                         <td>
                           <div className="action">
@@ -77,7 +77,7 @@ const JobManage = (props) => {
                           <span className="status">Full Time</span>
                         </td>
                         <td className="img">
-                          <img src={Image} alt="" srcset="" />
+                          <img src={Image} alt="" />
                         </td>
                         <td>
                           <div className="action">
@@ -110,7 +110,7 @@ const JobManage = (props) => {
                           <span className="status">Full Time</span>
                         </td>
                         <td className="img">
-                          <img src={Image} alt="" srcset="" />
+                          <img src={Image} alt="" />
                         </td>
                         <td>
                           <div className="action">

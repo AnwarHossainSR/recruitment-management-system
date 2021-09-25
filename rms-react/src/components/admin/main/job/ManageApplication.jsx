@@ -52,7 +52,7 @@ const ManageApplication = (props) => {
                         <td className="cv">
                           <span>
                             <i
-                              class="fa fa-cloud-download"
+                              className="fa fa-cloud-download"
                               aria-hidden="true"
                             ></i>
                           </span>
@@ -91,7 +91,7 @@ const ManageApplication = (props) => {
                         <td className="cv">
                           <span>
                             <i
-                              class="fa fa-cloud-download"
+                              className="fa fa-cloud-download"
                               aria-hidden="true"
                             ></i>
                           </span>
@@ -129,7 +129,7 @@ const ManageApplication = (props) => {
                         <td className="cv">
                           <span>
                             <i
-                              class="fa fa-cloud-download"
+                              className="fa fa-cloud-download"
                               aria-hidden="true"
                             ></i>
                           </span>
@@ -167,7 +167,7 @@ const ManageApplication = (props) => {
                         <td className="cv">
                           <span>
                             <i
-                              class="fa fa-cloud-download"
+                              className="fa fa-cloud-download"
                               aria-hidden="true"
                             ></i>
                           </span>
@@ -205,7 +205,7 @@ const ManageApplication = (props) => {
                         <td className="cv">
                           <span>
                             <i
-                              class="fa fa-cloud-download"
+                              className="fa fa-cloud-download"
                               aria-hidden="true"
                             ></i>
                           </span>
