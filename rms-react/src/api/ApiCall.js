@@ -27,7 +27,6 @@ export const storeApiData = async (url, data) => {
   try {
     axios.post(url, data).then((response) => {
       const data = response.data;
-      console.log(data);
       return data;
     });
   } catch (error) {

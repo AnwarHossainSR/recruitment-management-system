@@ -30,6 +30,8 @@
 
         .job-form {
             padding: 1rem 0;
+            // display: grid;
+            // grid-template-columns: 1fr 1fr;
 
             .input-row {
                 margin-bottom: 1rem;
@@ -43,7 +45,7 @@
                 }
 
                 .form-control {
-                    width: 100%;
+                    width: 95%;
                     height: 3rem;
                     padding: 0 20px;
                     font-size: 12px;

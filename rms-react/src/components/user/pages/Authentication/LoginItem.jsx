@@ -104,7 +104,7 @@ const LoginItem = () => {
           dispatch(loginSuccess(data.message));
           setTimeout(() => {
             if (localStorage.getItem("token")) {
-              histry.push("/admin/dashboard");
+              histry.push("/");
             }
           }, 2000);
         } else {

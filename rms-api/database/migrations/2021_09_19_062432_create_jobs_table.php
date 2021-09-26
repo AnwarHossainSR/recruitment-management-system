@@ -21,7 +21,7 @@ class CreateJobsTable extends Migration
             $table->string('location');
             $table->string('email');
             $table->string('tag')->nullable();
-            $table->decimal('salary')->default(0.00);
+            $table->float('salary', 10, 2)->default(0.00);
             $table->date('close_date')->default(now());
             $table->unsignedBigInteger('cat_id')->nullable();
             $table->unsignedBigInteger('user_id')->nullable();

@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Job;
+use App\JobCategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class JobController extends Controller
 {
@@ -19,10 +22,13 @@ class JobController extends Controller
     public function index()
     {
         $jobs = Job::where([['status', 'active']])->get();
+        $categories = JobCategory::where('status', 'active')->get();
         try {
             return \response([
+                'status' => true,
                 'message' => 'success',
-                'jobs' => $jobs
+                'jobs' => $jobs,
+                'categories' => $categories
             ]);
         } catch (\Exception $th) {
             return response(['message' => $th->getMessage()], 400);
@@ -37,7 +43,42 @@ class JobController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            if ($request->hasFile('icon')) {
+                $file = $request->file('icon');
+                $fileName = time() . '.' . $file->extension();
+                $file->move(public_path('files/jobs'), $fileName);
+            } else {
+                $fileName = 'default.png';
+            }
+
+            $response = Job::create([
+                "title" => $request->title,
+                "slug" => Str::slug($request->title),
+                "company" => $request->company,
+                "location" => $request->location,
+                "email" => $request->email,
+                "tag" => $request->tag,
+                "salary" => $request->salary,
+                "close_date" => $request->close_date,
+                "icon" => $fileName,
+                "cat_id" => $request->cat_id,
+                "user_id" => Auth::user()->id,
+                "type" => $request->type,
+                "description" => $request->description,
+            ]);
+
+            return response()->json([
+                'status' => true,
+                'message' => "success",
+                'job' => $response
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => false,
+                'message' => $th->getMessage()
+            ]);
+        }
     }
 
     /**
