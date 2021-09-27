@@ -4,12 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Job;
 use App\JobCategory;
+use App\Traits\ApiResponseWithHttpStatus;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use Symfony\Component\HttpFoundation\Response;
 
 class JobController extends Controller
 {
+    use ApiResponseWithHttpStatus;
     public function __construct()
     {
         $this->middleware('auth:api')->except(['index']);
@@ -21,18 +24,9 @@ class JobController extends Controller
      */
     public function index()
     {
-        $jobs = Job::where([['status', 'active']])->get();
-        $categories = JobCategory::where('status', 'active')->get();
-        try {
-            return \response([
-                'status' => true,
-                'message' => 'success',
-                'jobs' => $jobs,
-                'categories' => $categories
-            ]);
-        } catch (\Exception $th) {
-            return response(['message' => $th->getMessage()], 400);
-        }
+        $data['categories'] = JobCategory::where('status', 'active')->get();
+        $data['jobs'] = Job::where([['status', 'active']])->get();
+        return $this->apiResponse('success', $data, Response::HTTP_OK, true);
     }
 
     /**

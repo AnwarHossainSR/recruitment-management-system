@@ -2,48 +2,35 @@ import axios from "../config";
 
 //getAllData
 export const fetchAll = async (url) => {
-  try {
-    return await (
-      await axios.get(url)
-    ).data;
-  } catch (error) {
-    return error;
-  }
+  return await axios
+    .get(url)
+    .then((response) => response.data)
+    .catch((response) => response.response.data);
+};
+
+//Get Data
+export const fetchApiData = async (url) => {
+  return await axios
+    .get(url)
+    .then((response) => response.data)
+    .catch((response) => response.response.data);
 };
 
 //get sigle data
 export const getData = async (url) => {
-  try {
-    return await (
-      await axios.get(url)
-    ).data;
-  } catch (error) {
-    return error;
-  }
+  return await axios
+    .get(url)
+    .then((response) => response.data)
+    .catch((response) => response.response.data);
 };
 
 //store data
 export const storeApiData = async (url, data) => {
-  try {
-    axios.post(url, data).then((response) => {
-      const data = response.data;
-      return data;
-    });
-  } catch (error) {
-    console.log(error);
-  }
+  return await axios
+    .post(url, data)
+    .then((response) => response.data)
+    .catch((response) => response.response.data);
 };
-
-// export const logout = async (url) => {
-//   try {
-//     console.log(axios.defaults.headers.common)
-//     axios.post(url).then((response) => {
-//       console.log(response.data);
-//     });
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
 
 // //update data
 // export const updateData = async (url, data) => {

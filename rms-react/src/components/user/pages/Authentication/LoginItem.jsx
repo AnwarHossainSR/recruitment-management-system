@@ -87,7 +87,7 @@ const LoginItem = () => {
   }, [emailIsValid, passwordIsValid]);
   useEffect(() => {}, [isAuth]);
 
-  const handleSUbmit = (e) => {
+  const handleSUbmit = async (e) => {
     e.preventDefault();
     if (!formIsValid) {
       dispatch(errorMessage());
@@ -96,21 +96,25 @@ const LoginItem = () => {
         email: emailState.value,
         password: passwordState.value,
       };
-
-      axios.post("auth/login", data).then((response) => {
-        const data = response.data;
-        if (data.status === true) {
-          localStorage.setItem("token", data.token);
-          dispatch(loginSuccess(data.message));
-          setTimeout(() => {
-            if (localStorage.getItem("token")) {
-              histry.push("/");
-            }
-          }, 2000);
-        } else {
-          dispatch(loginFail(data.message));
-        }
-      });
+      axios
+        .post("auth/login", data)
+        .then((response) => {
+          const data = response.data;
+          if (data.status === true) {
+            localStorage.setItem("token", data.data);
+            dispatch(loginSuccess(data.message));
+            setTimeout(() => {
+              if (localStorage.getItem("token")) {
+                histry.push("/");
+              }
+            }, 2000);
+          } else {
+            dispatch(loginFail(data.message));
+          }
+        })
+        .catch((error) => {
+          console.error(error.data);
+        });
     }
   };
   return (

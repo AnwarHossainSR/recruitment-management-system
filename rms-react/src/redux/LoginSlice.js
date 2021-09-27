@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { notify } from "../services/Notification";
 import { storeApiData } from "../api/ApiCall";
+import axios from "../config";
 
 const initialState = {
   isLoading: false,
@@ -28,9 +29,15 @@ const loginSlice = createSlice({
       notify(payload.payload, "success");
     },
     logOut(state) {
-      storeApiData("auth/logout");
-      localStorage.clear();
-      notify("logged out !", "success");
+      axios
+        .post("auth/logout")
+        .then((response) => {
+          localStorage.clear();
+          notify(response.data.message, "success");
+        })
+        .catch(function (response) {
+          notify(response.response.data.message, "error");
+        });
     },
   },
 });

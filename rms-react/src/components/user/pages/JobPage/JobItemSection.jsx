@@ -28,6 +28,7 @@ const JobItemSection = ({ jobs }) => {
                 type={job.type}
                 company={job.company}
                 slug={job.slug}
+                icon={job.icon}
                 key={i}
               />
             ))}

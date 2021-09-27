@@ -22,6 +22,7 @@ const Jobs = ({ latest }) => {
                 type={job.type}
                 company={job.company}
                 slug={job.slug}
+                icon={job.icon}
               />
             ))}
         </div>

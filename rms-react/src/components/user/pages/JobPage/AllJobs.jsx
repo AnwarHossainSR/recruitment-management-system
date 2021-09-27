@@ -3,7 +3,7 @@ import Footer from "../../footer/Footer";
 import NavBar from "../Navigation/NavBar";
 import "./AllJobs.scss";
 import JobItemSection from "./JobItemSection";
-import { fetchAll } from "../../../../api/ApiCall";
+import { fetchApiData } from "../../../../api/ApiCall";
 import Loader from "../../../../services/Loader";
 
 const AllJobs = (props) => {
@@ -12,7 +12,12 @@ const AllJobs = (props) => {
   useEffect(() => {
     setTimeout(() => {
       const fetchData = async () => {
-        setJob(await fetchAll(`jobs`));
+        const response = await fetchApiData(`jobs`);
+        if (response.status == true) {
+          setJob(response.data);
+        } else {
+          console.log(response);
+        }
         setloader(false);
       };
       fetchData();

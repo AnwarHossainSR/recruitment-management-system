@@ -4,7 +4,7 @@ import FeaturedJob from "./featuredjob/FeaturedJob";
 import Footer from "./footer/Footer";
 import Header from "./header/Header";
 import Jobs from "./Jobs/Jobs";
-import { fetchAll } from "../../api/ApiCall";
+import { fetchApiData } from "../../api/ApiCall";
 import Loader from "../../services/Loader";
 
 const Main = () => {
@@ -13,7 +13,12 @@ const Main = () => {
   useEffect(() => {
     setTimeout(() => {
       const fetchData = async () => {
-        setData(await fetchAll(`home`));
+        const response = await fetchApiData(`home`);
+        if (response.status == true) {
+          setData(response.data);
+        } else {
+          console.log(response);
+        }
         setloader(false);
       };
       fetchData();
@@ -28,7 +33,7 @@ const Main = () => {
         <>
           <Header />
           <Category categories={data.categories} />
-          <FeaturedJob featured={data.featured} />
+          <FeaturedJob featured={data.featured_job} />
           <Jobs latest={data.latest} />
           <Footer />
         </>

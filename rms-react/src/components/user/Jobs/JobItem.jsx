@@ -1,12 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Graphics from "../images/graphics.png";
+//import Graphics from "../images/graphics.png";
 
-const JobItem = ({ title, type, company, slug }) => {
+const JobItem = ({ title, type, company, slug, icon }) => {
   return (
     <div className="card">
       <div className="left">
-        <img src={Graphics} alt="logo" />
+        <img src={icon} alt="logo" width="100px" height="100px" />
       </div>
       <div className="line"></div>
       <div className="right">

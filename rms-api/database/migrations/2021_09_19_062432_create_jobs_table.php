@@ -25,7 +25,7 @@ class CreateJobsTable extends Migration
             $table->date('close_date')->default(now());
             $table->unsignedBigInteger('cat_id')->nullable();
             $table->unsignedBigInteger('user_id')->nullable();
-            $table->string('icon')->default('default.png');
+            $table->string('icon')->default('http://localhost:8000/images/icons/default.png');
             $table->longText('description')->nullable();
             $table->enum('status', ['active', 'inactive'])->default('active');
             $table->enum('type', ['full time', 'half time', 'part time'])->default('full time');
