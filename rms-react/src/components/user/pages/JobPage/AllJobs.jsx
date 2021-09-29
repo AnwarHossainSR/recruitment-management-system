@@ -13,7 +13,7 @@ const AllJobs = (props) => {
     setTimeout(() => {
       const fetchData = async () => {
         const response = await fetchApiData(`jobs`);
-        if (response.status == true) {
+        if (response.status === true) {
           setJob(response.data);
         } else {
           console.log(response);

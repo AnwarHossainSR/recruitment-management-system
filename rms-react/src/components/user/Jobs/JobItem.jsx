@@ -13,7 +13,10 @@ const JobItem = ({ title, type, company, slug, icon }) => {
         <div className="part1">
           <h1>{title}</h1>
           <p>{company}</p>
-          <Link className="status" to={`/job-details/${slug}`}>
+          <Link
+            className={type === "full time" ? "status" : "status-half-time"}
+            to={`/job-details/${slug}`}
+          >
             {type}
           </Link>
         </div>

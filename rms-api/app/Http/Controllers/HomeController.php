@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Job;
 use App\JobCategory;
+use App\MainJob;
 use App\Traits\ApiResponseWithHttpStatus;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,25 +19,15 @@ class HomeController extends Controller
     public function index()
     {
         $data['categories'] = JobCategory::where('status', 'active')->get()->random(8);
-        $data["featured_job"] = Job::where([['status', 'active'], ['is_featured', true]])->get()->random(6);
-        $data['latest'] = Job::where('status', 'active')->latest('created_at')->get()->random(6);
+        $data["featured_job"] = MainJob::where([['status', 'active'], ['is_featured', true]])->get()->random(6);
+        $data['latest'] = MainJob::where('status', 'active')->latest('created_at')->get()->random(6);
         return $this->apiResponse('success', $data, Response::HTTP_OK, true);
     }
 
     public function searchJob($query)
     {
-        try {
-            $jobs = Job::where([['title', 'LIKE', '%' . $query . '%'], ['status', 'active']])->get();
-            if (count($jobs)) {
-                return \response([
-                    'jobs' => $jobs
-                ]);
-            } else {
-                return [];
-            }
-        } catch (\Throwable $th) {
-            return \response(['message' => $th->getMessage()]);
-        }
+        $data['jobs'] = MainJob::where([['title', 'LIKE', '%' . $query . '%'], ['status', 'active']])->get();
+        return $this->apiResponse('success', $data, Response::HTTP_OK, true);
     }
 
     /**
@@ -59,18 +49,9 @@ class HomeController extends Controller
      */
     public function show($slug)
     {
-        try {
-            $job = Job::where([['slug', $slug], ['status', 'active']])->with('category')->first();
-            //return $job->id;
-            $similar = Job::where([['status', 'active'], ['cat_id', $job->cat_id]])->get()->random(3);
-            return \response([
-                'message' => 'success',
-                'job' => $job,
-                'similar' => $similar,
-            ]);
-        } catch (\Exception $th) {
-            return \response(['message' => $th->getMessage()]);
-        }
+        $data['job'] = MainJob::where([['slug', $slug], ['status', 'active']])->with('category')->first();
+        $data['similar'] = MainJob::where([['status', 'active'], ['cat_id', $data['job']->cat_id]])->get()->random(3);
+        return $this->apiResponse('success', $data, Response::HTTP_OK, true);
     }
 
     /**

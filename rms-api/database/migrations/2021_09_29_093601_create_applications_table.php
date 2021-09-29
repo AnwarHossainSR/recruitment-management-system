@@ -19,7 +19,7 @@ class CreateApplicationsTable extends Migration
             $table->string('cv')->nullable();
             $table->enum('status', ['accepted', 'rejected', 'pending'])->default('pending');
             $table->unsignedBigInteger('job_id')->nullable();
-            $table->foreign('job_id')->references('id')->on('jobs')->onDelete('cascade');
+            $table->foreign('job_id')->references('id')->on('main_jobs')->onDelete('cascade');
             $table->timestamps();
         });
     }

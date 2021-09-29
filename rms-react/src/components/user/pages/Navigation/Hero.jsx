@@ -1,6 +1,4 @@
 import React from "react";
-//import { useParams } from "react-router";
-import Image from "../../images/graphics.png";
 import Search from "./Search";
 
 const Hero = ({ job, hero }) => {
@@ -36,7 +34,7 @@ const Hero = ({ job, hero }) => {
           <div className="hero-data">
             <div className="left">
               <div className="icon">
-                <img src={Image} alt="" />
+                <img src={job.icon} alt="logo" width="100px" height="100px" />
               </div>
               <div className="details">
                 <h1>{job.title}</h1>

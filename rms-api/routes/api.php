@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware(['cors'])->group(function () {
     Route::post('/register', 'AuthController@register');
     Route::post('/auth/login', 'AuthController@login')->name('login');
-    Route::get('/jobs/{query}', 'HomeController@searchJob');
+    Route::get('/jobs/{query}/search', 'HomeController@searchJob');
 
     Route::apiResources([
         'home' => 'HomeController',
@@ -18,10 +18,6 @@ Route::middleware(['cors'])->group(function () {
         'jobs' => 'JobController',
         'applications' => 'ApplicationController'
     ]);
-    // Route::apiResource('home', 'HomeController');
-    // Route::apiResource('categories', 'JobCategoryController');
-    // Route::apiResource('jobs', 'JobController');
-    // Route::apiResource('applications', 'ApplicationController');
 
     Route::middleware(['auth:api'])->group(function () {
         Route::post('/auth/logout', 'AuthController@logout');

@@ -1,4 +1,4 @@
-import axios from "../config";
+import axios from "axios";
 
 //getAllData
 export const fetchAll = async (url) => {

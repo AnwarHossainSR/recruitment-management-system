@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { notify } from "../services/Notification";
-import { storeApiData } from "../api/ApiCall";
 import axios from "../config";
 
 const initialState = {

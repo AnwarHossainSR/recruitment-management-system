@@ -3,7 +3,7 @@ import { useParams } from "react-router";
 import Footer from "../../footer/Footer";
 import NavBar from "../Navigation/NavBar";
 import JobDetailsItem from "./JobDetailsItem";
-import { getData } from "../../../../api/ApiCall";
+import { fetchApiData } from "../../../../api/ApiCall";
 import Loader from "../../../../services/Loader";
 
 const JobDetails = (props) => {
@@ -14,7 +14,12 @@ const JobDetails = (props) => {
   useEffect(() => {
     setTimeout(() => {
       const fetchData = async () => {
-        setJob(await getData(`home/${slug}`));
+        const response = await fetchApiData(`home/${slug}`);
+        if (response.status === true) {
+          setJob(response.data);
+        } else {
+          console.log(response);
+        }
         setloader(false);
       };
       fetchData();

@@ -1,23 +1,32 @@
 import React, { useState, useEffect } from "react";
 import "./Dashboard.scss";
+import axios from "axios";
 import Sidebar from "../../navigation/sidebar/Sidebar";
 import Header from "../../navigation/navbar/Hedaer";
-//import Dashboard from "../dashboard/Dashboard";
 import "../../Layout.scss";
 import Loader from "../../../../services/Loader";
-import { fetchAll } from "../../../../api/ApiCall";
+import { fetchApiData } from "../../../../api/ApiCall";
 
 const Dashboard = (props) => {
   const [loader, setloader] = useState(true);
   const [data, setData] = useState([]);
   useEffect(() => {
+    axios.defaults.baseURL = "http://localhost:8000/api/";
+    axios.defaults.headers.common = {
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    };
     setTimeout(() => {
       setloader(false);
     }, 1000);
   }, [loader]);
   useEffect(() => {
     const fetchData = async () => {
-      setData(await (await fetchAll(`admin/dashboard`)).data);
+      const response = await fetchApiData(`admin/dashboard`);
+      if (response.status === true) {
+        setData(response.data);
+      } else {
+        console.log(response);
+      }
     };
     fetchData();
   }, []);

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Job;
 use App\JobCategory;
+use App\MainJob;
 use App\Traits\ApiResponseWithHttpStatus;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -25,7 +26,7 @@ class JobController extends Controller
     public function index()
     {
         $data['categories'] = JobCategory::where('status', 'active')->get();
-        $data['jobs'] = Job::where([['status', 'active']])->get();
+        $data['jobs'] = MainJob::where([['status', 'active']])->get();
         return $this->apiResponse('success', $data, Response::HTTP_OK, true);
     }
 
@@ -46,7 +47,7 @@ class JobController extends Controller
                 $fileName = 'default.png';
             }
 
-            $response = Job::create([
+            $response = MainJob::create([
                 "title" => $request->title,
                 "slug" => Str::slug($request->title),
                 "company" => $request->company,

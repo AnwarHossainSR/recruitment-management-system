@@ -21,6 +21,9 @@ import SearchJob from "./components/user/pages/JobPage/SearchJob";
 import ProtectedRoute from "./services/ProtectedRoute";
 
 const App = () => {
+  // useEffect(() => {
+
+  // }, []);
   return (
     <>
       <Switch>
@@ -114,4 +117,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default React.memo(App);

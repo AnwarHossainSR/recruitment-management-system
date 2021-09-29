@@ -11,6 +11,6 @@ class JobTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Job::class, 100)->create();
+        factory(App\MainJob::class, 100)->create();
     }
 }

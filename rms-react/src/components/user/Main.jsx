@@ -14,7 +14,7 @@ const Main = () => {
     setTimeout(() => {
       const fetchData = async () => {
         const response = await fetchApiData(`home`);
-        if (response.status == true) {
+        if (response.status === true) {
           setData(response.data);
         } else {
           console.log(response);
