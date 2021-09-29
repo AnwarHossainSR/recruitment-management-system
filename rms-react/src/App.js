@@ -19,11 +19,10 @@ import ManageTrainers from "./components/admin/main/training/ManageTrainers";
 import TrainDetails from "./components/admin/main/training/TrainDetails";
 import SearchJob from "./components/user/pages/JobPage/SearchJob";
 import ProtectedRoute from "./services/ProtectedRoute";
+import ForgotPassword from "./components/user/pages/Authentication/ForgotPassword";
+import ChangePassword from "./components/user/pages/Authentication/ChangePassword";
 
 const App = () => {
-  // useEffect(() => {
-
-  // }, []);
   return (
     <>
       <Switch>
@@ -40,10 +39,16 @@ const App = () => {
           <JobDetails hero="details" />
         </Route>
         <Route exact path="/user/sign-in">
-          <Login hero="login" />
+          <Login hero="Login" />
+        </Route>
+        <Route exact path="/user/forgot-password">
+          <ForgotPassword hero="Forgot Password" />
+        </Route>
+        <Route exact path="/forgot/:token/:email">
+          <ChangePassword hero="Change Password" />
         </Route>
         <Route exact path="/contact">
-          <Contact hero="contact" />
+          <Contact hero="Contact" />
         </Route>
         {/* Admin routes */}
         <ProtectedRoute

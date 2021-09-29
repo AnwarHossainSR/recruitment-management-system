@@ -2,16 +2,18 @@ import React, { useState, useEffect } from "react";
 import "font-awesome/css/font-awesome.min.css";
 import HeroImage from "../images/hero.svg";
 import { useHistory } from "react-router";
+import { notify } from "../../../services/Notification";
 
 const Hero = () => {
   const [search, setSearch] = useState("");
   const histry = new useHistory();
   useEffect(() => {}, [search]);
-  const searchHandle = () => {
+  const searchHandle = (e) => {
     if (search) {
       histry.push(`/search/jobs/${search}`);
     } else {
-      alert("please type something");
+      e.preventDefault();
+      notify("please type something", "error");
     }
   };
   return (

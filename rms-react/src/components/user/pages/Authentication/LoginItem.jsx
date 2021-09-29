@@ -153,7 +153,7 @@ const LoginItem = () => {
               <button className="button">
                 {(isLoading && "loading..") || "Login"}
               </button>
-              <Link to="forgot-password" className="forgot">
+              <Link to="/user/forgot-password" className="forgot">
                 forgot your password ?
               </Link>
             </div>

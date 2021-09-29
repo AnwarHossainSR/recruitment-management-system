@@ -1,18 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router";
+import { notify } from "../../../../services/Notification";
 
 const Search = () => {
   const [search, setSearch] = useState("");
   const histry = new useHistory();
-  useEffect(() => { }, [search]);
-  const searchHandle = () => {
+  useEffect(() => {}, [search]);
+  const searchHandle = (e) => {
     if (search) {
-      histry.push(`/search/jobs/${search}`)
+      histry.push(`/search/jobs/${search}`);
     } else {
-      alert('please type something')
+      e.preventDefault();
+      notify("please type something", "error");
     }
-    
-  }
+  };
   return (
     <>
       <input
@@ -24,9 +25,7 @@ const Search = () => {
         placeholder="Search..."
       />
 
-      <button onClick={searchHandle}>
-        Search
-      </button>
+      <button onClick={searchHandle}>Search</button>
     </>
   );
 };

@@ -8,8 +8,10 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::middleware(['cors'])->group(function () {
-    Route::post('/register', 'AuthController@register');
+    Route::post('/auth/register', 'AuthController@register');
     Route::post('/auth/login', 'AuthController@login')->name('login');
+    Route::post('/forgot', 'AuthController@forgotPassword');
+    Route::post('/updatepass', 'AuthController@forgotPasswordUpdate');
     Route::get('/jobs/{query}/search', 'HomeController@searchJob');
 
     Route::apiResources([

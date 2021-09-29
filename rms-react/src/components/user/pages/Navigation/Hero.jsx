@@ -13,15 +13,11 @@ const Hero = ({ job, hero }) => {
             <Search />
           </div>
         </>
-      ) : hero === "login" ? (
-        <>
-          <div className="hero-login-data">
-            <div className="center">
-              <h1>{hero}</h1>
-            </div>
-          </div>
-        </>
-      ) : hero === "contact" || hero === "Not Found" ? (
+      ) : hero === "Contact" ||
+        hero === "Not Found" ||
+        hero === "Forgot Password" ||
+        hero === "Change Password" ||
+        hero === "Login" ? (
         <>
           <div className="hero-login-data">
             <div className="center">
