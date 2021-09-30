@@ -27,6 +27,7 @@ class JobController extends Controller
     {
         $data['categories'] = JobCategory::where('status', 'active')->get();
         $data['jobs'] = MainJob::where([['status', 'active']])->get();
+        $data['main_jobs'] = MainJob::where([['status', 'active']])->paginate(10);
         return $this->apiResponse('success', $data, Response::HTTP_OK, true);
     }
 
@@ -79,10 +80,10 @@ class JobController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Job  $job
+     * @param  \App\MainJob  $job
      * @return \Illuminate\Http\Response
      */
-    public function show(Job $job)
+    public function show(MainJob $job)
     {
         //
     }
@@ -90,10 +91,10 @@ class JobController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Job  $job
+     * @param  \App\MainJob  $job
      * @return \Illuminate\Http\Response
      */
-    public function edit(Job $job)
+    public function edit(MainJob $job)
     {
         //
     }
@@ -102,10 +103,10 @@ class JobController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Job  $job
+     * @param  \App\MainJob  $job
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Job $job)
+    public function update(Request $request, MainJob $job)
     {
         //
     }
@@ -113,11 +114,13 @@ class JobController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Job  $job
+     * @param  \App\MainJob  $job
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Job $job)
+    public function destroy(MainJob $job)
     {
-        //
+        if ($job->delete()) {
+            return $this->apiResponse('Successfully deleted !', null, Response::HTTP_OK, true);
+        }
     }
 }

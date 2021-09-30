@@ -7,6 +7,43 @@
         background: #ffffff;
         box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
 
+        .paginate {
+            padding: 1rem;
+
+            .pagination {
+                width: 100%;
+                height: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                list-style-type: none;
+
+                li {
+                    width: 2rem;
+                    height: 2rem;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    margin: 0 7px;
+                    text-align: center;
+                    cursor: pointer;
+                    color: #26AE61 !important;
+                    font-size: 16px;
+                    border-radius: 50%;
+                    background: #ffffff;
+                    box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px, rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px, rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px;
+
+                }
+
+                .active {
+                    background: #26AE61 !important;
+                    color: #ffffff !important;
+                    padding: 1.3rem !important;
+                }
+            }
+
+        }
+
         .header-div {
             display: flex;
             justify-content: space-between;
@@ -113,13 +150,13 @@
                             cursor: pointer;
                         }
 
-                        .status {
-                            color: #38B66F;
-                            background-color: #D5FFE7;
-                            padding: .6rem;
-                            border-radius: 2rem;
-                            font-weight: bold;
-                        }
+                        // .status {
+                        //     color: #38B66F;
+                        //     background-color: #D5FFE7;
+                        //     padding: .6rem;
+                        //     border-radius: 2rem;
+                        //     font-weight: bold;
+                        // }
 
                         .rejected {
                             color: #FF6046;

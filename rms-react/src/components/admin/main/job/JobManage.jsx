@@ -1,18 +1,37 @@
 import React, { useState, useEffect } from "react";
 import Sidebar from "../../navigation/sidebar/Sidebar";
 import Header from "../../navigation/navbar/Hedaer";
-//import "../../Layout.scss";
 import "./JobManage.scss";
-import Image from "../../assets/BJIT.png";
 import Loader from "../../../../services/Loader";
+import { fetchApiData } from "../../../../api/ApiCall";
+import ReactPaginate from "react-paginate";
+import JobManageItem from "./JobManageItem";
 
 const JobManage = (props) => {
   const [loader, setloader] = useState(true);
+  const [jobs, setJobs] = useState([]);
+  const [pageNumber, setPageNumber] = useState(1);
+
+  const fetchData = async () => {
+    const response = await fetchApiData(`jobs?page=${pageNumber}`);
+    if (response.status === true) {
+      setJobs(response.data.main_jobs);
+    } else {
+      console.log(response);
+    }
+  };
   useEffect(() => {
     setTimeout(() => {
+      fetchData();
       setloader(false);
     }, 1000);
-  }, [loader]);
+  }, [jobs]);
+
+  const handlePageClick = (data) => {
+    setPageNumber(data.selected + 1);
+    fetchData();
+  };
+
   return (
     <>
       <div className="admin-container">
@@ -27,107 +46,33 @@ const JobManage = (props) => {
                 <div className="table-wrap">
                   <table className="table">
                     <tbody>
-                      <tr className="alert" role="alert">
-                        <td>
-                          <label className="checkbox-wrap checkbox-primary">
-                            <input type="checkbox" defaultChecked />
-                            <span className="checkmark" />
-                          </label>
-                        </td>
-                        <td>
-                          <div className="outer-div">
-                            <h3>Web Designer</h3>
-                            <p>Dhaka, Bangladesh</p>
-                          </div>
-                        </td>
-                        <td>
-                          <span className="status">Full Time</span>
-                        </td>
-                        <td className="img">
-                          <img src={Image} alt="" />
-                        </td>
-                        <td>
-                          <div className="action">
-                            <span aria-hidden="true">
-                              <i className="fa fa-edit" />
-                            </span>
-                            <span
-                              aria-hidden="true"
-                              className="action-button close"
-                            >
-                              <i className="fa fa-close" />
-                            </span>
-                          </div>
-                        </td>
-                      </tr>
-                      <tr className="alert" role="alert">
-                        <td>
-                          <label className="checkbox-wrap checkbox-primary">
-                            <input type="checkbox" defaultChecked />
-                            <span className="checkmark" />
-                          </label>
-                        </td>
-                        <td>
-                          <div className="outer-div">
-                            <h3>Web Designer</h3>
-                            <p>Dhaka, Bangladesh</p>
-                          </div>
-                        </td>
-                        <td>
-                          <span className="status">Full Time</span>
-                        </td>
-                        <td className="img">
-                          <img src={Image} alt="" />
-                        </td>
-                        <td>
-                          <div className="action">
-                            <span aria-hidden="true">
-                              <i className="fa fa-edit" />
-                            </span>
-                            <span
-                              aria-hidden="true"
-                              className="action-button close"
-                            >
-                              <i className="fa fa-close" />
-                            </span>
-                          </div>
-                        </td>
-                      </tr>
-                      <tr className="alert" role="alert">
-                        <td>
-                          <label className="checkbox-wrap checkbox-primary">
-                            <input type="checkbox" defaultChecked />
-                            <span className="checkmark" />
-                          </label>
-                        </td>
-                        <td>
-                          <div className="outer-div">
-                            <h3>Web Designer</h3>
-                            <p>Dhaka, Bangladesh</p>
-                          </div>
-                        </td>
-                        <td>
-                          <span className="status">Full Time</span>
-                        </td>
-                        <td className="img">
-                          <img src={Image} alt="" />
-                        </td>
-                        <td>
-                          <div className="action">
-                            <span aria-hidden="true">
-                              <i className="fa fa-edit" />
-                            </span>
-                            <span
-                              aria-hidden="true"
-                              className="action-button close"
-                            >
-                              <i className="fa fa-close" />
-                            </span>
-                          </div>
-                        </td>
-                      </tr>
+                      {jobs.data &&
+                        jobs.data.map((job, i) => (
+                          <JobManageItem
+                            key={i}
+                            slug={job.slug}
+                            id={job.id}
+                            title={job.title}
+                            location={job.location}
+                            type={job.type}
+                            icon={job.icon}
+                          />
+                        ))}
                     </tbody>
                   </table>
+                </div>
+                <div className="paginate flex content-center">
+                  <ReactPaginate
+                    previousLabel={"<<"}
+                    nextLabel={">>"}
+                    breakLabel={"..."}
+                    pageCount={jobs.last_page}
+                    marginPagesDisplayed={2}
+                    pageRangeDisplayed={jobs.last_page}
+                    onPageChange={handlePageClick}
+                    containerClassName={"pagination"}
+                    activeClassName={"active"}
+                  />
                 </div>
               </div>
             </div>

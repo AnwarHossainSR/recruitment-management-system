@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useParams } from "react-router";
 import FeaturedJobItem from "../../featuredjob/FeaturedJobItem";
 import Gif from "../../images/spinner.gif";
