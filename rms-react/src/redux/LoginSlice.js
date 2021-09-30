@@ -1,7 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { notify } from "../services/Notification";
-import axios from "../config";
-
+import { storeApiData } from "../api/ApiCall";
 const initialState = {
   isLoading: false,
   isAuth: false,
@@ -17,8 +16,12 @@ const loginSlice = createSlice({
       state.error = "Please provide all valid credentials !";
       notify("provide valid credentials !", "error");
     },
+    loginPending(state, { payload }) {
+      state.isLoading = payload;
+    },
     loginFail(state, payload) {
       state.isAuth = false;
+      state.isLoading = false;
       state.error = payload.payload;
       notify(payload.payload, "error");
     },
@@ -28,20 +31,19 @@ const loginSlice = createSlice({
       notify(payload.payload, "success");
     },
     logOut(state) {
-      axios
-        .post("auth/logout")
-        .then((response) => {
+      const fetchData = async () => {
+        const response = await storeApiData("auth/logout");
+        if (response.status === true) {
           localStorage.clear();
-          notify(response.data.message, "success");
-        })
-        .catch(function (response) {
-          notify(response.response.data.message, "error");
-        });
+          notify(response.message, "success");
+        } else {
+          notify(response.message, "error");
+        }
+      };
+      fetchData();
     },
   },
 });
-
-//const { reducer, actions } = loginSlice;
 
 export const { loginPending, loginSuccess, logOut, loginFail, errorMessage } =
   loginSlice.actions;

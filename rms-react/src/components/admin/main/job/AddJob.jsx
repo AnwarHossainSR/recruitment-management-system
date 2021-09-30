@@ -7,7 +7,7 @@ import "./JobManage.scss";
 import Loader from "../../../../services/Loader";
 import axios from "../../../../config";
 import { notify } from "../../../../services/Notification";
-import { getData } from "../../../../api/ApiCall";
+import { fetchApiData } from "../../../../api/ApiCall";
 import {
   titleChangeHandler,
   companyChangeHandler,
@@ -47,7 +47,8 @@ const AddJob = (props) => {
     setTimeout(() => {
       setloader(false);
       const fetchData = async () => {
-        setCategories(await (await getData(`categories`)).categories);
+        const response = await fetchApiData(`categories`);
+        setCategories(response.categories);
         setloader(false);
       };
       fetchData();
@@ -61,7 +62,6 @@ const AddJob = (props) => {
     e.preventDefault();
     dispatch(checkForm());
     if (formisValid) {
-      //console.log(data);
       const formData = new FormData();
       formData.append("title", data.title);
       formData.append("company", data.company);

@@ -23,7 +23,7 @@ const passwordReducer = (state, action) => {
   return { value: action.val, isValid: true, type: action.type };
 };
 const confirmPasswordReducer = (state, action) => {
-  if (action.val != action.passVal) {
+  if (action.val !== action.passVal) {
     return {
       value: action.val,
       type: "confirm password is not matched with new password",
@@ -71,7 +71,7 @@ const ChangePasswordItem = () => {
     setTimeout(() => {
       setFormIsValid(passwordIsValid && confirmPasswordIsValid);
     }, 500);
-  }, [passwordIsValid && confirmPasswordIsValid]);
+  }, [passwordIsValid, confirmPasswordIsValid]);
   const handleSUbmit = async (e) => {
     e.preventDefault();
     if (!formIsValid) {

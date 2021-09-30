@@ -3,10 +3,11 @@ import { Link, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
   errorMessage,
+  loginPending,
   loginFail,
   loginSuccess,
 } from "../../../../redux/LoginSlice";
-import axios from "../../../../config";
+import { storeApiData } from "../../../../api/ApiCall";
 
 const emailReducer = (state, action) => {
   var pattern = new RegExp(
@@ -92,29 +93,28 @@ const LoginItem = () => {
     if (!formIsValid) {
       dispatch(errorMessage());
     } else {
+      dispatch(loginPending(true));
       const data = {
         email: emailState.value,
         password: passwordState.value,
       };
-      axios
-        .post("auth/login", data)
-        .then((response) => {
-          const data = response.data;
-          if (data.status === true) {
-            localStorage.setItem("token", data.data);
-            dispatch(loginSuccess(data.message));
-            setTimeout(() => {
-              if (localStorage.getItem("token")) {
-                histry.push("/admin/dashboard");
-              }
-            }, 2000);
-          } else {
-            dispatch(loginFail(data.message));
-          }
-        })
-        .catch((error) => {
-          console.error(error.data);
-        });
+
+      const fetchData = async () => {
+        const response = await storeApiData("auth/login", data);
+        if (response.status === true) {
+          localStorage.setItem("token", response.data);
+          dispatch(loginSuccess(data.message));
+          setTimeout(() => {
+            if (localStorage.getItem("token")) {
+              histry.push("/admin/dashboard");
+            }
+            dispatch(loginPending(false));
+          }, 2000);
+        } else {
+          dispatch(loginFail(data.message));
+        }
+      };
+      fetchData();
     }
   };
   return (
