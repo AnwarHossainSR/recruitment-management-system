@@ -1,9 +1,19 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import FeaturedJobItem from "../../featuredjob/FeaturedJobItem";
+import Gif from "../../images/spinner.gif";
 
 const JobItemSection = ({ jobs }) => {
   const { search } = useParams();
+  const [visible, setVisible] = useState(9);
+  const [loading, setloading] = useState(false);
+  const LoadMore = () => {
+    setloading(true);
+    setTimeout(() => {
+      setloading(false);
+      setVisible((visible) => visible + 6);
+    }, 2000);
+  };
   return (
     <section className="featured_job ">
       <div className="container">
@@ -22,19 +32,29 @@ const JobItemSection = ({ jobs }) => {
         )}
         <div className="card-wrapper">
           {jobs &&
-            jobs.map((job, i) => (
-              <FeaturedJobItem
-                title={job.title}
-                type={job.type}
-                company={job.company}
-                slug={job.slug}
-                icon={job.icon}
-                key={i}
-              />
-            ))}
+            jobs
+              .slice(0, visible)
+              .map((job, i) => (
+                <FeaturedJobItem
+                  title={job.title}
+                  type={job.type}
+                  company={job.company}
+                  slug={job.slug}
+                  icon={job.icon}
+                  key={i}
+                />
+              ))}
         </div>
         <div className="load-data">
-          <button>Browse More</button>
+          {(loading && (
+            <img
+              src={Gif}
+              alt="loading..."
+              width="100px"
+              height="100px"
+              style={{ marginTop: "1rem" }}
+            />
+          )) || <button onClick={LoadMore}>Browse More</button>}
         </div>
       </div>
     </section>
