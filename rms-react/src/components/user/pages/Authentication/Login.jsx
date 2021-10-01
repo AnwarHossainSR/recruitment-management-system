@@ -22,7 +22,7 @@ const Login = (props) => {
     <>
       {(loader && <Loader />) || (
         <>
-          <NavBar hero={props.hero} />
+          <NavBar hero={props.hero} cmp="login" />
           <LoginItem />
           <Footer />
         </>

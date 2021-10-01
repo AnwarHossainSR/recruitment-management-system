@@ -17,7 +17,7 @@ const Sidebar = (props) => {
       <div className="sidebar__menu">
         <div
           className={`sidebar__link  ${
-            props.cmp === "dashboard" ? "active_menu_link" : ""
+            props.cmp === "/admin/dashboard" ? "active_menu_link" : ""
           }`}
         >
           <i className="fa fa-home" />
@@ -26,7 +26,7 @@ const Sidebar = (props) => {
         <h2>Jobs</h2>
         <div
           className={`sidebar__link  ${
-            props.cmp === "addjob" ? "active_menu_link" : ""
+            props.cmp === "/admin/add-job" ? "active_menu_link" : ""
           }`}
         >
           <i className="fa fa-user-secret" aria-hidden="true" />
@@ -34,7 +34,7 @@ const Sidebar = (props) => {
         </div>
         <div
           className={`sidebar__link ${
-            props.cmp === "mngjob" ? "active_menu_link" : ""
+            props.cmp === "/admin/manage-job" ? "active_menu_link" : ""
           }`}
         >
           <i className="fa fa-building-o" />
@@ -42,7 +42,7 @@ const Sidebar = (props) => {
         </div>
         <div
           className={`sidebar__link ${
-            props.cmp === "application" ? "active_menu_link" : ""
+            props.cmp === "/admin/manage-application" ? "active_menu_link" : ""
           }`}
         >
           <i className="fa fa-wrench" />
@@ -55,7 +55,7 @@ const Sidebar = (props) => {
         <h2>Training</h2>
         <div
           className={`sidebar__link ${
-            props.cmp === "cat" ? "active_menu_link" : ""
+            props.cmp === "/admin/manage-categories" ? "active_menu_link" : ""
           }`}
         >
           <i className="fa fa-question" />
@@ -63,7 +63,7 @@ const Sidebar = (props) => {
         </div>
         <div
           className={`sidebar__link ${
-            props.cmp === "train" ? "active_menu_link" : ""
+            props.cmp === "/admin/manage-training" ? "active_menu_link" : ""
           }`}
         >
           <i className="fa fa-sign-out " />
@@ -71,7 +71,7 @@ const Sidebar = (props) => {
         </div>
         <div
           className={`sidebar__link ${
-            props.cmp === "trainers" ? "active_menu_link" : ""
+            props.cmp === "/admin/manage-trainers" ? "active_menu_link" : ""
           }`}
         >
           <i className="fa fa-user" />

@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logOut } from "../../../redux/LoginSlice";
 
-const Nav = () => {
+const Nav = ({ cmp }) => {
   //const isAuthenticated = localStorage.getItem("token");
   const [isAuthenticated, setAuthenticated] = useState(
     localStorage.getItem("token")
@@ -23,10 +23,18 @@ const Nav = () => {
         </div>
       </div>
       <div className="right">
-        <Link to="/">Home</Link>
-        <Link to="/jobs">Browse Job</Link>
-        <Link to="/blogs">Blog</Link>
-        <Link to="/contact">Contact</Link>
+        <Link to="/" className={cmp == "home" ? "active_menu" : ""}>
+          Home
+        </Link>
+        <Link to="/jobs" className={cmp == "alljob" ? "active_menu" : ""}>
+          Browse Job
+        </Link>
+        <Link to="/blogs" className={cmp == "blogs" ? "active_menu" : ""}>
+          Blog
+        </Link>
+        <Link to="/contact" className={cmp == "contact" ? "active_menu" : ""}>
+          Contact
+        </Link>
         {isAuthenticated && (
           <>
             <Link to="/admin/dashboard">Dashboard</Link>
@@ -35,7 +43,14 @@ const Nav = () => {
             </Link>
           </>
         )}
-        {!isAuthenticated && <Link to="/user/sign-in">Sign in</Link>}
+        {!isAuthenticated && (
+          <Link
+            to="/user/sign-in"
+            className={cmp == "login" ? "active_menu" : ""}
+          >
+            Sign in
+          </Link>
+        )}
       </div>
     </nav>
   );

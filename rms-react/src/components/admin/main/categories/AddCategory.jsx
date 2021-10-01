@@ -49,7 +49,7 @@ const AddCategory = (props) => {
           </main>
         )}
 
-        <Sidebar active={props.active} cmp={props.cmp} />
+        <Sidebar cmp={props.location.pathname} />
       </div>
     </>
   );

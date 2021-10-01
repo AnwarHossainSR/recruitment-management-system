@@ -29,7 +29,7 @@ const JobDetails = (props) => {
     <>
       {(loader && <Loader />) || (
         <>
-          <NavBar job={job.job} hero={props.hero} />
+          <NavBar job={job.job} hero={props.hero} cmp="alljob" />
           <JobDetailsItem similar={job.similar} job={job.job} />
           <Footer />
         </>

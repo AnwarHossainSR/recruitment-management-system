@@ -14,7 +14,7 @@ const Contact = (props) => {
     <>
       {(loader && <Loader />) || (
         <>
-          <NavBar hero={props.hero} />
+          <NavBar hero={props.hero} cmp="contact" />
           <ContactForm />
           <Footer />
         </>

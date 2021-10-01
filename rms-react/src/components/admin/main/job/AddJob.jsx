@@ -309,7 +309,7 @@ const AddJob = (props) => {
             </div>
           </main>
         )}
-        <Sidebar active={props.active} cmp={props.cmp} />
+        <Sidebar cmp={props.location.pathname} />
       </div>
     </>
   );

@@ -8,6 +8,7 @@ import {
   loginSuccess,
 } from "../../../../redux/LoginSlice";
 import { storeApiData } from "../../../../api/ApiCall";
+import Gif from "../../images/spinner.gif";
 
 const emailReducer = (state, action) => {
   var pattern = new RegExp(
@@ -103,7 +104,7 @@ const LoginItem = () => {
         const response = await storeApiData("auth/login", data);
         if (response.status === true) {
           localStorage.setItem("token", response.data);
-          dispatch(loginSuccess(data.message));
+          dispatch(loginSuccess(response.message));
           setTimeout(() => {
             if (localStorage.getItem("token")) {
               histry.push("/admin/dashboard");
@@ -111,7 +112,7 @@ const LoginItem = () => {
             dispatch(loginPending(false));
           }, 2000);
         } else {
-          dispatch(loginFail(data.message));
+          dispatch(loginFail(response.message));
         }
       };
       fetchData();
@@ -151,7 +152,18 @@ const LoginItem = () => {
                 )}
               </div>
               <button className="button">
-                {(isLoading && "loading..") || "Login"}
+                {(isLoading && (
+                  <div>
+                    <img
+                      src={Gif}
+                      alt="loading..."
+                      width="15px"
+                      height="15px"
+                    />
+                    <span>Login</span>
+                  </div>
+                )) ||
+                  "Login"}
               </button>
               <Link to="/user/forgot-password" className="forgot">
                 forgot your password ?

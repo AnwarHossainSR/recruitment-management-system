@@ -51,12 +51,7 @@ const App = () => {
           <Contact hero="Contact" />
         </Route>
         {/* Admin routes */}
-        <ProtectedRoute
-          exact
-          path="/admin/dashboard"
-          component={Dashboard}
-          cmp="dashboard"
-        />
+        <ProtectedRoute exact path="/admin/dashboard" component={Dashboard} />
         <ProtectedRoute
           exact
           path="/admin/add-job"
@@ -64,23 +59,16 @@ const App = () => {
           cmp="addjob"
         />
 
-        <ProtectedRoute
-          exact
-          path="/admin/manage-job"
-          component={JobManage}
-          cmp="mngjob"
-        />
+        <ProtectedRoute exact path="/admin/manage-job" component={JobManage} />
         <ProtectedRoute
           exact
           path="/admin/manage-application"
           component={ManageApplication}
-          cmp="application"
         />
         <ProtectedRoute
           exact
           path="/admin/manage-application/rejected"
           component={RejectedJobs}
-          cmp="application"
         />
 
         {/* Categories */}
@@ -88,19 +76,16 @@ const App = () => {
           exact
           path="/admin/manage-categories"
           component={ManageCategory}
-          cmp="cat"
         />
         <ProtectedRoute
           exact
           path="/admin/add-categories"
           component={AddCategory}
-          cmp="cat"
         />
         <ProtectedRoute
           exact
           path="/admin/manage-training"
           component={ManageTraining}
-          cmp="train"
         />
         <ProtectedRoute
           exact
@@ -112,7 +97,6 @@ const App = () => {
           exact
           path="/admin/manage-trainers"
           component={ManageTrainers}
-          cmp="trainers"
         />
         <Route path="*">
           <NotFound hero="Not Found" />

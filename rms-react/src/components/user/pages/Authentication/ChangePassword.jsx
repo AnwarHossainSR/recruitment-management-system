@@ -16,7 +16,7 @@ const ChangePassword = (props) => {
     <>
       {(loader && <Loader />) || (
         <>
-          <NavBar hero={props.hero} />
+          <NavBar hero={props.hero} cmp="login" />
           <ChangePasswordItem />
           <Footer />
         </>

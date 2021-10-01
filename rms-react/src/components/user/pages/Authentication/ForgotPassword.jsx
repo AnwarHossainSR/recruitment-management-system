@@ -17,7 +17,7 @@ const ForgotPassword = (props) => {
     <>
       {(loader && <Loader />) || (
         <>
-          <NavBar hero={props.hero} />
+          <NavBar hero={props.hero} cmp="login" />
           <ForgotPassItem />
           <Footer />
         </>

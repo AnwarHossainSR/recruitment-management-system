@@ -71,7 +71,7 @@ const ManageTraining = (props) => {
             </div>
           </main>
         )}
-        <Sidebar cmp={props.cmp} />
+        <Sidebar cmp={props.location.pathname} />
       </div>
     </>
   );

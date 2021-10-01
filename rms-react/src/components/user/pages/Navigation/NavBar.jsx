@@ -6,7 +6,7 @@ const NavBar = (props) => {
   return (
     <header className="header" style={{ background: "#F0F0F0" }}>
       <div className="container">
-        <Nav />
+        <Nav cmp={props.cmp} />
         <Hero job={props.job} hero={props.hero} />
       </div>
     </header>

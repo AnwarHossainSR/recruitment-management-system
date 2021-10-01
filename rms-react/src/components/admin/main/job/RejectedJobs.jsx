@@ -4,7 +4,7 @@ import Sidebar from "../../navigation/sidebar/Sidebar";
 import Header from "../../navigation/navbar/Hedaer";
 import Loader from "../../../../services/Loader";
 
-const RejectedJobs = () => {
+const RejectedJobs = (props) => {
   const [loader, setloader] = useState(true);
   useEffect(() => {
     setTimeout(() => {
@@ -66,7 +66,7 @@ const RejectedJobs = () => {
           </main>
         )}
 
-        <Sidebar />
+        <Sidebar cmp={props.location.pathname} />
       </div>
     </>
   );

@@ -27,7 +27,7 @@ const AllJobs = (props) => {
     <>
       {(loader && <Loader />) || (
         <>
-          <NavBar hero={props.hero} />
+          <NavBar hero={props.hero} cmp="alljob" />
           <JobItemSection jobs={jobs.jobs} />
           <Footer />
         </>

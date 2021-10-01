@@ -132,7 +132,7 @@ const Dashboard = (props) => {
               </div>
             </div>
           </main>
-          <Sidebar cmp={props.cmp} />
+          <Sidebar cmp={props.location.pathname} />
         </div>
       )}
     </>
