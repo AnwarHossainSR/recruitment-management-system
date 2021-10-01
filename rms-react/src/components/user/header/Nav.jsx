@@ -23,16 +23,16 @@ const Nav = ({ cmp }) => {
         </div>
       </div>
       <div className="right">
-        <Link to="/" className={cmp == "home" ? "active_menu" : ""}>
+        <Link to="/" className={cmp === "home" ? "active_menu" : ""}>
           Home
         </Link>
-        <Link to="/jobs" className={cmp == "alljob" ? "active_menu" : ""}>
+        <Link to="/jobs" className={cmp === "alljob" ? "active_menu" : ""}>
           Browse Job
         </Link>
-        <Link to="/blogs" className={cmp == "blogs" ? "active_menu" : ""}>
+        <Link to="/blogs" className={cmp === "blogs" ? "active_menu" : ""}>
           Blog
         </Link>
-        <Link to="/contact" className={cmp == "contact" ? "active_menu" : ""}>
+        <Link to="/contact" className={cmp === "contact" ? "active_menu" : ""}>
           Contact
         </Link>
         {isAuthenticated && (
@@ -46,7 +46,7 @@ const Nav = ({ cmp }) => {
         {!isAuthenticated && (
           <Link
             to="/user/sign-in"
-            className={cmp == "login" ? "active_menu" : ""}
+            className={cmp === "login" ? "active_menu" : ""}
           >
             Sign in
           </Link>

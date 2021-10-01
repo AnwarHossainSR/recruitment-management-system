@@ -15,6 +15,7 @@ class CreateApplicationsTable extends Migration
     {
         Schema::create('applications', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('slug')->unique();
             $table->string('email')->unique();
             $table->string('cv')->nullable();
             $table->enum('status', ['accepted', 'rejected', 'pending'])->default('pending');

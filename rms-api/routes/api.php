@@ -14,18 +14,20 @@ Route::middleware(['cors'])->group(function () {
     Route::post('/updatepass', 'AuthController@forgotPasswordUpdate');
     Route::get('/jobs/{query}/search', 'HomeController@searchJob');
 
-    Route::apiResources([
-        'home' => 'HomeController',
-        'categories' => 'JobCategoryController',
-        'jobs' => 'JobController',
-        'applications' => 'ApplicationController'
-    ]);
 
     Route::middleware(['auth:api'])->group(function () {
         Route::post('/auth/logout', 'AuthController@logout');
         Route::get('user', 'AuthController@authenticatedUser');
         Route::prefix('admin')->group(function () {
             Route::get('dashboard', 'admin\DashboardController@index');
+            Route::get('applications/accepted', 'ApplicationController@accepted');
+            Route::get('applications/rejected', 'ApplicationController@rejected');
         });
     });
+    Route::apiResources([
+        'home' => 'HomeController',
+        'categories' => 'JobCategoryController',
+        'jobs' => 'JobController',
+        'applications' => 'ApplicationController'
+    ]);
 });

@@ -150,13 +150,14 @@
                             cursor: pointer;
                         }
 
-                        // .status {
-                        //     color: #38B66F;
-                        //     background-color: #D5FFE7;
-                        //     padding: .6rem;
-                        //     border-radius: 2rem;
-                        //     font-weight: bold;
-                        // }
+                        .status {
+                            color: #38B66F;
+                            background-color: #D5FFE7;
+                            padding: .6rem;
+                            border-radius: 2rem;
+                            font-weight: bold;
+                            text-transform: uppercase;
+                        }
 
                         .rejected {
                             color: #FF6046;

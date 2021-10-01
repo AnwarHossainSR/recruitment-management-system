@@ -7,6 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class Application extends Model
 {
     protected $fillable = [
-        'cv', 'job_id', 'email',
+        'cv', 'slug', 'job_id', 'email',
     ];
+    public function Job()
+    {
+        return $this->belongsTo('App\MainJob');
+    }
 }

@@ -64,11 +64,19 @@ const App = () => {
           exact
           path="/admin/manage-application"
           component={ManageApplication}
+          text="app"
+        />
+        <ProtectedRoute
+          exact
+          path="/admin/manage-application/accepted"
+          component={ManageApplication}
+          text="accept"
         />
         <ProtectedRoute
           exact
           path="/admin/manage-application/rejected"
-          component={RejectedJobs}
+          component={ManageApplication}
+          text="reject"
         />
 
         {/* Categories */}

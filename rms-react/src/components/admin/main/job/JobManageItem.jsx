@@ -57,7 +57,7 @@ const JobManageItem = ({ slug, id, title, location, type, icon }) => {
         </span>
       </td>
       <td className="img">
-        <img src={icon} alt="image" />
+        <img src={icon} alt="job icon" />
       </td>
       <td>
         <div className="action">

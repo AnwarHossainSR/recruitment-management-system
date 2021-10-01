@@ -10,7 +10,7 @@ import JobManageItem from "./JobManageItem";
 const JobManage = (props) => {
   const [loader, setloader] = useState(true);
   const [jobs, setJobs] = useState([]);
-  const [pageNumber, setPageNumber] = useState(1);
+  const [pageNumber, setPageNumber] = useState(0);
 
   const fetchData = async () => {
     const response = await fetchApiData(`jobs?page=${pageNumber}`);

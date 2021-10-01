@@ -3,11 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Application;
+use App\Traits\ApiResponseWithHttpStatus;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Str;
+
 
 class ApplicationController extends Controller
 {
+    use ApiResponseWithHttpStatus;
+    // public function __construct()
+    // {
+    //     $this->middleware('auth:api')->except(['store']);
+    // }
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +24,25 @@ class ApplicationController extends Controller
      */
     public function index()
     {
-        //
+        $data['applications'] = Application::where([['status', 'pending']])->with('job')->paginate(10);
+        return $this->apiResponse('success', $data, Response::HTTP_OK, true);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+
+    public function accepted()
+    {
+        $data['applications'] = Application::where([['status', 'accepted']])->with('job')->paginate(10);
+        return $this->apiResponse('success', $data, Response::HTTP_OK, true);
+    }
+    public function rejected()
+    {
+        $data['applications'] = Application::where([['status', 'rejected']])->with('job')->paginate(10);
+        return $this->apiResponse('success', $data, Response::HTTP_OK, true);
     }
 
     /**
@@ -51,6 +78,7 @@ class ApplicationController extends Controller
                 $fileName = null;
             }
             $post = Application::create([
+                'slug' => Str::slug($request->title),
                 'cv' => $fileName,
                 'job_id' => $request->job_id,
                 'email' => $request->email,
