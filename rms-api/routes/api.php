@@ -3,9 +3,6 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-// Route::get('login', function () {
-//     return "Un Authorized";
-// });
 
 Route::middleware(['cors'])->group(function () {
     Route::post('/auth/register', 'AuthController@register');
@@ -24,6 +21,8 @@ Route::middleware(['cors'])->group(function () {
             Route::get('applications/{slug}/pending', 'ApplicationController@applicationsByCat');
             Route::get('applications/{slug}/accepted', 'ApplicationController@accepted');
             Route::get('applications/{slug}/rejected', 'ApplicationController@rejected');
+            Route::get('applications/accept-manage/{id}', 'ApplicationController@changeToAccept');
+            Route::get('applications/reject-manage/{id}', 'ApplicationController@changeToReject');
         });
     });
     Route::apiResources([

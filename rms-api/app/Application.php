@@ -8,7 +8,7 @@ class Application extends Model
 {
 
     protected $fillable = [
-        'cv', 'slug', 'job_id', 'email',
+        'cv', 'slug', 'job_id', 'email', 'status',
     ];
     public function Job()
     {

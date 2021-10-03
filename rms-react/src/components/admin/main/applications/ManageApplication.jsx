@@ -10,6 +10,8 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   setapplications,
   handlePageClick,
+  acceptHandle,
+  rejectHandle,
 } from "../../../../redux/ManageApplicationSlice";
 import { notify } from "../../../../services/Notification";
 
@@ -52,6 +54,28 @@ const ManageApplication = (props) => {
     dispatch(handlePageClick(data.selected + 1));
     fetchData();
   };
+  const handleAccept = (id) => {
+    if (
+      location.pathname === `/admin/manage-application/${slug}` ||
+      location.pathname === `/admin/manage-application/${slug}/rejected`
+    ) {
+      dispatch(acceptHandle({ type: "pending", id: id }));
+      fetchData();
+    }
+  };
+  const handleReject = (id) => {
+    console.log(id);
+    if (
+      location.pathname === `/admin/manage-application/${slug}` ||
+      location.pathname === `/admin/manage-application/${slug}/accepted`
+    ) {
+      dispatch(rejectHandle({ type: "rejected", id: id }));
+      fetchData();
+    } else {
+      dispatch(rejectHandle({ type: "delete", id: id }));
+      fetchData();
+    }
+  };
   return (
     <>
       <div className="admin-container">
@@ -75,12 +99,12 @@ const ManageApplication = (props) => {
                   </div>
                 </div>
                 <div className="table-wrap">
+                  {applications.data && !applications.data.length && (
+                    <div className="flex content-center items-center">
+                      <h2>No data found at this moment</h2>
+                    </div>
+                  )}
                   <table className="table">
-                    {applications.data && !applications.data.length && (
-                      <div className="flex content-center items-center">
-                        <h2>No data</h2>
-                      </div>
-                    )}
                     <tbody>
                       {applications.data &&
                         applications.data.map((app, i) => (
@@ -92,6 +116,8 @@ const ManageApplication = (props) => {
                             cv={app.cv}
                             applied={app.applied}
                             status={app.status}
+                            handleAccept={handleAccept}
+                            handleReject={handleReject}
                           />
                         ))}
                     </tbody>

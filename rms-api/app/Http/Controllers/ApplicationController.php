@@ -33,7 +33,6 @@ class ApplicationController extends Controller
     {
         $job = MainJob::where('slug', $slug)->first();
         $data['applications'] = Application::where([['status', 'pending'], ['job_id', $job->id]])->paginate(10);
-        //$data['applications'] = MainJob::where('slug', $slug)->whereHas('applications')->paginate(10);
         return $this->apiResponse('success', $data, Response::HTTP_OK, true);
     }
 
@@ -45,23 +44,15 @@ class ApplicationController extends Controller
 
     public function accepted($slug)
     {
-        $data['applications'] = Application::where([['slug', $slug], ['status', 'accepted']])->with('job')->paginate(10);
+        $job = MainJob::where('slug', $slug)->first();
+        $data['applications'] = Application::where([['status', 'accepted'], ['job_id', $job->id]])->paginate(10);
         return $this->apiResponse('success', $data, Response::HTTP_OK, true);
     }
     public function rejected($slug)
     {
-        $data['applications'] = Application::where([['slug', $slug], ['status', 'rejected']])->with('job')->paginate(10);
+        $job = MainJob::where('slug', $slug)->first();
+        $data['applications'] = Application::where([['status', 'rejected'], ['job_id', $job->id]])->paginate(10);
         return $this->apiResponse('success', $data, Response::HTTP_OK, true);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -124,17 +115,6 @@ class ApplicationController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Application  $application
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Application $application)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -154,6 +134,24 @@ class ApplicationController extends Controller
      */
     public function destroy(Application $application)
     {
-        //
+        $application->delete();
+        return $this->apiResponse('deleted !', null, Response::HTTP_OK, true);
+    }
+
+    public function changeToAccept($id)
+    {
+        $application = Application::find($id);
+        $application->update([
+            'status' => 'accepted'
+        ]);
+        return $this->apiResponse('success', null, Response::HTTP_OK, true);
+    }
+    public function changeToReject($id)
+    {
+        $application = Application::find($id);
+        $application->update([
+            'status' => 'rejected'
+        ]);
+        return $this->apiResponse('success', null, Response::HTTP_OK, true);
     }
 }

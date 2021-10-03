@@ -1,6 +1,15 @@
 import React from "react";
 
-const ManageApplicationItem = ({ id, slug, status, email, cv, applied }) => {
+const ManageApplicationItem = ({
+  id,
+  slug,
+  status,
+  email,
+  cv,
+  applied,
+  handleAccept,
+  handleReject,
+}) => {
   console.log(cv);
   return (
     <tr className="alert">
@@ -17,7 +26,7 @@ const ManageApplicationItem = ({ id, slug, status, email, cv, applied }) => {
       </td>
       <td className="cv">
         <span>
-          <a href={cv} target="_blank">
+          <a href={cv} target="_blank" rel="noreferrer">
             <i className="fa fa-cloud-download" aria-hidden="true"></i>
           </a>
         </span>
@@ -29,10 +38,14 @@ const ManageApplicationItem = ({ id, slug, status, email, cv, applied }) => {
       </td>
       <td>
         <div className="action">
-          <span aria-hidden="true">
+          <span aria-hidden="true" onClick={() => handleAccept(id)}>
             <i className="fa fa-check" />
           </span>
-          <span aria-hidden="true" className="action-button close">
+          <span
+            aria-hidden="true"
+            className="action-button close"
+            onClick={() => handleReject(id)}
+          >
             <i className="fa fa-close" />
           </span>
         </div>

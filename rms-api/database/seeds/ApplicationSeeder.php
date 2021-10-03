@@ -14,7 +14,7 @@ class ApplicationSeeder extends Seeder
     {
         DB::table('applications')->insert([
             'email' => 'mahedisr2@gmail.com',
-            'slug' => 'unique-slug-dsfdsfgd-vfgdfdhsfdg',
+            'slug' => 'unique-slug-1',
             'status' => 'pending',
             'cv' => 'http://localhost:8000/files/applications/default.pdf',
             'job_id' => 1,
@@ -23,7 +23,7 @@ class ApplicationSeeder extends Seeder
         ]);
         DB::table('applications')->insert([
             'email' => 'mahedisr3@gmail.com',
-            'slug' => 'unique-slug-dsfdsfsdfdsfgd-vfgdfdhsfdg',
+            'slug' => 'unique-slug-2',
             'status' => 'accepted',
             'cv' => 'http://localhost:8000/files/applications/default.pdf',
             'job_id' => 1,
@@ -32,7 +32,7 @@ class ApplicationSeeder extends Seeder
         ]);
         DB::table('applications')->insert([
             'email' => 'mahedisr4@gmail.com',
-            'slug' => 'uniqsdsfdfue-slug-dsfdfdgsfgd-vfgdfdhsfdg',
+            'slug' => 'unique-slug-3',
             'status' => 'rejected',
             'cv' => 'http://localhost:8000/files/applications/default.pdf',
             'job_id' => 1,
