@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Application;
+use App\JobCategory;
+use App\MainJob;
 use App\Traits\ApiResponseWithHttpStatus;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -13,10 +15,10 @@ use Illuminate\Support\Str;
 class ApplicationController extends Controller
 {
     use ApiResponseWithHttpStatus;
-    // public function __construct()
-    // {
-    //     $this->middleware('auth:api')->except(['store']);
-    // }
+    public function __construct()
+    {
+        $this->middleware('auth:api')->except(['store']);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -24,7 +26,14 @@ class ApplicationController extends Controller
      */
     public function index()
     {
-        $data['applications'] = Application::where([['status', 'pending']])->with('job')->paginate(10);
+        $data['categories'] = MainJob::where([['status', 'active'], ['count', '>', 0]])->with('applications')->paginate(10);
+        return $this->apiResponse('success', $data, Response::HTTP_OK, true);
+    }
+    public function applicationsByCat($slug)
+    {
+        $job = MainJob::where('slug', $slug)->first();
+        $data['applications'] = Application::where([['status', 'pending'], ['job_id', $job->id]])->paginate(10);
+        //$data['applications'] = MainJob::where('slug', $slug)->whereHas('applications')->paginate(10);
         return $this->apiResponse('success', $data, Response::HTTP_OK, true);
     }
 
@@ -34,14 +43,14 @@ class ApplicationController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function accepted()
+    public function accepted($slug)
     {
-        $data['applications'] = Application::where([['status', 'accepted']])->with('job')->paginate(10);
+        $data['applications'] = Application::where([['slug', $slug], ['status', 'accepted']])->with('job')->paginate(10);
         return $this->apiResponse('success', $data, Response::HTTP_OK, true);
     }
-    public function rejected()
+    public function rejected($slug)
     {
-        $data['applications'] = Application::where([['status', 'rejected']])->with('job')->paginate(10);
+        $data['applications'] = Application::where([['slug', $slug], ['status', 'rejected']])->with('job')->paginate(10);
         return $this->apiResponse('success', $data, Response::HTTP_OK, true);
     }
 
@@ -82,6 +91,10 @@ class ApplicationController extends Controller
                 'cv' => $fileName,
                 'job_id' => $request->job_id,
                 'email' => $request->email,
+            ]);
+            $job = MainJob::find($request->job_id);
+            $job->update([
+                'count' => $job->count + 1
             ]);
             if ($post) {
                 return \response([

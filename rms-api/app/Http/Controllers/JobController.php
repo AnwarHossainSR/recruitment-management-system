@@ -31,6 +31,7 @@ class JobController extends Controller
         return $this->apiResponse('success', $data, Response::HTTP_OK, true);
     }
 
+
     /**
      * Store a newly created resource in storage.
      *

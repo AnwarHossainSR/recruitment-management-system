@@ -17,6 +17,7 @@ class CreateMainJobsTable extends Migration
             $table->bigIncrements('id');
             $table->string('title');
             $table->string('slug')->unique();
+            $table->integer('count')->default(0);
             $table->string('company');
             $table->string('location');
             $table->string('email');

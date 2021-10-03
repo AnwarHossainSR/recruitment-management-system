@@ -1,25 +1,17 @@
 import React from "react";
 
-const ManageApplicationItem = ({
-  id,
-  slug,
-  job,
-  status,
-  email,
-  cv,
-  applied,
-}) => {
+const ManageApplicationItem = ({ id, slug, status, email, cv, applied }) => {
+  console.log(cv);
   return (
     <tr className="alert">
       <td>
         <div className="outer-div">
-          <h3>{job.title}</h3>
-          <p>Dhaka, Bangladesh</p>
+          <h3>{email}</h3>
         </div>
       </td>
-      <td>
-        <span className="status">{job.status}</span>
-      </td>
+      {/* <td>
+        <span className="status">{status}</span>
+      </td> */}
       <td>
         <span>{applied}</span>
       </td>

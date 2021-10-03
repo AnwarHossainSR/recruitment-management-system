@@ -20,8 +20,10 @@ Route::middleware(['cors'])->group(function () {
         Route::get('user', 'AuthController@authenticatedUser');
         Route::prefix('admin')->group(function () {
             Route::get('dashboard', 'admin\DashboardController@index');
-            Route::get('applications/accepted', 'ApplicationController@accepted');
-            Route::get('applications/rejected', 'ApplicationController@rejected');
+            //applications
+            Route::get('applications/{slug}/pending', 'ApplicationController@applicationsByCat');
+            Route::get('applications/{slug}/accepted', 'ApplicationController@accepted');
+            Route::get('applications/{slug}/rejected', 'ApplicationController@rejected');
         });
     });
     Route::apiResources([

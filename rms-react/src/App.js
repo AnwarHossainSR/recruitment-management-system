@@ -10,8 +10,7 @@ import Contact from "./components/user/pages/Contact";
 import Dashboard from "./components/admin/main/dashboard/Dashboard";
 import AddJob from "./components/admin/main/job/AddJob";
 import JobManage from "./components/admin/main/job/JobManage";
-import ManageApplication from "./components/admin/main/job/ManageApplication";
-import RejectedJobs from "./components/admin/main/job/RejectedJobs";
+import ManageApplication from "./components/admin/main/applications/ManageApplication";
 import ManageCategory from "./components/admin/main/categories/ManageCategory";
 import AddCategory from "./components/admin/main/categories/AddCategory";
 import ManageTraining from "./components/admin/main/training/ManageTraining";
@@ -21,6 +20,7 @@ import SearchJob from "./components/user/pages/JobPage/SearchJob";
 import ProtectedRoute from "./services/ProtectedRoute";
 import ForgotPassword from "./components/user/pages/Authentication/ForgotPassword";
 import ChangePassword from "./components/user/pages/Authentication/ChangePassword";
+import CategoryManageApplication from "./components/admin/main/applications/CategoryManageApplication";
 
 const App = () => {
   return (
@@ -63,18 +63,24 @@ const App = () => {
         <ProtectedRoute
           exact
           path="/admin/manage-application"
+          component={CategoryManageApplication}
+          text="app"
+        />
+        <ProtectedRoute
+          exact
+          path="/admin/manage-application/:slug"
           component={ManageApplication}
           text="app"
         />
         <ProtectedRoute
           exact
-          path="/admin/manage-application/accepted"
+          path="/admin/manage-application/:slug/accepted"
           component={ManageApplication}
           text="accept"
         />
         <ProtectedRoute
           exact
-          path="/admin/manage-application/rejected"
+          path="/admin/manage-application/:slug/rejected"
           component={ManageApplication}
           text="reject"
         />

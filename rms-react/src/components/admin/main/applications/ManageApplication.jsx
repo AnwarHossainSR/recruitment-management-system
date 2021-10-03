@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import Sidebar from "../../navigation/sidebar/Sidebar";
 import Header from "../../navigation/navbar/Hedaer";
 import Loader from "../../../../services/Loader";
@@ -7,28 +7,35 @@ import { fetchApiData } from "../../../../api/ApiCall";
 import ReactPaginate from "react-paginate";
 import ManageApplicationItem from "./ManageApplicationItem";
 import { useDispatch, useSelector } from "react-redux";
-import { errorMessage } from "../../../../redux/LoginSlice";
+import {
+  setapplications,
+  handlePageClick,
+} from "../../../../redux/ManageApplicationSlice";
+import { notify } from "../../../../services/Notification";
 
 const ManageApplication = (props) => {
+  const dispatch = useDispatch();
   const location = useLocation();
+  const { slug } = useParams();
   const [loader, setloader] = useState(true);
-  const [applications, setapplications] = useState([]);
-  const [pageNumber, setPageNumber] = useState(1);
-  const { formisValid } = useSelector((state) => state.application);
+  const { applications, pageNumber } = useSelector(
+    (state) => state.application
+  );
 
   const fetchData = async () => {
     const response = await fetchApiData(
       `${
-        location.pathname === "/admin/manage-application/accepted"
-          ? "admin/applications/accepted"
-          : location.pathname === "/admin/manage-application/rejected"
-          ? "admin/applications/rejected"
-          : "applications"
+        location.pathname === `/admin/manage-application/${slug}/accepted`
+          ? `admin/applications/${slug}/accepted`
+          : location.pathname === `/admin/manage-application/${slug}/rejected`
+          ? `admin/applications/${slug}/rejected`
+          : `admin/applications/${slug}/pending`
       }?page=${pageNumber}`
     );
     if (response.status === true) {
-      setapplications(response.data.applications);
+      dispatch(setapplications(response.data.applications));
     } else {
+      notify("Something is wrong ! check console", "error");
       console.log(response);
     }
   };
@@ -42,7 +49,7 @@ const ManageApplication = (props) => {
   }, [props]);
 
   const handlePageClick = (data) => {
-    setPageNumber(data.selected + 1);
+    dispatch(handlePageClick(data.selected + 1));
     fetchData();
   };
   return (
@@ -54,33 +61,37 @@ const ManageApplication = (props) => {
             <div className="main__container">
               <div className="card-main">
                 <div className="header-div">
-                  <h1>Manage Applications</h1>
+                  <h1>Pending Applications</h1>
                   <div className="right">
                     <Link
-                      to="/admin/manage-application/accepted"
+                      to={`/admin/manage-application/${slug}/accepted`}
                       style={{ color: "green", marginRight: "1rem" }}
                     >
                       Accepted
                     </Link>
-                    <Link to="/admin/manage-application/rejected">
+                    <Link to={`/admin/manage-application/${slug}/rejected`}>
                       Rejected
                     </Link>
                   </div>
                 </div>
                 <div className="table-wrap">
                   <table className="table">
+                    {applications.data && !applications.data.length && (
+                      <div className="flex content-center items-center">
+                        <h2>No data</h2>
+                      </div>
+                    )}
                     <tbody>
                       {applications.data &&
                         applications.data.map((app, i) => (
                           <ManageApplicationItem
                             key={i}
-                            id={app.id}
                             slug={app.slug}
-                            job={app.job}
-                            status={app.status}
+                            id={app.id}
                             email={app.email}
                             cv={app.cv}
-                            applied={app.created_at}
+                            applied={app.applied}
+                            status={app.status}
                           />
                         ))}
                     </tbody>

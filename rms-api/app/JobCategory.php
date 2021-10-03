@@ -11,6 +11,10 @@ class JobCategory extends Model
     ];
     public function jobs()
     {
-        return $this->belongsToMany('App\Job')->withTimestamps();
+        return $this->belongsToMany('App\MainJob')->withTimestamps();
+    }
+    public function applications()
+    {
+        return $this->belongsToMany('App\Application')->withTimestamps();
     }
 }

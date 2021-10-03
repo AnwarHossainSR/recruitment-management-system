@@ -11,6 +11,7 @@ $factory->define(MainJob::class, function (Faker $faker) {
     return [
         'title' => $faker->sentence(3, false),
         'slug' => $faker->unique()->slug,
+        'count' => $faker->numberBetween(0, 5),
         'company' => $faker->randomElement(['Bjit,Dhaka']),
         'location' => $faker->address(),
         'email' => $faker->unique()->safeEmail(),
