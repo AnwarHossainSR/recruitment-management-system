@@ -64,17 +64,15 @@ const ManageApplication = (props) => {
     }
   };
   const handleReject = (id) => {
-    console.log(id);
     if (
       location.pathname === `/admin/manage-application/${slug}` ||
       location.pathname === `/admin/manage-application/${slug}/accepted`
     ) {
       dispatch(rejectHandle({ type: "rejected", id: id }));
-      fetchData();
     } else {
       dispatch(rejectHandle({ type: "delete", id: id }));
-      fetchData();
     }
+    fetchData();
   };
   return (
     <>

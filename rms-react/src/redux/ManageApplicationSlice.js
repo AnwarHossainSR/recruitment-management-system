@@ -1,6 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { deleteApiData, fetchApiData } from "../api/ApiCall";
 import { notify } from "../services/Notification";
+import Swal from "sweetalert2";
+
 const initialState = {
   formisValid: false,
   pageNumber: 1,
@@ -49,21 +51,49 @@ const ManageApplicationSlice = createSlice({
     rejectHandle(state, { payload }) {
       const fetchData = async () => {
         if (payload.type === "rejected") {
-          const response = await fetchApiData(
+          const responsed = await fetchApiData(
             `admin/applications/reject-manage/${payload.id}`
           );
-          if (response.status === true) {
+          if (responsed.status === true) {
             notify("application rejected !", "success");
           } else {
             notify("something is wrong !", "error");
           }
         } else {
-          const response = await deleteApiData(`applications/${payload.id}`);
-          if (response.status === true) {
-            notify("application deleted !", "success");
-          } else {
-            notify(response.message, "error");
-          }
+          Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!",
+          }).then((result) => {
+            if (result.isConfirmed) {
+              const callFun = async () => {
+                const response = await deleteApiData(
+                  `applications/${payload.id}`
+                );
+                if (response.status === true) {
+                  Swal.fire({
+                    position: "top-end",
+                    icon: "success",
+                    title: response.message,
+                    showConfirmButton: false,
+                    timer: 1500,
+                  });
+                } else {
+                  Swal.fire({
+                    position: "top-end",
+                    icon: "error",
+                    title: response.message,
+                    showConfirmButton: false,
+                    timer: 1500,
+                  });
+                }
+              };
+              callFun();
+            }
+          });
         }
       };
       fetchData();

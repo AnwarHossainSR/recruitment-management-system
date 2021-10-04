@@ -21,6 +21,7 @@ class HomeController extends Controller
         $data['categories'] = JobCategory::where('status', 'active')->get()->random(8);
         $data["featured_job"] = MainJob::where([['status', 'active'], ['is_featured', true]])->get()->random(6);
         $data['latest'] = MainJob::where('status', 'active')->latest('created_at')->get()->random(6);
+        
         return $this->apiResponse('success', $data, Response::HTTP_OK, true);
     }
 

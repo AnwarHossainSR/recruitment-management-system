@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 
@@ -10,7 +9,8 @@ Route::middleware(['cors'])->group(function () {
     Route::post('/forgot', 'AuthController@forgotPassword');
     Route::post('/updatepass', 'AuthController@forgotPasswordUpdate');
     Route::get('/jobs/{query}/search', 'HomeController@searchJob');
-
+    Route::post('/subscribe', 'CommonController@subscribe');
+    Route::post('/contact', 'CommonController@contactStore');
 
     Route::middleware(['auth:api'])->group(function () {
         Route::post('/auth/logout', 'AuthController@logout');
