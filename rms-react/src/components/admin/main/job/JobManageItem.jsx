@@ -23,6 +23,7 @@ const JobManageItem = ({ slug, id, title, location, type, icon }) => {
               showConfirmButton: false,
               timer: 1500,
             });
+            console.log(response);
           } else {
             Swal.fire({
               position: "top-end",

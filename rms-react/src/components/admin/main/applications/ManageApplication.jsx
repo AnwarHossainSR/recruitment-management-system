@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Link, useLocation, useParams } from "react-router-dom";
 import Sidebar from "../../navigation/sidebar/Sidebar";
 import Header from "../../navigation/navbar/Hedaer";
@@ -24,43 +24,42 @@ const ManageApplication = (props) => {
     (state) => state.application
   );
 
-  const fetchData = async () => {
-    const response = await fetchApiData(
-      `${
-        location.pathname === `/admin/manage-application/${slug}/accepted`
-          ? `admin/applications/${slug}/accepted`
-          : location.pathname === `/admin/manage-application/${slug}/rejected`
-          ? `admin/applications/${slug}/rejected`
-          : `admin/applications/${slug}/pending`
-      }?page=${pageNumber}`
-    );
-    if (response.status === true) {
-      dispatch(setapplications(response.data.applications));
-    } else {
-      notify("Something is wrong ! check console", "error");
-      console.log(response);
-    }
-  };
+  const fetch = useCallback(() => {
+    const fetchData = async () => {
+      const response = await fetchApiData(
+        `${
+          location.pathname === `/admin/manage-application/${slug}/accepted`
+            ? `admin/applications/${slug}/accepted`
+            : location.pathname === `/admin/manage-application/${slug}/rejected`
+            ? `admin/applications/${slug}/rejected`
+            : `admin/applications/${slug}/pending`
+        }?page=${pageNumber}`
+      );
+      if (response.status === true) {
+        dispatch(setapplications(response.data.applications));
+      } else {
+        notify("Something is wrong ! check console", "error");
+        console.log(response);
+      }
+    };
+    fetchData();
+  }, [dispatch, slug, pageNumber, location.pathname]);
 
   useEffect(() => {
-    setloader(true);
     setTimeout(() => {
-      fetchData();
       setloader(false);
     }, 1000);
-  }, [props]);
+    fetch();
+    return () => {};
+  }, [props, fetch]);
 
-  const handlePageClick = (data) => {
-    dispatch(handlePageClick(data.selected + 1));
-    fetchData();
-  };
   const handleAccept = (id) => {
     if (
       location.pathname === `/admin/manage-application/${slug}` ||
       location.pathname === `/admin/manage-application/${slug}/rejected`
     ) {
       dispatch(acceptHandle({ type: "pending", id: id }));
-      fetchData();
+      fetch();
     }
   };
   const handleReject = (id) => {
@@ -72,7 +71,7 @@ const ManageApplication = (props) => {
     } else {
       dispatch(rejectHandle({ type: "delete", id: id }));
     }
-    fetchData();
+    fetch();
   };
   return (
     <>
@@ -129,7 +128,9 @@ const ManageApplication = (props) => {
                     pageCount={applications.last_page}
                     marginPagesDisplayed={2}
                     pageRangeDisplayed={applications.last_page}
-                    onPageChange={handlePageClick}
+                    onPageChange={(data) =>
+                      dispatch(handlePageClick(data.selected + 1))
+                    }
                     containerClassName={"pagination"}
                     activeClassName={"active"}
                   />

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
 import Sidebar from "../../navigation/sidebar/Sidebar";
 import Header from "../../navigation/navbar/Hedaer";
@@ -18,31 +18,32 @@ const ManageCategory = (props) => {
   const dispatch = useDispatch();
   const [loader, setloader] = useState(true);
   const { categories, pageNumber } = useSelector((state) => state.category);
-  const fetchData = async () => {
-    const response = await fetchApiData(`categories?page=${pageNumber}`);
-    if (response.status === true) {
-      dispatch(handleCategories(response.data.categories));
-    } else {
-      console.log(response);
-    }
-  };
+  const fetch = useCallback(() => {
+    const fetchData = async () => {
+      const response = await fetchApiData(`categories?page=${pageNumber}`);
+      if (response.status === true) {
+        dispatch(handleCategories(response.data.categories));
+      } else {
+        console.log(response);
+      }
+    };
+    fetchData();
+  }, [pageNumber, dispatch]);
   useEffect(() => {
+    fetch();
     setTimeout(() => {
       setloader(false);
     }, 1000);
-    fetchData();
-  }, [props]);
-  useEffect(() => {
-    fetchData();
-  }, []);
+    return () => {};
+  }, [props, fetch]);
 
   const pageClick = (data) => {
     dispatch(handlePageClick(data.selected + 1));
-    fetchData();
+    fetch();
   };
   const handleDelete = (id) => {
     dispatch(handleDeleteCat(id));
-    fetchData();
+    fetch();
   };
   return (
     <>

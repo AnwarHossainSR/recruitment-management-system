@@ -123,7 +123,7 @@ class JobController extends Controller
         $photo = last($array);
         $existPhoto = '/files/jobs/' . $photo;
         $path = str_replace('\\', '/', public_path());
-        if ($photo != "default.png" || $photo != "default1.png" || $photo != "default2.png" || $photo != "default3.png") {
+        if ($photo != "default.png" && $photo != "default1.png" && $photo != "default2.png" && $photo != "default3.png") {
             if (file_exists($path . $existPhoto)) {
                 \unlink($path . $existPhoto);
             }

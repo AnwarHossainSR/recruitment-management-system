@@ -40,7 +40,6 @@ const ManageApplicationSlice = createSlice({
           );
         }
         if (responseaccept.status === true) {
-          console.log(responseaccept);
           notify("application accepted !", "success");
         } else {
           notify("something is wrong !", "error");

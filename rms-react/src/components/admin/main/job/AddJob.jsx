@@ -44,15 +44,15 @@ const AddJob = (props) => {
     data,
   } = useSelector((state) => state.addJob);
   useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetchApiData(`jobs`);
+      setCategories(response.data.categories);
+    };
+    fetchData();
     setTimeout(() => {
       setloader(false);
-      const fetchData = async () => {
-        const response = await fetchApiData(`jobs`);
-        setCategories(response.data.categories);
-        setloader(false);
-      };
-      fetchData();
     }, 1000);
+    return () => {};
   }, []);
   const onChangeDescription = (e, editor) => {
     const data = editor.getData();

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import Sidebar from "../../navigation/sidebar/Sidebar";
 import Header from "../../navigation/navbar/Hedaer";
 import "./JobManage.scss";
@@ -10,26 +10,29 @@ import JobManageItem from "./JobManageItem";
 const JobManage = (props) => {
   const [loader, setloader] = useState(true);
   const [jobs, setJobs] = useState([]);
-  const [pageNumber, setPageNumber] = useState(0);
+  const [pageNumber, setPageNumber] = useState(1);
 
-  const fetchData = async () => {
-    const response = await fetchApiData(`jobs?page=${pageNumber}`);
-    if (response.status === true) {
-      setJobs(response.data.main_jobs);
-    } else {
-      console.log(response);
-    }
-  };
+  const fetch = useCallback(() => {
+    const fetchData = async () => {
+      const response = await fetchApiData(`jobs?page=${pageNumber}`);
+      if (response.status === true) {
+        setJobs(response.data.main_jobs);
+      } else {
+        console.log(response);
+      }
+    };
+    fetchData();
+  }, [pageNumber]);
   useEffect(() => {
     setTimeout(() => {
-      fetchData();
+      fetch();
       setloader(false);
     }, 1000);
-  }, [jobs]);
+    return () => {};
+  }, [jobs, fetch]);
 
   const handlePageClick = (data) => {
     setPageNumber(data.selected + 1);
-    fetchData();
   };
 
   return (

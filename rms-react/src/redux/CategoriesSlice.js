@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { deleteApiData, fetchApiData } from "../api/ApiCall";
-import { notify } from "../services/Notification";
+import { deleteApiData } from "../api/ApiCall";
 import Swal from "sweetalert2";
 
 const initialState = {

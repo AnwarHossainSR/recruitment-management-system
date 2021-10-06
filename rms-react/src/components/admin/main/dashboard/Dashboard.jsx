@@ -15,11 +15,6 @@ const Dashboard = (props) => {
     axios.defaults.headers.common = {
       Authorization: `Bearer ${localStorage.getItem("token")}`,
     };
-    setTimeout(() => {
-      setloader(false);
-    }, 1000);
-  }, [loader]);
-  useEffect(() => {
     const fetchData = async () => {
       const response = await fetchApiData(`admin/dashboard`);
       if (response.status === true) {
@@ -29,7 +24,12 @@ const Dashboard = (props) => {
       }
     };
     fetchData();
+    setTimeout(() => {
+      setloader(false);
+    }, 1000);
+    return () => {};
   }, []);
+
   return (
     <>
       {(loader && <Loader />) || (

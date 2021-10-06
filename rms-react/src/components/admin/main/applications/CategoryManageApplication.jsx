@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Sidebar from "../../navigation/sidebar/Sidebar";
 import Header from "../../navigation/navbar/Hedaer";
 import Loader from "../../../../services/Loader";
@@ -18,27 +18,30 @@ const CategoryManageApplication = (props) => {
   const { categories, catPageNumber } = useSelector(
     (state) => state.application
   );
-  const fetchData = async () => {
-    const response = await fetchApiData(`applications?page=${catPageNumber}`);
-    if (response.status === true) {
-      dispatch(setCategoriesApplications(response.data.categories));
-    } else {
-      notify("Something is wrong! check console", "error");
-      console.log(response);
-    }
-  };
+  const fetch = useCallback(() => {
+    const fetchData = async () => {
+      const response = await fetchApiData(`applications?page=${catPageNumber}`);
+      if (response.status === true) {
+        dispatch(setCategoriesApplications(response.data.categories));
+      } else {
+        notify("Something is wrong! check console", "error");
+        console.log(response);
+      }
+    };
+    fetchData();
+  }, [catPageNumber, dispatch]);
 
   useEffect(() => {
-    setloader(true);
     setTimeout(() => {
-      fetchData();
       setloader(false);
     }, 1000);
-  }, [props]);
+    fetch();
+    return () => {};
+  }, [props, fetch]);
 
   const handlePageClick = (data) => {
     dispatch(catHandlePageClick(data.selected + 1));
-    fetchData();
+    //fetch();
   };
   return (
     <>
