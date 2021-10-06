@@ -1,0 +1,17 @@
+.privacy {
+    padding: 2rem 0;
+
+    .container {
+        .privacy_div {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            padding: 2rem;
+            box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+
+            p {
+                padding: 2rem;
+
+            }
+        }
+    }
+}

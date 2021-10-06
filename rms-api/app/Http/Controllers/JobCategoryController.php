@@ -2,19 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Job;
 use App\JobCategory;
-use App\MainJob;
+use App\Traits\ApiResponseWithHttpStatus;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use Symfony\Component\HttpFoundation\Response;
 
 class JobCategoryController extends Controller
 {
+    use ApiResponseWithHttpStatus;
     public function __construct()
     {
-        $this->middleware('auth:api')->except(['index', 'show']);
+        $this->middleware('auth:api')->except(['index']);
     }
     /**
      * Display a listing of the resource.
@@ -23,19 +24,8 @@ class JobCategoryController extends Controller
      */
     public function index()
     {
-        $categories = JobCategory::where('status', 'active')->get()->random(8);
-        $featured_job = MainJob::where([['status', 'active'], ['is_featured', true]])->get()->random(6);
-        $latest = MainJob::where('status', 'active')->latest('created_at')->get()->random(6);
-        try {
-            return \response([
-                'message' => 'success',
-                'categories' => $categories,
-                'featured' => $featured_job,
-                'latest' => $latest
-            ]);
-        } catch (\Exception $th) {
-            return response(['message' => $th->getMessage()], 400);
-        }
+        $data['categories'] = JobCategory::where('status', 'active')->latest()->paginate(8);
+        return $this->apiResponse('success', $data, Response::HTTP_OK, true);
     }
 
 
@@ -76,17 +66,17 @@ class JobCategoryController extends Controller
      * @param  \App\JobCategory  $jobCategory
      * @return \Illuminate\Http\Response
      */
-    public function show($slug)
+    public function show(JobCategory $jobCategory)
     {
-        try {
-            $category = JobCategory::where([['slug', $slug]])->first();
-            return \response([
-                'message' => 'success',
-                'category' => $category
-            ]);
-        } catch (\Exception $th) {
-            return \response(['message' => $th->getMessage()]);
-        }
+        // try {
+        //     $category = JobCategory::where([['slug', $slug]])->first();
+        //     return \response([
+        //         'message' => 'success',
+        //         'category' => $category
+        //     ]);
+        // } catch (\Exception $th) {
+        //     return \response(['message' => $th->getMessage()]);
+        // }
     }
 
     /**
@@ -126,17 +116,9 @@ class JobCategoryController extends Controller
      * @param  \App\JobCategory  $jobCategory
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($jobCategory)
     {
-
-        try {
-            $category = JobCategory::findOrFail($id);
-            $category->delete();
-            return \response([
-                'message' => 'success'
-            ]);
-        } catch (\Exception $th) {
-            return \response(['message' => $th->getMessage()]);
-        }
+        JobCategory::findOrFail($jobCategory)->delete();
+        return $this->apiResponse('deleted !', null, Response::HTTP_OK, true);
     }
 }

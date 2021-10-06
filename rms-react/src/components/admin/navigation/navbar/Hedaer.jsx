@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { useState } from "react/cjs/react.development";
+//import { useState } from "react/cjs/react.development";
 import Avater from "../../assets/avatar.svg";
 import "./Header.scss";
 import { useDispatch } from "react-redux";
@@ -8,13 +8,13 @@ import { logOut } from "../../../../redux/LoginSlice";
 
 const Hedaer = ({ sidebarOpen, openSidebar }) => {
   const [menu, setMenu] = useState(false);
+  const dispatch = useDispatch();
   const [isAuthenticated, setAuthenticated] = useState(
     localStorage.getItem("token")
   );
   const dropdown = () => {
     setMenu(menu ? false : true);
   };
-  const dispatch = useDispatch();
   const loggedOutHandler = () => {
     dispatch(logOut());
     setAuthenticated("");

@@ -47,8 +47,8 @@ const AddJob = (props) => {
     setTimeout(() => {
       setloader(false);
       const fetchData = async () => {
-        const response = await fetchApiData(`categories`);
-        setCategories(response.categories);
+        const response = await fetchApiData(`jobs`);
+        setCategories(response.data.categories);
         setloader(false);
       };
       fetchData();
@@ -74,6 +74,7 @@ const AddJob = (props) => {
       formData.append("close_date", data.close_date);
       formData.append("tag", data.tag);
       formData.append("cat_id", data.cat_id);
+      console.log(data.type);
       axios.post("jobs", formData).then((response) => {
         if (response.data.status === false) {
           dispatch(
@@ -272,6 +273,7 @@ const AddJob = (props) => {
                         <p className="title"> Type </p>
                         <select
                           className="form-control"
+                          name="type"
                           onChange={(e) =>
                             dispatch(
                               typeChangeHandler({

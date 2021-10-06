@@ -7,7 +7,7 @@ const Condition = () => {
       <h1>Conditions</h1>
       <div className="links">
         <Link to="#">Tearm & Conditions</Link>
-        <Link to="#">Privacy</Link>
+        <Link to="/privacy">Privacy</Link>
       </div>
     </div>
   );

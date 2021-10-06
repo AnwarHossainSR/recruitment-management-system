@@ -7,6 +7,7 @@ import JobDetails from "./components/user/pages/JobPage/JobDetails";
 import NotFound from "./components/user/pages/NotFound";
 import Login from "./components/user/pages/Authentication/Login";
 import Contact from "./components/user/pages/Contact";
+import PrivacyPolicy from "./components/user/pages/PrivacyPolicy";
 import Dashboard from "./components/admin/main/dashboard/Dashboard";
 import AddJob from "./components/admin/main/job/AddJob";
 import JobManage from "./components/admin/main/job/JobManage";
@@ -49,6 +50,9 @@ const App = () => {
         </Route>
         <Route exact path="/contact">
           <Contact hero="Contact" />
+        </Route>
+        <Route exact path="/privacy">
+          <PrivacyPolicy hero="Provacy Policy" />
         </Route>
         {/* Admin routes */}
         <ProtectedRoute exact path="/admin/dashboard" component={Dashboard} />

@@ -18,7 +18,9 @@ class CreateJobCategoriesTable extends Migration
             $table->string('name')->unique();
             $table->string('slug')->unique();
             $table->string('icon')->deafult('default.png')->nullable();
-            $table->enum('status', ['active', 'inactive'])->default('active');
+            $table->enum('status', ['active', 'inactive', 'running'])->default('active');
+            $table->timestamp('period_start')->default(now());
+            $table->timestamp('period_end')->default(now()->addMonth(3));
             $table->unsignedBigInteger('job_count')->default(0);
             $table->timestamps();
         });

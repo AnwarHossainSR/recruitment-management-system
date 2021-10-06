@@ -27,7 +27,7 @@ class JobController extends Controller
     {
         $data['categories'] = JobCategory::where('status', 'active')->get();
         $data['jobs'] = MainJob::where([['status', 'active']])->get();
-        $data['main_jobs'] = MainJob::where([['status', 'active']])->paginate(10);
+        $data['main_jobs'] = MainJob::where([['status', 'active']])->latest()->paginate(10);
         return $this->apiResponse('success', $data, Response::HTTP_OK, true);
     }
 
@@ -48,7 +48,7 @@ class JobController extends Controller
             } else {
                 $fileName = 'default.png';
             }
-
+            $imgPath = 'http://localhost:8000/files/jobs/' . $fileName;
             $response = MainJob::create([
                 "title" => $request->title,
                 "slug" => Str::slug($request->title),
@@ -58,23 +58,22 @@ class JobController extends Controller
                 "tag" => $request->tag,
                 "salary" => $request->salary,
                 "close_date" => $request->close_date,
-                "icon" => $fileName,
+                "icon" => $imgPath,
                 "cat_id" => $request->cat_id,
                 "user_id" => Auth::user()->id,
                 "type" => $request->type,
                 "description" => $request->description,
             ]);
+            if ($response) {
+                $category = JobCategory::find($request->cat_id);
+                $category->update([
+                    'job_count' => $category->job_count + 1
+                ]);
+            }
 
-            return response()->json([
-                'status' => true,
-                'message' => "success",
-                'job' => $response
-            ]);
+            return $this->apiResponse('success', $response, Response::HTTP_CREATED, true);
         } catch (\Throwable $th) {
-            return response()->json([
-                'status' => false,
-                'message' => $th->getMessage()
-            ]);
+            return $this->apiResponse($th->getMessage(), null, Response::HTTP_CREATED, true);
         }
     }
 
@@ -120,6 +119,15 @@ class JobController extends Controller
      */
     public function destroy(MainJob $job)
     {
+        $array = explode("/", $job->icon);
+        $photo = last($array);
+        $existPhoto = '/files/jobs/' . $photo;
+        $path = str_replace('\\', '/', public_path());
+        if ($photo != "default.png" || $photo != "default1.png" || $photo != "default2.png" || $photo != "default3.png") {
+            if (file_exists($path . $existPhoto)) {
+                \unlink($path . $existPhoto);
+            }
+        }
         if ($job->delete()) {
             return $this->apiResponse('Successfully deleted !', null, Response::HTTP_OK, true);
         }

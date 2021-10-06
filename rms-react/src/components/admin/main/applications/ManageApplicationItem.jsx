@@ -10,7 +10,6 @@ const ManageApplicationItem = ({
   handleAccept,
   handleReject,
 }) => {
-  console.log(cv);
   return (
     <tr className="alert">
       <td>

@@ -101,6 +101,7 @@ const addJobSlice = createSlice({
       state.data.cat_id = payload.val;
     },
     typeChangeHandler(state, { payload }) {
+      console.log(payload.val);
       state.data.type = payload.val;
     },
     errorChangeHandler(state, { payload }) {

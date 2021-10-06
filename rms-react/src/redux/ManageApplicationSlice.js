@@ -35,7 +35,7 @@ const ManageApplicationSlice = createSlice({
             `admin/applications/accept-manage/${payload.id}`
           );
         } else if (payload.type === "rejected") {
-          var responseaccept = await fetchApiData(
+          responseaccept = await fetchApiData(
             `admin/applications/accept-manage/${payload.id}`
           );
         }

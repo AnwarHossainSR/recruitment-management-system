@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { useState, useEffect } from "react";
 import Sidebar from "../../navigation/sidebar/Sidebar";
 import Header from "../../navigation/navbar/Hedaer";
 import Loader from "../../../../services/Loader";
@@ -16,7 +15,6 @@ import CategoryManageApplicationItem from "./CategoryManageApplicationItem";
 const CategoryManageApplication = (props) => {
   const [loader, setloader] = useState(true);
   const dispatch = useDispatch();
-  const location = useLocation();
   const { categories, catPageNumber } = useSelector(
     (state) => state.application
   );

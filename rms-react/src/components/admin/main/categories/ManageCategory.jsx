@@ -3,14 +3,47 @@ import { Link } from "react-router-dom";
 import Sidebar from "../../navigation/sidebar/Sidebar";
 import Header from "../../navigation/navbar/Hedaer";
 import Loader from "../../../../services/Loader";
+import ManageCategoryItem from "./ManageCategoryItem";
+import { fetchApiData } from "../../../../api/ApiCall";
+import ReactPaginate from "react-paginate";
+import { useDispatch, useSelector } from "react-redux";
+
+import {
+  handleCategories,
+  handlePageClick,
+  handleDeleteCat,
+} from "../../../../redux/CategoriesSlice";
 
 const ManageCategory = (props) => {
+  const dispatch = useDispatch();
   const [loader, setloader] = useState(true);
+  const { categories, pageNumber } = useSelector((state) => state.category);
+  const fetchData = async () => {
+    const response = await fetchApiData(`categories?page=${pageNumber}`);
+    if (response.status === true) {
+      dispatch(handleCategories(response.data.categories));
+    } else {
+      console.log(response);
+    }
+  };
   useEffect(() => {
     setTimeout(() => {
       setloader(false);
     }, 1000);
-  }, [loader]);
+    fetchData();
+  }, [props]);
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const pageClick = (data) => {
+    dispatch(handlePageClick(data.selected + 1));
+    fetchData();
+  };
+  const handleDelete = (id) => {
+    dispatch(handleDeleteCat(id));
+    fetchData();
+  };
   return (
     <>
       <div className="admin-container">
@@ -31,33 +64,32 @@ const ManageCategory = (props) => {
                   </div>
                 </div>
                 <div className="table-wrap">
-                  <table className="table">
-                    <tbody>
-                      <tr className="alert">
-                        <td>
-                          <div className="outer-div">
-                            <h3>Web</h3>
-                          </div>
-                        </td>
-                        <td>
-                          <span className="status">Running</span>
-                        </td>
-                        <td>
-                          <span>23rd sep,21 - 23rd dec,21</span>
-                        </td>
-                        <td>
-                          <div className="action">
-                            <span className="action-edit">
-                              <i className="fa fa-edit" />
-                            </span>
-                            <span className="action-button close">
-                              <i className="fa fa-close" />
-                            </span>
-                          </div>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
+                  {categories.data &&
+                    categories.data.map((cat, i) => (
+                      <ManageCategoryItem
+                        key={i}
+                        id={cat.id}
+                        name={cat.name}
+                        status={cat.status}
+                        icon={cat.icon}
+                        start={cat.period_start}
+                        end={cat.period_end}
+                        handleDelete={handleDelete}
+                      />
+                    ))}
+                </div>
+                <div className="paginate flex content-center">
+                  <ReactPaginate
+                    previousLabel={"<<"}
+                    nextLabel={">>"}
+                    breakLabel={"..."}
+                    pageCount={categories.last_page}
+                    marginPagesDisplayed={2}
+                    pageRangeDisplayed={categories.last_page}
+                    onPageChange={pageClick}
+                    containerClassName={"pagination"}
+                    activeClassName={"active"}
+                  />
                 </div>
               </div>
             </div>

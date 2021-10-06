@@ -1,10 +1,21 @@
-import React from "react";
+import { useState, useEffect } from "react";
 import "./Sidebar.scss";
 import Logo from "../../assets/BJIT.png";
 import { Link, NavLink } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { logOut } from "../../../../redux/LoginSlice";
 
 const Sidebar = (props) => {
   const sidebarOpen = true;
+  const [isAuthenticated, setAuthenticated] = useState(
+    localStorage.getItem("token")
+  );
+  const dispatch = useDispatch();
+  const loggedOutHandler = () => {
+    dispatch(logOut());
+    setAuthenticated("");
+  };
+  useEffect(() => {}, [isAuthenticated]);
   return (
     <div className={sidebarOpen ? "sidebar-responsive" : ""} id="sidebar">
       <div className="sidebar__title">
@@ -84,7 +95,9 @@ const Sidebar = (props) => {
         </div>
         <div className="sidebar__logout">
           <i className="fa fa-power-off" />
-          <Link to="#">Log out</Link>
+          <Link to="" onClick={loggedOutHandler}>
+            Log out
+          </Link>
         </div>
         {/* <h2>PAYROLL</h2>
         <div className="sidebar__link">

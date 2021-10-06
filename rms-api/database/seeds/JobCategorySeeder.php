@@ -11,6 +11,6 @@ class JobCategorySeeder extends Seeder
      */
     public function run()
     {
-        factory(App\JobCategory::class, 8)->create();
+        factory(App\JobCategory::class, 15)->create();
     }
 }
