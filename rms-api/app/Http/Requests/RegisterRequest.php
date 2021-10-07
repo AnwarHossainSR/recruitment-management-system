@@ -36,6 +36,6 @@ class RegisterRequest extends FormRequest
     }
     protected function failedValidation(Validator $validator)
     {
-        throw new HttpResponseException($this->apiResponse('Login errors', null, Response::HTTP_UNPROCESSABLE_ENTITY, false, $validator->errors()));
+        throw new HttpResponseException($this->apiResponse('validation errors', null, Response::HTTP_UNPROCESSABLE_ENTITY, false, $validator->errors()));
     }
 }

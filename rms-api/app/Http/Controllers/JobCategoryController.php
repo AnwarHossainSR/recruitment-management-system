@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CategoryFormRequest;
 use App\JobCategory;
 use App\Traits\ApiResponseWithHttpStatus;
 use Exception;
@@ -35,28 +36,27 @@ class JobCategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CategoryFormRequest $request)
     {
         try {
             if ($request->hasFile('icon')) {
                 $image = $request->file('icon');
                 $imageName = time() . '.' . $image->extension();
-                $image->move(public_path('images/icons'), $imageName);
+                $image->move(public_path('files/categories'), $imageName);
             } else {
                 $imageName = "default.jpg";
             }
             JobCategory::create([
                 'name' => $request->name,
                 'slug' => Str::slug($request->name),
-                'icon' => $imageName,
+                'status' => $request->status,
+                'period_start' => $request->period_start,
+                'period_end' => $request->period_end,
+                'icon' => 'http://localhost:8000/files/categories/' . $imageName,
             ]);
-            return \response([
-                'message' => 'success'
-            ], 201);
+            return $this->apiResponse('created !', null, Response::HTTP_CREATED, true);
         } catch (Exception $th) {
-            return \response([
-                'message' => $th->getMessage(),
-            ], 400);
+            return $this->apiResponse($th->getMessage(), null, Response::HTTP_CONFLICT, false);
         }
     }
 
@@ -101,12 +101,9 @@ class JobCategoryController extends Controller
             $category->slug = Str::slug($request->name);
             $category->icon = $imageName;
             $category->save();
-            return \response([
-                'message' => 'success',
-                'category' => $category
-            ]);
+            return $this->apiResponse('updated !', null, Response::HTTP_OK, true);
         } catch (\Exception $th) {
-            return \response(['message' => $th->getMessage()]);
+            return $this->apiResponse($th->getMessage(), null, Response::HTTP_CONFLICT, false);
         }
     }
 
@@ -118,7 +115,18 @@ class JobCategoryController extends Controller
      */
     public function destroy($jobCategory)
     {
-        JobCategory::findOrFail($jobCategory)->delete();
-        return $this->apiResponse('deleted !', null, Response::HTTP_OK, true);
+        $job = JobCategory::findOrFail($jobCategory);
+        $array = explode("/", $job->icon);
+        $photo = last($array);
+        $existPhoto = '/files/categories/' . $photo;
+        $path = str_replace('\\', '/', public_path());
+        if ($photo != "default.png" && $photo != "default1.png" && $photo != "default2.png" && $photo != "default3.png") {
+            if (file_exists($path . $existPhoto)) {
+                \unlink($path . $existPhoto);
+            }
+        }
+        if ($job->delete()) {
+            return $this->apiResponse('deleted !', null, Response::HTTP_OK, true);
+        }
     }
 }

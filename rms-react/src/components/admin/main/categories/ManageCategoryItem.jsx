@@ -26,6 +26,9 @@ const ManageCategoryItem = ({
               {start} - {end}
             </span>
           </td>
+          <td className="img">
+            <img src={icon} alt="cat icon" width="50px" height="50px" />
+          </td>
           <td>
             <div className="action">
               <span className="action-edit">

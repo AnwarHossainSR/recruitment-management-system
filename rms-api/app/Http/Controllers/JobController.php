@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\JobFormRequest;
 use App\Job;
 use App\JobCategory;
 use App\MainJob;
@@ -38,7 +39,7 @@ class JobController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(JobFormRequest $request)
     {
         try {
             if ($request->hasFile('icon')) {

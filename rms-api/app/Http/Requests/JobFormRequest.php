@@ -8,9 +8,10 @@ use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Symfony\Component\HttpFoundation\Response;
 
-class LoginRequest extends FormRequest
+class JobFormRequest extends FormRequest
 {
     use ApiResponseWithHttpStatus;
+
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -29,15 +30,17 @@ class LoginRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => 'required|email',
-            'password' => [
-                'required',
-                'min:6',
-                'max:30'
-            ],
+            'title' => 'required',
+            'company' => 'required|email',
+            'location' => 'required',
+            'email' => 'required',
+            'salary' => 'required',
+            'close_date' => 'required',
+            'cat_id' => 'required',
+            'type' => 'required',
+            'description' => 'required'
         ];
     }
-
     protected function failedValidation(Validator $validator)
     {
         throw new HttpResponseException($this->apiResponse('validation errors', null, Response::HTTP_UNPROCESSABLE_ENTITY, false, $validator->errors()));
