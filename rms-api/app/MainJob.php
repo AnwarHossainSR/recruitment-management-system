@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
 class MainJob extends Model
 {
@@ -28,5 +29,10 @@ class MainJob extends Model
         }
 
         return $existData;
+    }
+    //accessor
+    public function getCloseDateAttribute($date)
+    {
+        return Carbon::createFromFormat('Y-m-d H:i:s', $date)->format('Y-m-d');
     }
 }

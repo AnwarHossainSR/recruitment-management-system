@@ -42,6 +42,7 @@ class JobController extends Controller
     public function store(JobFormRequest $request)
     {
         try {
+            //return $request;
             if ($request->hasFile('icon')) {
                 $file = $request->file('icon');
                 $fileName = time() . '.' . $file->extension();
@@ -72,7 +73,7 @@ class JobController extends Controller
                 ]);
             }
 
-            return $this->apiResponse('success', $response, Response::HTTP_CREATED, true);
+            return $this->apiResponse('success', null, Response::HTTP_CREATED, true);
         } catch (\Throwable $th) {
             return $this->apiResponse($th->getMessage(), null, Response::HTTP_CREATED, true);
         }
@@ -84,9 +85,10 @@ class JobController extends Controller
      * @param  \App\MainJob  $job
      * @return \Illuminate\Http\Response
      */
-    public function show(MainJob $job)
+    public function show($slug)
     {
-        //
+        $data = MainJob::where('slug', $slug)->get();
+        return $this->apiResponse('success', $data, Response::HTTP_CREATED, true);
     }
 
     /**
@@ -107,9 +109,23 @@ class JobController extends Controller
      * @param  \App\MainJob  $job
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, MainJob $job)
+    public function update(Request $request, $id)
     {
-        //
+        try {
+            $job = MainJob::find($id);
+            if ($request->hasFile('icon')) {
+                $image = $request->file('icon');
+                $imageName = time() . '.' . $image->extension();
+                $image->move(public_path('files/jobs'), $imageName);
+                $job->update($request->all());
+                $job->update(['icon' => 'http://localhost:8000/files/jobs/' . $imageName]);
+            } else {
+                $job->update($request->all());
+            }
+            return $this->apiResponse('updated !', null, Response::HTTP_OK, true);
+        } catch (\Exception $th) {
+            return $this->apiResponse($th->getMessage(), null, Response::HTTP_EXPECTATION_FAILED, false);
+        }
     }
 
     /**

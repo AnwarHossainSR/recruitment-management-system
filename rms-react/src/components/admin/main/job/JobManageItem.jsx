@@ -1,6 +1,7 @@
 import React from "react";
 import { deleteApiData } from "../../../../api/ApiCall";
 import Swal from "sweetalert2";
+import { Link } from "react-router-dom";
 
 const JobManageItem = ({ slug, id, title, location, type, icon }) => {
   const jobDelete = (id) => {
@@ -62,9 +63,9 @@ const JobManageItem = ({ slug, id, title, location, type, icon }) => {
       </td>
       <td>
         <div className="action">
-          <span aria-hidden="true">
+          <Link to={`/admin/edit-job/${slug}`} aria-hidden="true">
             <i className="fa fa-edit" />
-          </span>
+          </Link>
           <span aria-hidden="true" className="action-button close">
             <i className="fa fa-close" onClick={() => jobDelete(id)} />
           </span>

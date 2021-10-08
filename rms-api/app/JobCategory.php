@@ -3,11 +3,12 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
 class JobCategory extends Model
 {
     protected $fillable = [
-        'name', 'slug', 'icon', 'job_count', 'period_start', 'period_end',
+        'name', 'slug', 'icon', 'status', 'job_count', 'period_start', 'period_end',
     ];
     public function jobs()
     {
@@ -16,5 +17,16 @@ class JobCategory extends Model
     public function applications()
     {
         return $this->belongsToMany('App\Application')->withTimestamps();
+    }
+
+
+    //accessor
+    public function getPeriodStartAttribute($date)
+    {
+        return Carbon::createFromFormat('Y-m-d H:i:s', $date)->format('Y-m-d');
+    }
+    public function getPeriodEndAttribute($date)
+    {
+        return Carbon::createFromFormat('Y-m-d H:i:s', $date)->format('Y-m-d');
     }
 }

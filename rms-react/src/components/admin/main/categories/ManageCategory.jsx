@@ -70,6 +70,7 @@ const ManageCategory = (props) => {
                       <ManageCategoryItem
                         key={i}
                         id={cat.id}
+                        slug={cat.slug}
                         name={cat.name}
                         status={cat.status}
                         icon={cat.icon}

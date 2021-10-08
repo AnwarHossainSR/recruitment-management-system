@@ -25,7 +25,7 @@ class JobCategoryController extends Controller
      */
     public function index()
     {
-        $data['categories'] = JobCategory::where('status', 'active')->latest()->paginate(8);
+        $data['categories'] = JobCategory::latest()->paginate(8);
         return $this->apiResponse('success', $data, Response::HTTP_OK, true);
     }
 
@@ -66,17 +66,14 @@ class JobCategoryController extends Controller
      * @param  \App\JobCategory  $jobCategory
      * @return \Illuminate\Http\Response
      */
-    public function show(JobCategory $jobCategory)
+    public function show($slug)
     {
-        // try {
-        //     $category = JobCategory::where([['slug', $slug]])->first();
-        //     return \response([
-        //         'message' => 'success',
-        //         'category' => $category
-        //     ]);
-        // } catch (\Exception $th) {
-        //     return \response(['message' => $th->getMessage()]);
-        // }
+        try {
+            $data['category'] = JobCategory::where([['slug', $slug]])->first();
+            return $this->apiResponse('success !', $data, Response::HTTP_OK, true);
+        } catch (\Exception $th) {
+            return $this->apiResponse($th->getMessage(), null, Response::HTTP_CONFLICT, false);
+        }
     }
 
     /**
@@ -86,24 +83,22 @@ class JobCategoryController extends Controller
      * @param  \App\JobCategory  $jobCategory
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $JobCategory)
     {
         try {
-            $category = JobCategory::find($id);
+            $category = JobCategory::find($JobCategory);
             if ($request->hasFile('icon')) {
                 $image = $request->file('icon');
                 $imageName = time() . '.' . $image->extension();
-                $image->move(public_path('images/icons'), $imageName);
+                $image->move(public_path('files/categories'), $imageName);
+                $category->update($request->all());
+                $category->update(['icon' => 'http://localhost:8000/files/categories/' . $imageName]);
             } else {
-                $imageName = $category->icon;
+                $category->update($request->all());
             }
-            $category->name = $request->name;
-            $category->slug = Str::slug($request->name);
-            $category->icon = $imageName;
-            $category->save();
             return $this->apiResponse('updated !', null, Response::HTTP_OK, true);
         } catch (\Exception $th) {
-            return $this->apiResponse($th->getMessage(), null, Response::HTTP_CONFLICT, false);
+            return $this->apiResponse($th->getMessage(), null, Response::HTTP_EXPECTATION_FAILED, false);
         }
     }
 

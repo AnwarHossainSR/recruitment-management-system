@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import JobFeatured from "./JobFeatured";
 import JobModal from "./modal/JobModal";
+import ReactHtmlParser from "html-react-parser";
 
 const JobDetailsItem = ({ job, similar }) => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -14,7 +15,7 @@ const JobDetailsItem = ({ job, similar }) => {
               <JobModal jobId={job.id} setOpenModal={setModalOpen} />
             )}
             <h1>Job Description</h1>
-            <p>{job && job.description}</p>
+            <div>{job && ReactHtmlParser(job.description)}</div>
             <Link
               to="/"
               className="button"

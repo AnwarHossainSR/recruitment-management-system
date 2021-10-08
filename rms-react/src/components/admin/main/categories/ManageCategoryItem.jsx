@@ -1,9 +1,11 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const ManageCategoryItem = ({
   id,
   name,
   icon,
+  slug,
   status,
   start,
   end,
@@ -31,9 +33,12 @@ const ManageCategoryItem = ({
           </td>
           <td>
             <div className="action">
-              <span className="action-edit">
+              <Link
+                to={`/admin/edit-categories/${slug}`}
+                className="action-edit"
+              >
                 <i className="fa fa-edit" />
-              </span>
+              </Link>
               <span
                 className="action-button close"
                 onClick={() => handleDelete(id)}

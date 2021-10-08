@@ -6,6 +6,7 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateJobCategoriesTable extends Migration
 {
+    //dt->toFormattedDateString()
     /**
      * Run the migrations.
      *

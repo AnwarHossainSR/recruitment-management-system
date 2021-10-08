@@ -23,7 +23,7 @@ class CreateMainJobsTable extends Migration
             $table->string('email');
             $table->string('tag')->nullable();
             $table->float('salary', 10, 2)->default(0.00);
-            $table->date('close_date')->default(now());
+            $table->timestamp('close_date')->default(now());
             $table->unsignedBigInteger('cat_id')->nullable();
             $table->unsignedBigInteger('user_id')->nullable();
             $table->string('icon')->default('http://localhost:8000/images/icons/default.png');

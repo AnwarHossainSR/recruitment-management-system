@@ -106,6 +106,7 @@ const addJobSlice = createSlice({
     },
     errorChangeHandler(state, { payload }) {
       state.errorMessage = payload.val;
+      notify(payload.val, "error");
     },
     checkForm(state) {
       if (
@@ -139,6 +140,10 @@ const addJobSlice = createSlice({
         return;
       }
     },
+    success(state, { payload }) {
+      state.data = {};
+      notify(payload.val, "success");
+    },
   },
 });
 
@@ -157,6 +162,7 @@ export const {
   catHandleChange,
   errorChangeHandler,
   checkForm,
+  success,
 } = addJobSlice.actions;
 
 export default addJobSlice.reducer;

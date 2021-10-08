@@ -22,6 +22,8 @@ import ProtectedRoute from "./services/ProtectedRoute";
 import ForgotPassword from "./components/user/pages/Authentication/ForgotPassword";
 import ChangePassword from "./components/user/pages/Authentication/ChangePassword";
 import CategoryManageApplication from "./components/admin/main/applications/CategoryManageApplication";
+import EditCategory from "./components/admin/main/categories/EditCategory";
+import EditJob from "./components/admin/main/job/EditJob";
 
 const App = () => {
   return (
@@ -60,6 +62,12 @@ const App = () => {
           exact
           path="/admin/add-job"
           component={AddJob}
+          cmp="editjob"
+        />
+        <ProtectedRoute
+          exact
+          path="/admin/edit-job/:slug"
+          component={EditJob}
           cmp="addjob"
         />
 
@@ -100,6 +108,12 @@ const App = () => {
           path="/admin/add-categories"
           component={AddCategory}
         />
+        <ProtectedRoute
+          exact
+          path="/admin/edit-categories/:slug"
+          component={EditCategory}
+        />
+        {/* endCategory */}
         <ProtectedRoute
           exact
           path="/admin/manage-training"

@@ -5,7 +5,6 @@ import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import "./JobManage.scss";
 import Loader from "../../../../services/Loader";
-import { notify } from "../../../../services/Notification";
 import { fetchApiData, storeApiData } from "../../../../api/ApiCall";
 import {
   titleChangeHandler,
@@ -18,64 +17,79 @@ import {
   typeChangeHandler,
   catHandleChange,
   errorChangeHandler,
-  checkForm,
+  success,
 } from "../../../../redux/AddJobSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router";
+import { useHistory, useParams } from "react-router";
 
-const AddJob = (props) => {
+const EditJob = (props) => {
   const [loader, setloader] = useState(true);
   const dispatch = useDispatch();
   const histry = useHistory();
-  const [file, setfile] = useState("");
+  const { slug } = useParams();
+  const [file, setfile] = useState(null);
   const [description, setdescription] = useState("");
   const [categories, setCategories] = useState([]);
-  const {
-    formisValid,
-    errorTitle,
-    errorCompany,
-    errorLocation,
-    errorUrl,
-    errorDate,
-    errorDescription,
-    errorMessage,
-    errorSalary,
-    data,
-  } = useSelector((state) => state.addJob);
+  const [job, setJob] = useState([]);
+  const { errorMessage, data } = useSelector((state) => state.addJob);
   useEffect(() => {
     const fetchData = async () => {
       const response = await fetchApiData(`jobs`);
       setCategories(response.data.categories);
+      const jobResponse = await fetchApiData(`jobs/${slug}`);
+      setJob(jobResponse.data[0]);
     };
     fetchData();
     setTimeout(() => {
       setloader(false);
     }, 1000);
     return () => {};
-  }, []);
+  }, [slug]);
   const onChangeDescription = (e, editor) => {
-    const data = editor.getData();
-    setdescription(data);
+    const desData = editor.getData();
+    setdescription(desData);
   };
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(checkForm());
-    if (formisValid) {
-      const formData = new FormData();
+    const formData = new FormData();
+    formData.append("_method", "PUT");
+    if (data.title) {
       formData.append("title", data.title);
+    }
+    if (data.company) {
       formData.append("company", data.company);
+    }
+    if (data.location) {
       formData.append("location", data.location);
+    }
+    if (data.email) {
       formData.append("email", data.email);
+    }
+    if (file !== null) {
       formData.append("icon", file);
+    }
+    if (data.type) {
       formData.append("type", data.type);
+    }
+    if (data.salary) {
       formData.append("salary", data.salary);
+    }
+    if (description !== "") {
       formData.append("description", description);
+    }
+    if (data.close_date) {
       formData.append("close_date", data.close_date);
+    }
+    if (data.tag) {
       formData.append("tag", data.tag);
+    }
+    if (data.cat_id) {
       formData.append("cat_id", data.cat_id);
-      const response = await storeApiData("jobs", formData);
+    }
+    const update = async (fFata) => {
+      console.log(data);
+      const response = await storeApiData(`jobs/${job.id}`, fFata);
       if (response.status === false) {
-        console.log(response);
         dispatch(
           errorChangeHandler({
             type: "error",
@@ -83,11 +97,14 @@ const AddJob = (props) => {
           })
         );
       } else {
-        notify("Job created successfully !", "success");
+        console.log(data);
+        dispatch(success({ val: response.message }));
         histry.push("/admin/manage-job");
       }
-    }
+    };
+    update(formData);
   };
+
   return (
     <>
       <div className="admin-container">
@@ -111,6 +128,7 @@ const AddJob = (props) => {
                         <input
                           type="text"
                           className="form-control"
+                          defaultValue={job.title}
                           onChange={(e) =>
                             dispatch(
                               titleChangeHandler({
@@ -121,7 +139,6 @@ const AddJob = (props) => {
                           }
                           placeholder="write job title"
                         />
-                        {errorTitle && <p className="error">{errorTitle}</p>}
                       </div>
 
                       <div className="input-row">
@@ -129,6 +146,7 @@ const AddJob = (props) => {
                         <input
                           type="text"
                           className="form-control"
+                          defaultValue={job.company}
                           onChange={(e) =>
                             dispatch(
                               companyChangeHandler({
@@ -139,9 +157,6 @@ const AddJob = (props) => {
                           }
                           placeholder="write company name"
                         />
-                        {errorCompany && (
-                          <p className="error">{errorCompany}</p>
-                        )}
                       </div>
                     </div>
                     <div className="flex">
@@ -150,6 +165,7 @@ const AddJob = (props) => {
                         <input
                           type="text"
                           className="form-control"
+                          defaultValue={job.location}
                           onChange={(e) =>
                             dispatch(
                               locationChangeHandler({
@@ -160,15 +176,13 @@ const AddJob = (props) => {
                           }
                           placeholder="write location name"
                         />
-                        {errorLocation && (
-                          <p className="error">{errorLocation}</p>
-                        )}
                       </div>
                       <div className="input-row">
                         <p className="title"> Application email / URL </p>
                         <input
                           type="text"
                           className="form-control"
+                          defaultValue={job.email}
                           onChange={(e) =>
                             dispatch(
                               urlChangeHandler({
@@ -179,7 +193,6 @@ const AddJob = (props) => {
                           }
                           placeholder="write email or website url"
                         />
-                        {errorUrl && <p className="error">{errorUrl}</p>}
                       </div>
                     </div>
                     <div className="flex">
@@ -188,6 +201,7 @@ const AddJob = (props) => {
                         <input
                           type="text"
                           className="form-control"
+                          defaultValue={job.tag}
                           onChange={(e) =>
                             dispatch(
                               tagChangeHandler({
@@ -204,6 +218,7 @@ const AddJob = (props) => {
                         <input
                           type="date"
                           className="form-control"
+                          defaultValue={job.close_date}
                           onChange={(e) =>
                             dispatch(
                               dateChangeHandler({
@@ -213,7 +228,6 @@ const AddJob = (props) => {
                             )
                           }
                         />
-                        {errorDate && <p className="error">{errorDate}</p>}
                       </div>
                     </div>
                     <div className="flex">
@@ -222,6 +236,7 @@ const AddJob = (props) => {
                         <select
                           className="form-control"
                           name="category"
+                          defaultValue={job.cat_id}
                           onChange={(e) =>
                             dispatch(
                               catHandleChange({
@@ -253,6 +268,7 @@ const AddJob = (props) => {
                         <p className="title"> Salary </p>
                         <input
                           type="number"
+                          defaultValue={job.salary}
                           onChange={(e) =>
                             dispatch(
                               salaryChangeHandler({
@@ -263,13 +279,13 @@ const AddJob = (props) => {
                           }
                           className="form-control"
                         />
-                        {errorSalary && <p className="error">{errorSalary}</p>}
                       </div>
                       <div className="input-row">
                         <p className="title"> Type </p>
                         <select
                           className="form-control"
                           name="type"
+                          defaultValue={job.type}
                           onChange={(e) =>
                             dispatch(
                               typeChangeHandler({
@@ -288,12 +304,11 @@ const AddJob = (props) => {
                     <div className="flex">
                       <div className="input-row">
                         <p className="title"> Description </p>
-                        {errorDescription && (
-                          <p className="red">{errorDescription}</p>
-                        )}
+
                         <CKEditor
                           editor={ClassicEditor}
                           onChange={onChangeDescription}
+                          data={job.description}
                         />
                       </div>
                     </div>
@@ -313,4 +328,4 @@ const AddJob = (props) => {
   );
 };
 
-export default AddJob;
+export default EditJob;

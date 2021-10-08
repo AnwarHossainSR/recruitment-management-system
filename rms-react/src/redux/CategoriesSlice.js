@@ -92,6 +92,10 @@ const CategoriesSlice = createSlice({
         return;
       }
     },
+    success(state, { payload }) {
+      state.data = {};
+      notify(payload.val, "success");
+    },
   },
 });
 
@@ -105,6 +109,7 @@ export const {
   statusChangeHandler,
   startChangeHandler,
   endChangeHandler,
+  success,
 } = CategoriesSlice.actions;
 
 export default CategoriesSlice.reducer;

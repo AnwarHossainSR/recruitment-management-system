@@ -2,62 +2,74 @@ import React, { useState, useEffect } from "react";
 import Sidebar from "../../navigation/sidebar/Sidebar";
 import Header from "../../navigation/navbar/Hedaer";
 import Loader from "../../../../services/Loader";
-import {
-  nameChangeHandler,
-  checkForm,
-  errorChangeHandler,
-  statusChangeHandler,
-  startChangeHandler,
-  endChangeHandler,
-  success,
-} from "../../../../redux/CategoriesSlice";
-import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router";
-import { storeApiData } from "../../../../api/ApiCall";
+import { success, errorChangeHandler } from "../../../../redux/CategoriesSlice";
+import { useDispatch } from "react-redux";
+import { useHistory, useParams } from "react-router";
+import { fetchApiData, storeApiData } from "../../../../api/ApiCall";
 
-const AddCategory = (props) => {
+const EditCategory = (props) => {
   const [loader, setloader] = useState(true);
   const histry = useHistory();
+  const { slug } = useParams();
   const dispatch = useDispatch();
-  const { formisValid, errorName, data } = useSelector(
-    (state) => state.category
-  );
+
+  const [category, setCategory] = useState(null);
+  const [name, setname] = useState(category && category.name);
+  const [status, setstatus] = useState(category && category.status);
+  const [start, setstart] = useState(category && category.period_start);
+  const [end, setend] = useState(category && category.period_end);
   const [file, setfile] = useState(null);
+
   useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetchApiData(`categories/${slug}`);
+      if (response.status === true) {
+        setCategory(response.data.category);
+      }
+    };
     setTimeout(() => {
       setloader(false);
     }, 1000);
-  }, [loader]);
+    fetchData();
+  }, [loader, slug]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(checkForm());
-    if (formisValid) {
-      const formData = new FormData();
-      formData.append("name", data.name);
-      formData.append("status", data.status);
-      formData.append("period_start", data.period_start);
-      formData.append("period_end", data.period_end);
-      formData.append("icon", file);
-
-      const store = async (data) => {
-        const response = await storeApiData("categories", data);
-        if (response.status === false) {
-          dispatch(
-            errorChangeHandler({
-              type: "error",
-              val: response.message,
-            })
-          );
-        } else {
-          dispatch(success({ val: response.message }));
-          histry.push("/admin/manage-categories");
-        }
-      };
-      store(formData);
+    const formData = new FormData();
+    formData.append("_method", "PUT");
+    if (name !== null) {
+      formData.append("name", name);
     }
+    if (status !== null) {
+      formData.append("status", status);
+    }
+    if (start !== null) {
+      formData.append("period_start", start);
+    }
+    if (end !== null) {
+      formData.append("period_end", end);
+    }
+    if (file !== null) {
+      formData.append("icon", file);
+    }
+    const update = async (data) => {
+      const response = await storeApiData(`categories/${category.id}`, data);
+      console.log(response);
+      if (response.status === false) {
+        dispatch(
+          errorChangeHandler({
+            type: "error",
+            val: response.message,
+          })
+        );
+      } else {
+        dispatch(success({ val: response.message }));
+        histry.push("/admin/manage-categories");
+      }
+    };
+    update(formData);
   };
-  console.log(data);
+
   return (
     <>
       <div className="admin-container">
@@ -75,16 +87,9 @@ const AddCategory = (props) => {
                         <input
                           type="text"
                           className="form-control"
-                          placeholder="write category name"
-                          onChange={(e) =>
-                            dispatch(
-                              nameChangeHandler({
-                                val: e.target.value,
-                              })
-                            )
-                          }
+                          defaultValue={category.name}
+                          onChange={(e) => setname(e.target.value)}
                         />
-                        {errorName && <p className="error">{errorName}</p>}
                       </div>
 
                       <div className="input-row flex-item">
@@ -92,14 +97,8 @@ const AddCategory = (props) => {
                         <select
                           name="status"
                           className="form-control"
-                          onChange={(e) =>
-                            dispatch(
-                              statusChangeHandler({
-                                val: e.target.value,
-                              })
-                            )
-                          }
-                          defaultValue="active"
+                          onChange={(e) => setstatus(e.target.value)}
+                          defaultValue={category.status}
                         >
                           <option value="active">Active</option>
                           <option value="running">Running</option>
@@ -114,13 +113,8 @@ const AddCategory = (props) => {
                           type="date"
                           className="form-control"
                           required
-                          onChange={(e) =>
-                            dispatch(
-                              startChangeHandler({
-                                val: e.target.value,
-                              })
-                            )
-                          }
+                          defaultValue={category.period_start}
+                          onChange={(e) => setstart(e.target.value)}
                         />
                       </div>
 
@@ -130,13 +124,8 @@ const AddCategory = (props) => {
                           type="date"
                           className="form-control"
                           required
-                          onChange={(e) =>
-                            dispatch(
-                              endChangeHandler({
-                                val: e.target.value,
-                              })
-                            )
-                          }
+                          defaultValue={category.period_end}
+                          onChange={(e) => setend(e.target.value)}
                         />
                       </div>
                     </div>
@@ -149,9 +138,17 @@ const AddCategory = (props) => {
                           onChange={(e) => setfile(e.target.files[0])}
                         />
                       </div>
+                      <div className="input-row flex-item">
+                        <img
+                          src={category.icon}
+                          width="150px"
+                          height="150px"
+                          alt="icon"
+                        />
+                      </div>
                     </div>
                     <div className="input-row">
-                      <button className="button">Add Category</button>
+                      <button className="button">Update Category</button>
                     </div>
                   </form>
                 </div>
@@ -165,4 +162,4 @@ const AddCategory = (props) => {
     </>
   );
 };
-export default AddCategory;
+export default EditCategory;

@@ -31,7 +31,7 @@ class JobFormRequest extends FormRequest
     {
         return [
             'title' => 'required',
-            'company' => 'required|email',
+            'company' => 'required',
             'location' => 'required',
             'email' => 'required',
             'salary' => 'required',
