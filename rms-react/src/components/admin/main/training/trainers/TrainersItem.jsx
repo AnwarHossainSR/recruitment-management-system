@@ -1,10 +1,8 @@
-import { useEffect } from "react";
-import { deleteApiData } from "../../../../api/ApiCall";
-import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
+import { deleteApiData } from "../../../../../api/ApiCall";
 
-const JobManageItem = ({ slug, id, title, location, type, icon }) => {
-  useEffect(() => {}, []);
+const TrainersItem = ({ id, status, category, user }) => {
   const jobDelete = (id) => {
     Swal.fire({
       title: "Are you sure?",
@@ -16,7 +14,7 @@ const JobManageItem = ({ slug, id, title, location, type, icon }) => {
     }).then((result) => {
       if (result.isConfirmed) {
         const callFun = async () => {
-          const response = await deleteApiData(`jobs/${id}`);
+          const response = await deleteApiData(`trainers/${id}`);
           if (response.status === true) {
             Swal.fire({
               position: "top-end",
@@ -43,32 +41,28 @@ const JobManageItem = ({ slug, id, title, location, type, icon }) => {
   return (
     <tr className="alert">
       <td>
-        <label className="checkbox-wrap checkbox-primary">
-          <input type="checkbox" defaultChecked />
-          <span className="checkmark" />
-        </label>
-      </td>
-      <td>
         <div className="outer-div">
-          <h3>{title}</h3>
-          <p>Dhaka, Bangladesh</p>
+          <h3>{user.name}</h3>
+          <p>{category.name + " trainer"}</p>
         </div>
       </td>
       <td>
-        <span className={type === "full time" ? "status" : "status-half-time"}>
-          {type}
-        </span>
+        <span>{category.period_start + " to " + category.period_end}</span>
       </td>
-      <td className="img">
-        <img src={icon} alt="job icon" />
+      <td>
+        <span className="status">{status}</span>
       </td>
       <td>
         <div className="action">
-          <Link to={`/admin/edit-job/${slug}`} aria-hidden="true">
+          <Link to={`manage-trainers/${id}/edit`} aria-hidden="true">
             <i className="fa fa-edit" />
           </Link>
-          <span aria-hidden="true" className="action-button close">
-            <i className="fa fa-close" onClick={() => jobDelete(id)} />
+          <span
+            aria-hidden="true"
+            className="action-button close"
+            onClick={() => jobDelete(id)}
+          >
+            <i className="fa fa-close" />
           </span>
         </div>
       </td>
@@ -76,4 +70,4 @@ const JobManageItem = ({ slug, id, title, location, type, icon }) => {
   );
 };
 
-export default JobManageItem;
+export default TrainersItem;

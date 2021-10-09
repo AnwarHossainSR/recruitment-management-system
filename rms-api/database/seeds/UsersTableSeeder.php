@@ -23,6 +23,36 @@ class UsersTableSeeder extends Seeder
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
         ]);
-        factory(App\User::class, 10)->create();
+        DB::table('users')->insert([
+            'name' => "Nani Gopal",
+            'email' => 'nani@gmail.com',
+            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'is_admin' => true,
+            'image' => 'default.png',
+            'status' => 'active',
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now()
+        ]);
+        DB::table('users')->insert([
+            'name' => "Shamsus Salehin",
+            'email' => 'salehin@gmail.com',
+            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'is_admin' => true,
+            'image' => 'default.png',
+            'status' => 'active',
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now()
+        ]);
+        DB::table('users')->insert([
+            'name' => "Mahbub Hossain",
+            'email' => 'mahbub@gmail.com',
+            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'is_admin' => true,
+            'image' => 'default.png',
+            'status' => 'active',
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now()
+        ]);
+        factory(App\User::class, 5)->create();
     }
 }

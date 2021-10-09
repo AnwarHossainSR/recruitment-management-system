@@ -29,6 +29,7 @@ Route::middleware(['cors'])->group(function () {
         'home' => 'HomeController',
         'categories' => 'JobCategoryController',
         'jobs' => 'JobController',
-        'applications' => 'ApplicationController'
+        'applications' => 'ApplicationController',
+        'trainers' => 'TrainerController'
     ]);
 });

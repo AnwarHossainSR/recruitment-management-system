@@ -15,7 +15,7 @@ import ManageApplication from "./components/admin/main/applications/ManageApplic
 import ManageCategory from "./components/admin/main/categories/ManageCategory";
 import AddCategory from "./components/admin/main/categories/AddCategory";
 import ManageTraining from "./components/admin/main/training/ManageTraining";
-import ManageTrainers from "./components/admin/main/training/ManageTrainers";
+import ManageTrainers from "./components/admin/main/training/trainers/ManageTrainers";
 import TrainDetails from "./components/admin/main/training/TrainDetails";
 import SearchJob from "./components/user/pages/JobPage/SearchJob";
 import ProtectedRoute from "./services/ProtectedRoute";
@@ -24,6 +24,7 @@ import ChangePassword from "./components/user/pages/Authentication/ChangePasswor
 import CategoryManageApplication from "./components/admin/main/applications/CategoryManageApplication";
 import EditCategory from "./components/admin/main/categories/EditCategory";
 import EditJob from "./components/admin/main/job/EditJob";
+import AddTrainer from "./components/admin/main/training/trainers/AddTrainer";
 
 const App = () => {
   return (
@@ -125,10 +126,16 @@ const App = () => {
           component={TrainDetails}
           cmp="train"
         />
+        {/* trainers */}
         <ProtectedRoute
           exact
           path="/admin/manage-trainers"
           component={ManageTrainers}
+        />
+        <ProtectedRoute
+          exact
+          path="/admin/manage-trainers/add-trainer"
+          component={AddTrainer}
         />
         <Route path="*">
           <NotFound hero="Not Found" />

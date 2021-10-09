@@ -6,6 +6,7 @@ import Loader from "../../../../services/Loader";
 import { fetchApiData } from "../../../../api/ApiCall";
 import ReactPaginate from "react-paginate";
 import JobManageItem from "./JobManageItem";
+import { notify } from "../../../../services/Notification";
 
 const JobManage = (props) => {
   const [loader, setloader] = useState(true);
@@ -19,6 +20,7 @@ const JobManage = (props) => {
         setJobs(response.data.main_jobs);
       } else {
         console.log(response);
+        notify(response.message);
       }
     };
     fetchData();
