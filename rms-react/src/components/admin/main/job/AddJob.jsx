@@ -298,7 +298,7 @@ const AddJob = (props) => {
                       </div>
                     </div>
 
-                    <div className="input-row">
+                    <div className="input-row flex content-center items-center">
                       <button className="button">Add Job</button>
                     </div>
                   </form>

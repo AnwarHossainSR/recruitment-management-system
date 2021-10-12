@@ -23,6 +23,7 @@ const EditTrainer = (props) => {
         setstate({
           user_id: response.data.trainer.user_id,
           cat_id: response.data.trainer.cat_id,
+          status: response.data.trainer.status,
           _method: "PUT",
         });
         // setstate((state) => ({
@@ -113,6 +114,20 @@ const EditTrainer = (props) => {
                         </select>
                       </div>
                     </div>
+                    <div className="flex-between">
+                      <div className="input-row flex-item">
+                        <p className="title"> Status </p>
+                        <select
+                          name="status"
+                          className="form-control"
+                          onChange={handleChange}
+                          defaultValue={data.trainer.status}
+                        >
+                          <option value="inactive">Inactive</option>
+                          <option value="active">Active</option>
+                        </select>
+                      </div>
+                    </div>
 
                     <div className="input-row flex content-center items-center">
                       <button className="button ">Update Trainer</button>
@@ -124,7 +139,7 @@ const EditTrainer = (props) => {
           </main>
         )}
 
-        <Sidebar cmp={props.location.pathname} />
+        <Sidebar cmp="/admin/manage-trainers" />
       </div>
     </>
   );

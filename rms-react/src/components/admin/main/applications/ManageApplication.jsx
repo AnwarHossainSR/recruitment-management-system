@@ -140,7 +140,7 @@ const ManageApplication = (props) => {
           </main>
         )}
 
-        <Sidebar cmp={props.location.pathname} />
+        <Sidebar cmp="/admin/manage-application" />
       </div>
     </>
   );

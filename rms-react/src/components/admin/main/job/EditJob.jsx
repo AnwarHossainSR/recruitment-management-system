@@ -313,7 +313,7 @@ const EditJob = (props) => {
                       </div>
                     </div>
 
-                    <div className="input-row">
+                    <div className="input-row flex content-center items-center">
                       <button className="button">Add Job</button>
                     </div>
                   </form>
@@ -322,7 +322,7 @@ const EditJob = (props) => {
             </div>
           </main>
         )}
-        <Sidebar cmp={props.location.pathname} />
+        <Sidebar cmp="/admin/manage-job" />
       </div>
     </>
   );

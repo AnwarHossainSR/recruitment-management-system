@@ -56,7 +56,14 @@ body {
 
 .button:hover {
     color: #fff;
-    box-shadow: 0 5px 11px 0 rgba(0, 0, 0, .15), 0 4px 15px 0 rgba(0, 0, 0, .15);
+    animation: pulse 2s;
+    box-shadow: 0 0 0 1.5em rgba(rgb(182, 235, 133), 0);
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 #9dd4a5;
+    }
 }
 
 .flex-between {

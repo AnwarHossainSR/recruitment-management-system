@@ -46,7 +46,7 @@ const Hedaer = ({ sidebarOpen, openSidebar }) => {
             alt="user"
           />
           <div className={menu ? "dropdown-content" : "dropdown-content hide"}>
-            <Link className="sub-link" to="#0">
+            <Link className="sub-link" to="/admin/profiles">
               Settings
             </Link>
             <Link to="" className="sub-link" onClick={loggedOutHandler}>

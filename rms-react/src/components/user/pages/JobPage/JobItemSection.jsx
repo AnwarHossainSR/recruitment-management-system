@@ -54,7 +54,11 @@ const JobItemSection = ({ jobs }) => {
               height="100px"
               style={{ marginTop: "1rem" }}
             />
-          )) || <button onClick={LoadMore}>Browse More</button>}
+          )) || (
+            <button className="button" onClick={LoadMore}>
+              Browse More
+            </button>
+          )}
         </div>
       </div>
     </section>

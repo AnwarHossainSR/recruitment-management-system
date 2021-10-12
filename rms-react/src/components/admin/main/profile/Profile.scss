@@ -1,0 +1,92 @@
+.main__container {
+    .card-wraper {
+        padding: 1rem;
+        display: grid;
+        grid-template-columns: 1fr;
+
+        .card-left {
+            width: 17rem;
+            height: 100%;
+            box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+
+            hr {
+                color: rgb(38, 174, 97);
+                margin: 0 2rem;
+            }
+
+            .item-pro {
+                padding: 1rem 2rem;
+            }
+
+            .card-header-left {
+                width: 100%;
+                display: inline-block;
+                text-align: center;
+                padding: 1rem;
+
+                img {
+                    width: 100px;
+                    height: 100px;
+                    overflow: hidden;
+                    border-radius: 50%;
+                    border: 2.5px solid rgb(38, 174, 97);
+                }
+            }
+        }
+
+        .card-right {
+            width: 40rem;
+            height: 100%;
+            box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+            grid-column: 3 / 4;
+
+            .card-header-right {
+                padding: 1rem;
+
+                span {
+                    padding: .7rem;
+                    color: var(--secondary);
+                    cursor: pointer;
+                }
+
+                .active_tab {
+                    background: #26ae61;
+                    color: rgb(5, 5, 5);
+                    border-radius: 3px;
+                }
+            }
+
+            .card-body-right {
+                .job-form {
+                    padding: 1rem 0;
+
+                    .input-row {
+                        margin-bottom: 1rem;
+                        width: 100%;
+
+                        .form-control {
+                            width: 95%;
+                            height: 3rem;
+                            padding: 0 20px;
+                            font-size: 12px;
+                            border-radius: 30px;
+                            border: 1px solid #c5bdbd;
+                            transition: all .3s;
+                        }
+
+                        .form-control-textarea {
+                            width: 100%;
+                            height: 6rem !important;
+                            padding: 0 20px;
+                            font-size: 12px;
+                            border-radius: 30px;
+                            border: 1px solid #c5bdbd;
+                            transition: all .3s;
+                        }
+
+                    }
+                }
+            }
+        }
+    }
+}

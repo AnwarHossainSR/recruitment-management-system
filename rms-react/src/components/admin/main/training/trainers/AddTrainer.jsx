@@ -118,7 +118,7 @@ const AddTrainer = (props) => {
           </main>
         )}
 
-        <Sidebar cmp={props.location.pathname} />
+        <Sidebar cmp="/admin/manage-trainers" />
       </div>
     </>
   );

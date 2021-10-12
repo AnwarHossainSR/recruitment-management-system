@@ -112,20 +112,20 @@ const Dashboard = (props) => {
                   </div>
                   <div className="charts__right__cards">
                     <div className="dashboard-card1">
-                      <h1>Applicants</h1>
-                      <p>75,300</p>
+                      <h1>Trainers</h1>
+                      <p>{data.trainers}</p>
                     </div>
                     <div className="dashboard-card2">
-                      <h1>Accepted</h1>
-                      <p>124,200</p>
-                    </div>
-                    <div className="dashboard-card3">
                       <h1>Users</h1>
-                      <p>3900</p>
+                      <p>{data.users}</p>
                     </div>
                     <div className="dashboard-card4">
                       <h1>Trainee</h1>
                       <p>1881</p>
+                    </div>
+                    <div className="dashboard-card3">
+                      <h1>Training</h1>
+                      <p>{data.training}</p>
                     </div>
                   </div>
                 </div>

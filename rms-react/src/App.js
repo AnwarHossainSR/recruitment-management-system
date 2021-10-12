@@ -26,6 +26,7 @@ import EditCategory from "./components/admin/main/categories/EditCategory";
 import EditJob from "./components/admin/main/job/EditJob";
 import AddTrainer from "./components/admin/main/training/trainers/AddTrainer";
 import EditTrainer from "./components/admin/main/training/trainers/EditTrainer";
+import ManageProfile from "./components/admin/main/profile/ManageProfile";
 
 const App = () => {
   return (
@@ -70,7 +71,6 @@ const App = () => {
           exact
           path="/admin/edit-job/:slug"
           component={EditJob}
-          cmp="addjob"
         />
 
         <ProtectedRoute exact path="/admin/manage-job" component={JobManage} />
@@ -142,6 +142,12 @@ const App = () => {
           exact
           path="/admin/manage-trainers/:id/edit"
           component={EditTrainer}
+        />
+        <ProtectedRoute
+          exact
+          path="/admin/profiles"
+          component={ManageProfile}
+          txt="settings"
         />
         <Route path="*">
           <NotFound hero="Not Found" />

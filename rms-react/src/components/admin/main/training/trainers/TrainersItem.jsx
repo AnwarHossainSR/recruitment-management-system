@@ -51,7 +51,7 @@ const TrainersItem = ({ id, status, category, user }) => {
         <span>{category.period_start + " to " + category.period_end}</span>
       </td>
       <td>
-        <span className="status">{status}</span>
+        <span className={status === 'active'? 'status':'rejected'}>{status}</span>
       </td>
       <td>
         <div className="action">

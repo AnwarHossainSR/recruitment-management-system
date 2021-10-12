@@ -160,7 +160,7 @@ const AddCategory = (props) => {
           </main>
         )}
 
-        <Sidebar cmp={props.location.pathname} />
+        <Sidebar cmp="/admin/manage-categories" />
       </div>
     </>
   );
