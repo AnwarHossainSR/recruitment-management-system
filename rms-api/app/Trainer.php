@@ -7,8 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class Trainer extends Model
 {
     protected $fillable = [
-        'user_id', 'cat_id', 'status'
+        'user_id', 'slug', 'cat_id', 'status'
     ];
+
+    public $timestamps = false;
 
     public function user()
     {

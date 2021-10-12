@@ -1,3 +1,4 @@
+import React from "react";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import { deleteApiData } from "../../../../../api/ApiCall";
@@ -54,7 +55,7 @@ const TrainersItem = ({ id, status, category, user }) => {
       </td>
       <td>
         <div className="action">
-          <Link to={`manage-trainers/${id}/edit`} aria-hidden="true">
+          <Link to={`/admin/manage-trainers/${id}/edit`} aria-hidden="true">
             <i className="fa fa-edit" />
           </Link>
           <span
@@ -70,4 +71,4 @@ const TrainersItem = ({ id, status, category, user }) => {
   );
 };
 
-export default TrainersItem;
+export default React.memo(TrainersItem);

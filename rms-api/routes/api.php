@@ -23,6 +23,8 @@ Route::middleware(['cors'])->group(function () {
             Route::get('applications/{slug}/rejected', 'ApplicationController@rejected');
             Route::get('applications/accept-manage/{id}', 'ApplicationController@changeToAccept');
             Route::get('applications/reject-manage/{id}', 'ApplicationController@changeToReject');
+            //trainers
+            Route::get('create/trainer', 'TrainerController@create');
         });
     });
     Route::apiResources([

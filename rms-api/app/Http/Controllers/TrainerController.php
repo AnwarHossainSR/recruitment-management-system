@@ -2,9 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\TrainerRequest;
+use App\JobCategory;
 use App\Trainer;
 use App\Traits\ApiResponseWithHttpStatus;
+use App\User;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Symfony\Component\HttpFoundation\Response;
 
 class TrainerController extends Controller
@@ -21,7 +26,7 @@ class TrainerController extends Controller
      */
     public function index()
     {
-        $data['trainers'] = Trainer::with('user', 'category')->get();
+        $data['trainers'] = Trainer::with('user', 'category')->latest()->get();
         return $this->apiResponse('success', $data, Response::HTTP_OK, true);
     }
 
@@ -32,7 +37,9 @@ class TrainerController extends Controller
      */
     public function create()
     {
-        //
+        $data['users'] = User::where('is_admin', true)->get();
+        $data['categories'] = JobCategory::where('status', 'active')->get();
+        return $this->apiResponse('success', $data, Response::HTTP_OK, true);
     }
 
     /**
@@ -41,9 +48,19 @@ class TrainerController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(TrainerRequest $request)
     {
-        //
+        try {
+            Trainer::create([
+                'slug' => Str::random(15),
+                'user_id' => $request->user_id,
+                'cat_id' => $request->cat_id,
+                'status' => 'active'
+            ]);
+            return $this->apiResponse('created !', null, Response::HTTP_CREATED, true);
+        } catch (Exception $th) {
+            return $this->apiResponse($th->getMessage(), null, Response::HTTP_CONFLICT, false);
+        }
     }
 
     /**
@@ -54,7 +71,10 @@ class TrainerController extends Controller
      */
     public function show(Trainer $trainer)
     {
-        //
+        $data['trainer'] = $trainer;
+        $data['users'] = User::where('is_admin', true)->get();
+        $data['categories'] = JobCategory::where('status', 'active')->get();
+        return $this->apiResponse('success', $data, Response::HTTP_OK, true);
     }
 
     /**
@@ -65,7 +85,6 @@ class TrainerController extends Controller
      */
     public function edit(Trainer $trainer)
     {
-        //
     }
 
     /**
@@ -77,7 +96,9 @@ class TrainerController extends Controller
      */
     public function update(Request $request, Trainer $trainer)
     {
-        //
+        //return $request;
+        $trainer->update($request->all());
+        return $this->apiResponse('updated !', null, Response::HTTP_CREATED, true);
     }
 
     /**

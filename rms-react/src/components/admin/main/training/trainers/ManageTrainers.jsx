@@ -84,4 +84,4 @@ const ManageTrainers = (props) => {
   );
 };
 
-export default ManageTrainers;
+export default React.memo(ManageTrainers);

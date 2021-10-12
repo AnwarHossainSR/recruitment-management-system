@@ -15,6 +15,7 @@ class CreateTrainersTable extends Migration
     {
         Schema::create('trainers', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('slug')->unique();
             $table->unsignedBigInteger('user_id')->nullable();
             $table->unsignedBigInteger('cat_id')->nullable();
             $table->enum('status', ['active', 'inactive'])->default('active');
