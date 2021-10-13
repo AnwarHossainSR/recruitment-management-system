@@ -37,7 +37,7 @@ class AuthController extends Controller
 
     public function authenticatedUser()
     {
-        return  Auth::user();
+        return $this->apiResponse('authenticated user', Auth::user(), Response::HTTP_OK, true);
     }
 
     public function register(RegisterRequest $request)

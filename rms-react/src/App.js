@@ -147,7 +147,6 @@ const App = () => {
           exact
           path="/admin/profiles"
           component={ManageProfile}
-          txt="settings"
         />
         <Route path="*">
           <NotFound hero="Not Found" />

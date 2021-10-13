@@ -1,17 +1,34 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import Loader from "../../../../services/Loader";
 import Hedaer from "../../navigation/navbar/Hedaer";
 import Sidebar from "../../navigation/sidebar/Sidebar";
 import "./Profile.scss";
 import Img from "../../../user/images/anwar.jpg";
+import SettingsTab from "./tabs/SettingsTab";
+import ChangePasswordTab from "./tabs/ChangePasswordTab";
+import ActivityTab from "./tabs/ActivityTab";
+import { fetchApiData } from "../../../../api/ApiCall";
+import { notify } from "../../../../services/Notification";
 
-const ManageProfile = (props) => {
+const ManageProfile = () => {
   const [loader, setloader] = useState(true);
+  const [activeTab, setActiveTab] = useState("settings");
+  const [user, setUser] = useState({});
+
   useEffect(() => {
     setTimeout(() => {
       setloader(false);
     }, 1000);
+    const fetch = async () => {
+      const response = await fetchApiData(`user`);
+      if (response.status === true) {
+        setUser(response.data);
+      } else {
+        console.log(response);
+        notify(response.message, "error");
+      }
+    };
+    fetch();
   }, [loader]);
   return (
     <>
@@ -23,7 +40,7 @@ const ManageProfile = (props) => {
               <div className="card-wraper">
                 <div className="card-left">
                   <div className="card-header-left">
-                    <img src={Img} alt="photo" />
+                    <img src={Img} alt="user" />
                     <h2>Anwar Hossain</h2>
                     <p>Software Engineer</p>
                   </div>
@@ -59,52 +76,28 @@ const ManageProfile = (props) => {
                 <div className="card-right">
                   <div className="card-header-right">
                     <span
-                      className={props.txt === "settings" ? "active_tab" : ""}
+                      className={activeTab === "settings" ? "active_tab" : ""}
+                      onClick={() => setActiveTab("settings")}
                     >
                       Settings
                     </span>
-                    <span>Activity</span>
-                    <span>Change Password</span>
+                    <span
+                      className={activeTab === "activity" ? "active_tab" : ""}
+                      onClick={() => setActiveTab("activity")}
+                    >
+                      Activity
+                    </span>
+                    <span
+                      className={activeTab === "password" ? "active_tab" : ""}
+                      onClick={() => setActiveTab("password")}
+                    >
+                      Change Password
+                    </span>
                   </div>
                   <div className="card-body-right">
-                    <div className="job-form">
-                      <form onSubmit="">
-                        <div className="flex-between">
-                          <div className="input-row flex-item">
-                            <input
-                              type="text"
-                              className="form-control"
-                              placeholder="write name"
-                            />
-                          </div>
-                          <div className="input-row flex-item">
-                            <input
-                              type="email"
-                              className="form-control"
-                              placeholder="write email"
-                            />
-                          </div>
-                        </div>
-
-                        <div className="flex-between">
-                          <div className="input-row flex-item">
-                            <textarea
-                              type="text"
-                              className="form-control-textarea"
-                              placeholder="say something about you"
-                            />
-                          </div>
-                        </div>
-                        <div className="flex-between">
-                          <div className="input-row flex-item">
-                            <input type="file" className="form-control" />
-                          </div>
-                        </div>
-                        <div className="input-row flex content-center">
-                          <button className="button">Update</button>
-                        </div>
-                      </form>
-                    </div>
+                    {activeTab === "settings" && <SettingsTab user={user} />}
+                    {activeTab === "activity" && <ActivityTab />}
+                    {activeTab === "password" && <ChangePasswordTab />}
                   </div>
                 </div>
               </div>
@@ -118,4 +111,4 @@ const ManageProfile = (props) => {
   );
 };
 
-export default ManageProfile;
+export default React.memo(ManageProfile);

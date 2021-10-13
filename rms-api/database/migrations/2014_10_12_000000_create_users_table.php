@@ -18,9 +18,10 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
-            $table->boolean('is_admin')->default(true);
-            $table->string('image')->default('default.png')->nullable();
+            $table->boolean('is_admin')->default(false);
+            $table->string('image')->default('http://localhost:8000/files/users/default.png')->nullable();
             $table->string('status')->default('active');
+            $table->string('about')->nullable();
             $table->timestamps();
         });
     }
