@@ -57,7 +57,6 @@ const AddCategory = (props) => {
       store(formData);
     }
   };
-  console.log(data);
   return (
     <>
       <div className="admin-container">

@@ -16,7 +16,9 @@ Route::middleware(['cors'])->group(function () {
         Route::post('/auth/logout', 'AuthController@logout');
         Route::get('user', 'AuthController@authenticatedUser');
         Route::prefix('admin')->group(function () {
+            //dashboard
             Route::get('dashboard', 'admin\DashboardController@index');
+            Route::post('update-profile', 'admin\DashboardController@updateProfile');
             //applications
             Route::get('applications/{slug}/pending', 'ApplicationController@applicationsByCat');
             Route::get('applications/{slug}/accepted', 'ApplicationController@accepted');

@@ -1,25 +1,35 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-//import { useState } from "react/cjs/react.development";
-import Avater from "../../assets/avatar.svg";
+//import Avater from "../../assets/avatar.svg";
 import "./Header.scss";
 import { useDispatch } from "react-redux";
 import { logOut } from "../../../../redux/LoginSlice";
+import { fetchApiData } from "../../../../api/ApiCall";
+import { notify } from "../../../../services/Notification";
 
 const Hedaer = ({ sidebarOpen, openSidebar }) => {
   const [menu, setMenu] = useState(false);
+  const [user, setUser] = useState({});
   const dispatch = useDispatch();
   const [isAuthenticated, setAuthenticated] = useState(
     localStorage.getItem("token")
   );
-  const dropdown = () => {
-    setMenu(menu ? false : true);
-  };
   const loggedOutHandler = () => {
     dispatch(logOut());
     setAuthenticated("");
   };
-  useEffect(() => {}, [isAuthenticated]);
+  const fetch = async () => {
+    const response = await fetchApiData(`user`);
+    if (response.status === true) {
+      setUser(response.data);
+    } else {
+      console.log(response);
+      notify(response.message, "error");
+    }
+  };
+  useEffect(() => {
+    fetch();
+  }, [isAuthenticated]);
 
   return (
     <nav className="admin-navbar">
@@ -39,10 +49,11 @@ const Hedaer = ({ sidebarOpen, openSidebar }) => {
 
         <div className="dropdown-container" id="menu">
           <img
-            onClick={dropdown}
+            onClick={() => setMenu(menu ? false : true)}
             className="dropbtn"
-            width={30}
-            src={Avater}
+            width="30px"
+            height="30px"
+            src={user && user.image}
             alt="user"
           />
           <div className={menu ? "dropdown-content" : "dropdown-content hide"}>
