@@ -5,7 +5,7 @@ export const fetchApiData = async (url) => {
   return await axios
     .get(url)
     .then((response) => response.data)
-    .catch((response) => response.response.data);
+    .catch((response) => response.data);
 };
 
 //store data

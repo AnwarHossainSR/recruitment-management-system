@@ -12,8 +12,8 @@ const Sidebar = (props) => {
   );
   const dispatch = useDispatch();
   const loggedOutHandler = () => {
-    dispatch(logOut());
     setAuthenticated("");
+    dispatch(logOut());
   };
   useEffect(() => {}, [isAuthenticated]);
   return (

@@ -20,4 +20,9 @@ class Trainer extends Model
     {
         return $this->belongsTo('App\JobCategory', 'cat_id');
     }
+
+    public function training()
+    {
+        return $this->belongsTo(Training::class);
+    }
 }

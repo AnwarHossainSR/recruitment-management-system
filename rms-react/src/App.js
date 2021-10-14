@@ -67,13 +67,13 @@ const App = () => {
           component={AddJob}
           cmp="editjob"
         />
+
+        <ProtectedRoute exact path="/admin/manage-job" component={JobManage} />
         <ProtectedRoute
           exact
           path="/admin/edit-job/:slug"
           component={EditJob}
         />
-
-        <ProtectedRoute exact path="/admin/manage-job" component={JobManage} />
         <ProtectedRoute
           exact
           path="/admin/manage-application"

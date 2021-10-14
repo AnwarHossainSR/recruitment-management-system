@@ -18,6 +18,10 @@ class JobCategory extends Model
     {
         return $this->belongsToMany('App\Application')->withTimestamps();
     }
+    public function trainers()
+    {
+        return $this->belongsToMany('App\Application')->withTimestamps();
+    }
 
 
     //accessor

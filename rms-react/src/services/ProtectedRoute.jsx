@@ -7,9 +7,10 @@ const ProtectedRoute = ({ component: Component, ...restOfProps }) => {
   return (
     <>
       <Route
+        {...restOfProps}
         render={(props) =>
           isAuthenticated ? (
-            <Component {...restOfProps} />
+            <Component {...props} />
           ) : (
             <>
               {notify("login first", "error")}

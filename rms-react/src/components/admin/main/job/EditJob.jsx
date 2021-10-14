@@ -43,7 +43,6 @@ const EditJob = (props) => {
     setTimeout(() => {
       setloader(false);
     }, 1000);
-    return () => {};
   }, [slug]);
   const onChangeDescription = (e, editor) => {
     const desData = editor.getData();

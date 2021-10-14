@@ -3,15 +3,31 @@ import { Link, useRouteMatch } from "react-router-dom";
 import Sidebar from "../../navigation/sidebar/Sidebar";
 import Header from "../../navigation/navbar/Hedaer";
 import Loader from "../../../../services/Loader";
+import ManageTrainingItem from "./ManageTrainingItem";
+import { fetchApiData } from "../../../../api/ApiCall";
+import { notify } from "../../../../services/Notification";
 
 const ManageTraining = (props) => {
   const [loader, setloader] = useState(true);
+  const { url } = useRouteMatch();
+  const [data, setData] = useState([]);
+  const fetch = async () => {
+    const response = await fetchApiData(`trainings`);
+    if (response.status === true) {
+      setData(response.data);
+    } else {
+      console.log(response);
+      notify(response.message, "error");
+    }
+  };
   useEffect(() => {
     setTimeout(() => {
       setloader(false);
     }, 1000);
-  }, [loader]);
-  const { url } = useRouteMatch();
+    fetch();
+  }, []);
+
+  console.log(data);
   return (
     <>
       <div className="admin-container">
@@ -31,39 +47,10 @@ const ManageTraining = (props) => {
                 <div className="table-wrap">
                   <table className="table">
                     <tbody>
-                      <tr className="alert">
-                        <td>
-                          <div className="outer-div">
-                            <h3>Web Training</h3>
-                          </div>
-                        </td>
-                        <td>
-                          <span className="status">Full Time</span>
-                        </td>
-                        <td>
-                          <span>23rd sep,21 - 23rd dec,21</span>
-                        </td>
-
-                        <td>
-                          <span className="status">Active</span>
-                        </td>
-                        <td>
-                          <div className="action">
-                            <Link to={`${url}/slug`} aria-hidden="true">
-                              <i className="fa fa-eye" />
-                            </Link>
-                            <span aria-hidden="true" className="action-edit">
-                              <i className="fa fa-edit" />
-                            </span>
-                            <span
-                              aria-hidden="true"
-                              className="action-button close"
-                            >
-                              <i className="fa fa-close" />
-                            </span>
-                          </div>
-                        </td>
-                      </tr>
+                      {data &&
+                        data.training.map((item, i) => (
+                          <ManageTrainingItem url={url} training={item} />
+                        ))}
                     </tbody>
                   </table>
                 </div>
