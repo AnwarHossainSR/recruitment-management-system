@@ -25,7 +25,7 @@ class TrainingTableSeeder extends Seeder
         DB::table('trainings')->insert([
             'slug' => Str::random(15),
             'trainer_id' => 2,
-            'cat_id' => 2,
+            'cat_id' => 3,
             'status' => 'active',
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
@@ -33,7 +33,7 @@ class TrainingTableSeeder extends Seeder
         DB::table('trainings')->insert([
             'slug' => Str::random(15),
             'trainer_id' => 3,
-            'cat_id' => 3,
+            'cat_id' => 1,
             'status' => 'active',
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()

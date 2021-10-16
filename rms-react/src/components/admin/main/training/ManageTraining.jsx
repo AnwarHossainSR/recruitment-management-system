@@ -27,7 +27,6 @@ const ManageTraining = (props) => {
     fetch();
   }, []);
 
-  console.log(data);
   return (
     <>
       <div className="admin-container">

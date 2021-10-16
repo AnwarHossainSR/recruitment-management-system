@@ -53,9 +53,12 @@ class TrainingController extends Controller
      * @param  \App\Training  $training
      * @return \Illuminate\Http\Response
      */
-    public function show(Training $training)
+    public function show($slug)
     {
-        //
+        $training = Training::where('slug', $slug)->first();
+        $data['trainer'] = Trainer::where('cat_id', $training->cat_id)->with('user')->get();
+        $data['training'] = Training::where('slug', $slug)->with('category')->get();
+        return $this->apiResponse('success', $data, Response::HTTP_OK, true);
     }
 
     /**

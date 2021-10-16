@@ -24,7 +24,7 @@ class TrainersTableSeeder extends Seeder
         DB::table('trainers')->insert([
             'slug' => Str::random(15),
             'user_id' => 3,
-            'cat_id' => 1,
+            'cat_id' => 3,
             'status' => 'active',
             'created_at' => Carbon::now()
         ]);

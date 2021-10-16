@@ -116,6 +116,7 @@ const App = () => {
           component={EditCategory}
         />
         {/* endCategory */}
+        {/* manageTraining */}
         <ProtectedRoute
           exact
           path="/admin/manage-training"
@@ -123,10 +124,11 @@ const App = () => {
         />
         <ProtectedRoute
           exact
-          path="/admin/manage-training/slug"
+          path="/admin/manage-training/:web/:slug"
           component={TrainDetails}
           cmp="train"
         />
+        {/* end manageTraining */}
         {/* trainers */}
         <ProtectedRoute
           exact
