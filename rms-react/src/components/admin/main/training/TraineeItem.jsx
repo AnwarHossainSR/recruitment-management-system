@@ -1,27 +1,30 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const TraineeItem = ({ trainer, training }) => {
+const TraineeItem = ({ trainee, path }) => {
   return (
     <tr className="alert">
       <td>
         <div className="outer-div">
-          <h3>Anwar Hossain</h3>
+          <h3>{trainee.user.name}</h3>
         </div>
       </td>
       <td>
-        <span className="status">{training.category.name} Trainee</span>
+        <span className="status">{trainee.training.category.name} Trainee</span>
       </td>
-
       <td>
-        <span className="status">Active</span>
+        <span className="status">{trainee.training.status}</span>
       </td>
       <td>
         <div className="action">
-          <Link to="" aria-hidden="true">
+          <Link
+            to={`/admin/manage-training/${trainee.training.category.name.toLowerCase()}/${
+              trainee.training.slug
+            }/trainee/${trainee.user.slug}`}
+          >
             <i className="fa fa-eye" />
           </Link>
-          <span aria-hidden="true" className="action-button close">
+          <span className="action-button close">
             <i className="fa fa-close" />
           </span>
         </div>

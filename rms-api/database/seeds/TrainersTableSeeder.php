@@ -15,21 +15,21 @@ class TrainersTableSeeder extends Seeder
     public function run()
     {
         DB::table('trainers')->insert([
-            'slug' => Str::random(15),
+            'slug' => strtolower(str_replace('', '_', Str::random(15))),
             'user_id' => 2,
             'cat_id' => 1,
             'status' => 'active',
             'created_at' => Carbon::now()
         ]);
         DB::table('trainers')->insert([
-            'slug' => Str::random(15),
+            'slug' => strtolower(str_replace('', '_', Str::random(15))),
             'user_id' => 3,
             'cat_id' => 3,
             'status' => 'active',
             'created_at' => Carbon::now()
         ]);
         DB::table('trainers')->insert([
-            'slug' => Str::random(15),
+            'slug' => strtolower(str_replace('', '_', Str::random(15))),
             'user_id' => 4,
             'cat_id' => 1,
             'status' => 'active',

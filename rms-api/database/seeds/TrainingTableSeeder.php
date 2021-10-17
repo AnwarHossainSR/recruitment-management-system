@@ -15,7 +15,7 @@ class TrainingTableSeeder extends Seeder
     public function run()
     {
         DB::table('trainings')->insert([
-            'slug' => Str::random(15),
+            'slug' => strtolower(str_replace('', '_', Str::random(15))),
             'trainer_id' => 1,
             'cat_id' => 1,
             'status' => 'active',
@@ -23,17 +23,17 @@ class TrainingTableSeeder extends Seeder
             'updated_at' => Carbon::now()
         ]);
         DB::table('trainings')->insert([
-            'slug' => Str::random(15),
+            'slug' => strtolower(str_replace('', '_', Str::random(15))),
             'trainer_id' => 2,
-            'cat_id' => 3,
+            'cat_id' => 2,
             'status' => 'active',
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
         ]);
         DB::table('trainings')->insert([
-            'slug' => Str::random(15),
+            'slug' => strtolower(str_replace('', '_', Str::random(15))),
             'trainer_id' => 3,
-            'cat_id' => 1,
+            'cat_id' => 3,
             'status' => 'active',
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()

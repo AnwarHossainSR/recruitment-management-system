@@ -3,13 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Trainee;
-use App\Trainer;
-use App\Training;
 use App\Traits\ApiResponseWithHttpStatus;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class TrainingController extends Controller
+class TraineeController extends Controller
 {
     use ApiResponseWithHttpStatus;
     public function __construct()
@@ -23,7 +21,7 @@ class TrainingController extends Controller
      */
     public function index()
     {
-        $data['training'] = Training::with('trainers.user', 'category')->latest()->get();
+        $data['trainees'] = Trainee::with('user', 'training.category')->latest()->get();
         return $this->apiResponse('success', $data, Response::HTTP_OK, true);
     }
 
@@ -51,28 +49,21 @@ class TrainingController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Training  $training
+     * @param  \App\Trainee  $trainee
      * @return \Illuminate\Http\Response
      */
-    public function show($slug)
+    public function show(Trainee $trainee)
     {
-        // $data['trainer'] = Trainer::where('cat_id', $training->cat_id)->with('user')->get();
-        // $data['training'] = Training::where('slug', $slug)->with('category')->get();
-        // return $this->apiResponse('success', $data, Response::HTTP_OK, true);
-
-        $training = Training::where('slug', $slug)->first();
-        $data['trainer'] = Trainer::where('cat_id', $training->cat_id)->with('user')->get();
-        $data['trainees'] = Trainee::where('training_id', $training->id)->with('user', 'training.category')->latest()->get();
-        return $this->apiResponse('success', $data, Response::HTTP_OK, true);
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Training  $training
+     * @param  \App\Trainee  $trainee
      * @return \Illuminate\Http\Response
      */
-    public function edit(Training $training)
+    public function edit(Trainee $trainee)
     {
         //
     }
@@ -81,10 +72,10 @@ class TrainingController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Training  $training
+     * @param  \App\Trainee  $trainee
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Training $training)
+    public function update(Request $request, Trainee $trainee)
     {
         //
     }
@@ -92,10 +83,10 @@ class TrainingController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Training  $training
+     * @param  \App\Trainee  $trainee
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Training $training)
+    public function destroy(Trainee $trainee)
     {
         //
     }

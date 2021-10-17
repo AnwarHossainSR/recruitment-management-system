@@ -27,6 +27,7 @@ import EditJob from "./components/admin/main/job/EditJob";
 import AddTrainer from "./components/admin/main/training/trainers/AddTrainer";
 import EditTrainer from "./components/admin/main/training/trainers/EditTrainer";
 import ManageProfile from "./components/admin/main/profile/ManageProfile";
+import TraineeDetails from "./components/admin/main/training/Trainee/TraineeDetails";
 
 const App = () => {
   return (
@@ -124,8 +125,14 @@ const App = () => {
         />
         <ProtectedRoute
           exact
-          path="/admin/manage-training/:web/:slug"
+          path="/admin/manage-training/:catename/:slug"
           component={TrainDetails}
+          cmp="train"
+        />
+        <ProtectedRoute
+          exact
+          path="/admin/manage-training/:catename/:catslug/trainee/:userslug"
+          component={TraineeDetails}
           cmp="train"
         />
         {/* end manageTraining */}

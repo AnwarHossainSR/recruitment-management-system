@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class JobTableSeeder extends Seeder
 {
@@ -14,7 +15,7 @@ class JobTableSeeder extends Seeder
     {
         DB::table('main_jobs')->insert([
             'title' => 'Software Engineer',
-            'slug' => 'soft-eng',
+            'slug' => strtolower(str_replace('', '_', Str::random(15))),
             'count' => 4,
             'company' => 'BJIT',
             'location' => 'Bjit,Dhaka',
@@ -34,7 +35,7 @@ class JobTableSeeder extends Seeder
         ]);
         DB::table('main_jobs')->insert([
             'title' => 'Java Developer',
-            'slug' => 'soft-eng-java',
+            'slug' => strtolower(str_replace('', '_', Str::random(15))),
             'count' => 6,
             'company' => 'BJIT',
             'location' => 'Bjit,Dhaka',
@@ -55,7 +56,7 @@ class JobTableSeeder extends Seeder
 
         DB::table('main_jobs')->insert([
             'title' => 'Laravel Developer',
-            'slug' => 'soft-eng-laravel',
+            'slug' => strtolower(str_replace('', '_', Str::random(15))),
             'count' => 4,
             'company' => 'BJIT',
             'location' => 'Bjit,Dhaka',

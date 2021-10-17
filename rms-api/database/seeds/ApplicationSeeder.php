@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class ApplicationSeeder extends Seeder
 {
@@ -14,7 +15,7 @@ class ApplicationSeeder extends Seeder
     {
         DB::table('applications')->insert([
             'email' => 'mahedisr2@gmail.com',
-            'slug' => 'unique-slug-1',
+            'slug' => strtolower(str_replace('', '_', Str::random(15))),
             'status' => 'pending',
             'cv' => 'http://localhost:8000/files/applications/default.pdf',
             'job_id' => 1,
@@ -23,7 +24,7 @@ class ApplicationSeeder extends Seeder
         ]);
         DB::table('applications')->insert([
             'email' => 'mahedisr3@gmail.com',
-            'slug' => 'unique-slug-2',
+            'slug' => strtolower(str_replace('', '_', Str::random(15))),
             'status' => 'accepted',
             'cv' => 'http://localhost:8000/files/applications/default.pdf',
             'job_id' => 1,
@@ -32,7 +33,7 @@ class ApplicationSeeder extends Seeder
         ]);
         DB::table('applications')->insert([
             'email' => 'mahedisr4@gmail.com',
-            'slug' => 'unique-slug-3',
+            'slug' => strtolower(str_replace('', '_', Str::random(15))),
             'status' => 'rejected',
             'cv' => 'http://localhost:8000/files/applications/default.pdf',
             'job_id' => 1,

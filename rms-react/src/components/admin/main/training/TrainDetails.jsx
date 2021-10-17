@@ -21,7 +21,6 @@ const TrainDetails = () => {
       const response = await fetchApiData(`trainings/${slug}`);
       if (response.status === true) {
         setData(response.data);
-        console.log(response.data);
       } else {
         notify(response.message);
         console.log(response);
@@ -29,9 +28,6 @@ const TrainDetails = () => {
     };
     fetch();
   }, [slug]);
-
-  //useEffect(() => {}, [toggle]);
-
   return (
     <>
       <div className="admin-container">
@@ -57,8 +53,9 @@ const TrainDetails = () => {
                 {toggle && (
                   <div className="table-wrap" style={{ marginBottom: "5rem" }}>
                     <h2 className="flex content-center">
-                      Trainers for{" "}
-                      {data.training && data.training[0].category.name}
+                      Total {data.trainer && data.trainer.length} Trainers for{" "}
+                      {data.trainees && data.trainees[0].training.category.name}{" "}
+                      Training
                     </h2>
                     <table className="table">
                       <tbody>
@@ -82,8 +79,9 @@ const TrainDetails = () => {
                               </td>
                               <td>
                                 <span className="status">
-                                  {data.training &&
-                                    data.training[0].category.name}{" "}
+                                  {data.trainees &&
+                                    data.trainees[0].training.category
+                                      .name}{" "}
                                   Trainer
                                 </span>
                               </td>
@@ -95,14 +93,19 @@ const TrainDetails = () => {
                 )}
 
                 <div className="table-wrap">
+                  <h2 className="flex content-center">
+                    Total {data.trainees.length} Trainees for{" "}
+                    {data.trainees && data.trainees[0].training.category.name}{" "}
+                    Training
+                  </h2>
                   <table className="table">
                     <tbody>
                       {data &&
-                        data.training.map((item, i) => (
+                        data.trainees.map((item, i) => (
                           <TraineeItem
                             key={i}
-                            trainer={data && data.trainer}
-                            training={item}
+                            trainee={item}
+                            path={history.location.pathname}
                           />
                         ))}
                     </tbody>

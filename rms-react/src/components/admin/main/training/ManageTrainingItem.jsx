@@ -21,7 +21,9 @@ const ManageTrainingItem = ({ url, training }) => {
       <td>
         <div className="action">
           <Link
-            to={`${url}/${training.category.name}/${training.slug}`}
+            to={`${url}/${training.category.name.toLowerCase()}/${
+              training.slug
+            }`}
             aria-hidden="true"
           >
             <i className="fa fa-eye" />

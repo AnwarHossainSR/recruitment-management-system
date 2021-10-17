@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class JobCategorySeeder extends Seeder
 {
@@ -14,7 +15,7 @@ class JobCategorySeeder extends Seeder
     {
         DB::table('job_categories')->insert([
             'name' => "Web",
-            'slug' => 'web',
+            'slug' => strtolower(str_replace('', '_', Str::random(15))),
             'status' => 'active',
             'icon' => 'http://localhost:8000/files/categories/default.png',
             'job_count' => 2,
@@ -25,7 +26,7 @@ class JobCategorySeeder extends Seeder
         ]);
         DB::table('job_categories')->insert([
             'name' => "Odoo",
-            'slug' => 'odoo',
+            'slug' => strtolower(str_replace('', '_', Str::random(15))),
             'status' => 'active',
             'icon' => 'http://localhost:8000/files/categories/default1.png',
             'job_count' => 2,
@@ -36,7 +37,7 @@ class JobCategorySeeder extends Seeder
         ]);
         DB::table('job_categories')->insert([
             'name' => "Salseforce",
-            'slug' => 'salse-forse',
+            'slug' => strtolower(str_replace('', '_', Str::random(15))),
             'status' => 'active',
             'icon' => 'http://localhost:8000/files/categories/default2.png',
             'job_count' => 2,
