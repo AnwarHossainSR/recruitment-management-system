@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Carbon;
 use Laravel\Passport\HasApiTokens;
 
 class User extends Authenticatable
@@ -27,4 +28,10 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
     ];
+
+    //accessor
+    public function getCreatedAtAttribute($date)
+    {
+        return Carbon::createFromFormat('Y-m-d H:i:s', $date)->diffForHumans();
+    }
 }

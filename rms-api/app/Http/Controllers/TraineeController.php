@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Trainee;
+use App\Trainer;
 use App\Traits\ApiResponseWithHttpStatus;
+use App\User;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -52,9 +54,12 @@ class TraineeController extends Controller
      * @param  \App\Trainee  $trainee
      * @return \Illuminate\Http\Response
      */
-    public function show(Trainee $trainee)
+    public function show($slug)
     {
-        //
+        $user = User::where('slug', $slug)->first();
+        $data['trainees'] = Trainee::where('user_id', $user->id)->with('user', 'training.category')->latest()->get();
+        $data['trainer'] = Trainer::where('cat_id', $data['trainees'][0]->training->cat_id)->with('user')->get();
+        return $this->apiResponse('success', $data, Response::HTTP_OK, true);
     }
 
     /**

@@ -80,7 +80,11 @@ body {
 }
 
 .error {
-    color: #c42828;
+    color: #c42828 !important;
+}
+
+.success {
+    color: #28c44a !important;
 }
 
 .status-half-time {

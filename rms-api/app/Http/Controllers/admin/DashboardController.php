@@ -8,7 +8,9 @@ use App\Http\Helpers\Helper;
 use App\Http\Requests\ProfileUpdateRequest;
 use App\JobCategory;
 use App\MainJob;
+use App\Trainee;
 use App\Trainer;
+use App\Training;
 use App\Traits\ApiResponseWithHttpStatus;
 use App\User;
 use Illuminate\Http\Request;
@@ -27,7 +29,8 @@ class DashboardController extends Controller
         $data['rejected'] = Application::where('status', 'rejected')->count();
         $data['trainers'] = Trainer::where('status', 'active')->count();
         $data['users'] = User::count();
-        $data['training'] = JobCategory::where('status', 'active')->count();
+        $data['training'] = Training::where('status', 'active')->count();
+        $data['trainee'] = Trainee::where('status', 'active')->count();
         return $this->apiResponse('success', $data, Response::HTTP_OK, true);
     }
     public function updateProfile(Request $request)

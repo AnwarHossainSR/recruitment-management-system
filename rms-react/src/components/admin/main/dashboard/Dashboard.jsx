@@ -121,7 +121,7 @@ const Dashboard = (props) => {
                     </div>
                     <div className="dashboard-card4">
                       <h1>Trainee</h1>
-                      <p>1881</p>
+                      <p>{data.trainee}</p>
                     </div>
                     <div className="dashboard-card3">
                       <h1>Training</h1>
