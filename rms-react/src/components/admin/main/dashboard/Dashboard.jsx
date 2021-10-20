@@ -6,6 +6,7 @@ import Header from "../../navigation/navbar/Hedaer";
 import "../../Layout.scss";
 import Loader from "../../../../services/Loader";
 import { fetchApiData } from "../../../../api/ApiCall";
+import LineChart from "./charts/LineChart";
 
 const Dashboard = (props) => {
   const [loader, setloader] = useState(true);
@@ -100,7 +101,9 @@ const Dashboard = (props) => {
                     </div>
                     <i className="fa fa-user" aria-hidden="true" />
                   </div>
-                  <div id="apex1" />
+                  <div id="apex1">
+                    <LineChart graphData={data.trainee_graph} />
+                  </div>
                 </div>
                 <div className="charts__right">
                   <div className="charts__right__title">

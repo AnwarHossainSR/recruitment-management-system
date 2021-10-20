@@ -18,4 +18,14 @@ class Trainee extends Model
     {
         return $this->belongsTo(Training::class, 'training_id');
     }
+
+    //get trainee per month
+    public static function getTraineePerMonth()
+    {
+        $month = array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+        for ($i = 1; $i < 13; $i++) {
+            $month[$i - 1] = self::whereMonth('created_at', $i)->count();
+        }
+        return \json_encode($month);
+    }
 }

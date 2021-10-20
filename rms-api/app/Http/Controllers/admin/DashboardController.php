@@ -31,6 +31,7 @@ class DashboardController extends Controller
         $data['users'] = User::count();
         $data['training'] = Training::where('status', 'active')->count();
         $data['trainee'] = Trainee::where('status', 'active')->count();
+        $data['trainee_graph'] = Trainee::getTraineePerMonth();
         return $this->apiResponse('success', $data, Response::HTTP_OK, true);
     }
     public function updateProfile(Request $request)

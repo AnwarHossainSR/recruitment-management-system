@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\JobCategory;
 use App\Trainee;
 use App\Trainer;
 use App\Training;
 use App\Traits\ApiResponseWithHttpStatus;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Symfony\Component\HttpFoundation\Response;
 
 class TrainingController extends Controller
@@ -34,7 +36,9 @@ class TrainingController extends Controller
      */
     public function create()
     {
-        //
+        $training = Training::pluck('cat_id');
+        $data['categories'] = JobCategory::where('status', 'active')->whereNotIn('id', $training)->get();
+        return $this->apiResponse('success', $data, Response::HTTP_OK, true);
     }
 
     /**
@@ -45,7 +49,11 @@ class TrainingController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Training::create([
+            'slug' => Str::random(15),
+            'cat_id' => $request->cat_id
+        ]);
+        return $this->apiResponse('created !', null, Response::HTTP_CREATED, true);
     }
 
     /**
@@ -62,6 +70,7 @@ class TrainingController extends Controller
 
         $training = Training::where('slug', $slug)->first();
         $data['trainer'] = Trainer::where('cat_id', $training->cat_id)->with('user')->get();
+        //return $data['trainer'];
         $data['trainees'] = Trainee::where('training_id', $training->id)->with('user', 'training.category')->latest()->get();
         return $this->apiResponse('success', $data, Response::HTTP_OK, true);
     }

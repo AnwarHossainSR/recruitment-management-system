@@ -30,6 +30,7 @@ const ManageTrainers = (props) => {
     }, 1000);
     return () => {};
   }, [trainers, fetch]);
+
   return (
     <>
       <div className="admin-container">

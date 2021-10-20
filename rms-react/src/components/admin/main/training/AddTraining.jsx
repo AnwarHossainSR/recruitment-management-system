@@ -1,17 +1,16 @@
-import React, { useState, useEffect } from "react";
-import Sidebar from "../../../navigation/sidebar/Sidebar";
-import Header from "../../../navigation/navbar/Hedaer";
-import Loader from "../../../../../services/Loader";
-import { fetchApiData, storeApiData } from "../../../../../api/ApiCall";
-import { notify } from "../../../../../services/Notification";
+import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router";
+import { fetchApiData, storeApiData } from "../../../../api/ApiCall";
+import Loader from "../../../../services/Loader";
+import { notify } from "../../../../services/Notification";
+import Hedaer from "../../navigation/navbar/Hedaer";
+import Sidebar from "../../navigation/sidebar/Sidebar";
 
-const AddTrainer = (props) => {
+const AddTraining = () => {
   const [loader, setloader] = useState(true);
   const [data, setData] = useState([]);
   const [state, setstate] = useState({
     cat_id: null,
-    user_id: null,
     error: null,
   });
   const histry = useHistory();
@@ -20,7 +19,7 @@ const AddTrainer = (props) => {
       setloader(false);
     }, 1000);
     const fetch = async () => {
-      const response = await fetchApiData(`admin/create/trainer`);
+      const response = await fetchApiData(`admin/create/trainings`);
       if (response.status === true) {
         setData(response.data);
       } else {
@@ -35,18 +34,16 @@ const AddTrainer = (props) => {
     const value = event.target.value;
     setstate((values) => ({ ...values, [name]: value }));
   };
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (state.user_id !== null || state.cat_id !== null) {
+    if (state.cat_id !== null) {
       const store = async (formData) => {
-        const response = await storeApiData("trainers", formData);
+        const response = await storeApiData("trainings", formData);
         if (response.status === true) {
           notify(response.message, "success");
-          console.log(response);
-          histry.push("/admin/manage-trainers");
+          histry.push("/admin/manage-training");
         } else {
-          console.log(response.message);
+          console.log(response);
           notify(response.message, "error");
           setstate({
             error:
@@ -56,41 +53,24 @@ const AddTrainer = (props) => {
       };
       store(state);
     } else {
-      setstate({ error: "please select all field !" });
+      setstate({ error: "please select training name !" });
     }
   };
   return (
     <>
       <div className="admin-container">
-        <Header />
+        <Hedaer />
         {(loader && <Loader />) || (
           <main>
             <div className="main__container">
               <div className="card-main">
-                <h1>Add Trainer</h1>
+                <h1>Add Training</h1>
                 <div className="job-form">
                   <form onSubmit={handleSubmit}>
                     <h2 className="error flex content-center items-center">
                       {state.error !== "" ? state.error : ""}
                     </h2>
                     <div className="flex-between">
-                      <div className="input-row flex-item">
-                        <p className="title"> user </p>
-                        <select
-                          name="user_id"
-                          className="form-control"
-                          onChange={handleChange}
-                        >
-                          <option>Please select employee</option>
-                          {data.users &&
-                            data.users.map((item, i) => (
-                              <option key={i} value={item.id}>
-                                {item.name}
-                              </option>
-                            ))}
-                        </select>
-                      </div>
-
                       <div className="input-row flex-item">
                         <p className="title"> Training </p>
                         <select
@@ -101,16 +81,15 @@ const AddTrainer = (props) => {
                           <option>Please select training</option>
                           {data.categories &&
                             data.categories.map((item, i) => (
-                              <option key={i} value={item.category.id}>
-                                {item.category.name}
+                              <option key={i} value={item.id}>
+                                {item.name}
                               </option>
                             ))}
                         </select>
                       </div>
-                    </div>
-
-                    <div className="input-row flex content-center items-center">
-                      <button className="button">Add Trainer</button>
+                      <div className="input-row flex-item">
+                        <button className="button">Add Training</button>
+                      </div>
                     </div>
                   </form>
                 </div>
@@ -119,9 +98,10 @@ const AddTrainer = (props) => {
           </main>
         )}
 
-        <Sidebar cmp="/admin/manage-trainers" />
+        <Sidebar cmp="/admin/manage-training" />
       </div>
     </>
   );
 };
-export default AddTrainer;
+
+export default AddTraining;

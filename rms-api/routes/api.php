@@ -27,6 +27,7 @@ Route::middleware(['cors'])->group(function () {
             Route::get('applications/reject-manage/{id}', 'ApplicationController@changeToReject');
             //trainers
             Route::get('create/trainer', 'TrainerController@create');
+            Route::get('create/trainings', 'TrainingController@create');
         });
     });
     Route::apiResources([

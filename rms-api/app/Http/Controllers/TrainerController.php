@@ -5,10 +5,12 @@ namespace App\Http\Controllers;
 use App\Http\Requests\TrainerRequest;
 use App\JobCategory;
 use App\Trainer;
+use App\Training;
 use App\Traits\ApiResponseWithHttpStatus;
 use App\User;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -38,7 +40,7 @@ class TrainerController extends Controller
     public function create()
     {
         $data['users'] = User::where('is_admin', true)->get();
-        $data['categories'] = JobCategory::where('status', 'active')->get();
+        $data['categories'] = Training::where('status', 'active')->with('category')->get();
         return $this->apiResponse('success', $data, Response::HTTP_OK, true);
     }
 
@@ -51,13 +53,21 @@ class TrainerController extends Controller
     public function store(TrainerRequest $request)
     {
         try {
-            Trainer::create([
+            $trainer = Trainer::create([
                 'slug' => Str::random(15),
                 'user_id' => $request->user_id,
                 'cat_id' => $request->cat_id,
                 'status' => 'active'
             ]);
-            return $this->apiResponse('created !', null, Response::HTTP_CREATED, true);
+            if ($trainer) {
+                DB::table('trainings')
+                    ->where('cat_id', $trainer->cat_id)
+                    ->where('trainer_id', null)
+                    ->update([
+                        'trainer_id' => $trainer->id
+                    ]);
+            }
+            return $this->apiResponse('created !', $trainer, Response::HTTP_CREATED, true);
         } catch (Exception $th) {
             return $this->apiResponse($th->getMessage(), null, Response::HTTP_CONFLICT, false);
         }

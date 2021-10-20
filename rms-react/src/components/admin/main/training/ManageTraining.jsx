@@ -48,7 +48,11 @@ const ManageTraining = (props) => {
                     <tbody>
                       {data &&
                         data.training.map((item, i) => (
-                          <ManageTrainingItem url={url} training={item} />
+                          <ManageTrainingItem
+                            key={i}
+                            url={url}
+                            training={item}
+                          />
                         ))}
                     </tbody>
                   </table>

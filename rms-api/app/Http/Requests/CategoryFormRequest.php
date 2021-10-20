@@ -31,9 +31,7 @@ class CategoryFormRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'status' => 'required',
-            'period_start' => 'required',
-            'period_end' => 'required',
+
         ];
     }
     protected function failedValidation(Validator $validator)

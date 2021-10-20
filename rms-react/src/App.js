@@ -28,6 +28,7 @@ import AddTrainer from "./components/admin/main/training/trainers/AddTrainer";
 import EditTrainer from "./components/admin/main/training/trainers/EditTrainer";
 import ManageProfile from "./components/admin/main/profile/ManageProfile";
 import TraineeDetails from "./components/admin/main/training/Trainee/TraineeDetails";
+import AddTraining from "./components/admin/main/training/AddTraining";
 
 const App = () => {
   return (
@@ -122,6 +123,11 @@ const App = () => {
           exact
           path="/admin/manage-training"
           component={ManageTraining}
+        />
+        <ProtectedRoute
+          exact
+          path="/admin/manage-training/add-training"
+          component={AddTraining}
         />
         <ProtectedRoute
           exact

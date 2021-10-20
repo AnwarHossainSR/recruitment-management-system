@@ -21,6 +21,7 @@ const TrainDetails = () => {
       const response = await fetchApiData(`trainings/${slug}`);
       if (response.status === true) {
         setData(response.data);
+        console.log(response.data);
       } else {
         notify(response.message);
         console.log(response);
@@ -53,8 +54,9 @@ const TrainDetails = () => {
                 {toggle && (
                   <div className="table-wrap" style={{ marginBottom: "5rem" }}>
                     <h2 className="flex content-center">
-                      Total {data.trainer && data.trainer.length} Trainers for{" "}
-                      {data.trainees && data.trainees[0].training.category.name}{" "}
+                      Total {data.trainer.length} Trainers for{" "}
+                      {data.trainees[0] &&
+                        data.trainees[0].training.category.name}{" "}
                       Training
                     </h2>
                     <table className="table">
@@ -79,7 +81,7 @@ const TrainDetails = () => {
                               </td>
                               <td>
                                 <span className="status">
-                                  {data.trainees &&
+                                  {data.trainees.length &&
                                     data.trainees[0].training.category
                                       .name}{" "}
                                   Trainer
@@ -95,7 +97,8 @@ const TrainDetails = () => {
                 <div className="table-wrap">
                   <h2 className="flex content-center">
                     Total {data.trainees.length} Trainees for{" "}
-                    {data.trainees && data.trainees[0].training.category.name}{" "}
+                    {data.trainees[0] &&
+                      data.trainees[0].training.category.name}{" "}
                     Training
                   </h2>
                   <table className="table">

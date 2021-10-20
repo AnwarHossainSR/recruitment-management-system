@@ -36,7 +36,7 @@ class JobCategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CategoryFormRequest $request)
+    public function store(Request $request)
     {
         try {
             if ($request->hasFile('icon')) {
