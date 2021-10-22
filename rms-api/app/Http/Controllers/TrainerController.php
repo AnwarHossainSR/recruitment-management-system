@@ -53,6 +53,12 @@ class TrainerController extends Controller
     public function store(TrainerRequest $request)
     {
         try {
+            $check = Trainer::where([['user_id', $request->user_id], [
+                'cat_id', $request->cat_id,
+            ]])->get();
+            if ($check->count() > 0) {
+                return $this->apiResponse('already assigned !', null, Response::HTTP_CREATED, false);
+            }
             $trainer = Trainer::create([
                 'slug' => Str::random(15),
                 'user_id' => $request->user_id,

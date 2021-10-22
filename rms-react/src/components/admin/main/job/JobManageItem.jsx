@@ -3,7 +3,7 @@ import { deleteApiData } from "../../../../api/ApiCall";
 import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
 
-const JobManageItem = ({ slug, id, title, location, type, icon }) => {
+const JobManageItem = ({ slug, id, title, type, icon }) => {
   useEffect(() => {}, []);
   const jobDelete = (id) => {
     Swal.fire({

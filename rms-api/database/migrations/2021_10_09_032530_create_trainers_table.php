@@ -20,7 +20,7 @@ class CreateTrainersTable extends Migration
             $table->unsignedBigInteger('cat_id')->nullable();
             $table->enum('status', ['active', 'inactive'])->default('active');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('SET NULL');
-            $table->foreign('cat_id')->references('id')->on('job_categories')->onDelete('SET NULL');
+            $table->foreign('cat_id')->references('id')->on('job_categories')->onDelete('cascade');
             $table->timestamp('created_at');
         });
     }

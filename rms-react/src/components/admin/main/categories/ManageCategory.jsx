@@ -21,6 +21,7 @@ const ManageCategory = (props) => {
   const fetch = useCallback(() => {
     const fetchData = async () => {
       const response = await fetchApiData(`categories?page=${pageNumber}`);
+      console.log(response);
       if (response.status === true) {
         dispatch(handleCategories(response.data.categories));
       } else {

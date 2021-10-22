@@ -10,11 +10,12 @@ import { notify } from "../../../../services/Notification";
 const ManageTraining = (props) => {
   const [loader, setloader] = useState(true);
   const { url } = useRouteMatch();
-  const [data, setData] = useState([]);
+  const [data, setData] = useState("");
+
   const fetch = async () => {
     const response = await fetchApiData(`trainings`);
     if (response.status === true) {
-      setData(response.data);
+      setData(response.data.training);
     } else {
       console.log(response);
       notify(response.message, "error");
@@ -46,14 +47,24 @@ const ManageTraining = (props) => {
                 <div className="table-wrap">
                   <table className="table">
                     <tbody>
-                      {data &&
-                        data.training.map((item, i) => (
+                      {data.length ? (
+                        data.map((item, i) => (
                           <ManageTrainingItem
                             key={i}
                             url={url}
                             training={item}
+                            fetch={fetch}
                           />
-                        ))}
+                        ))
+                      ) : (
+                        <tr>
+                          <td>
+                            <h2 className="flex content-center item-center">
+                              no data found
+                            </h2>
+                          </td>
+                        </tr>
+                      )}
                     </tbody>
                   </table>
                 </div>

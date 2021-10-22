@@ -106,6 +106,7 @@ class TrainingController extends Controller
      */
     public function destroy(Training $training)
     {
-        //
+        $training->delete();
+        return $this->apiResponse('deleted !', null, Response::HTTP_OK, true);
     }
 }

@@ -58,7 +58,6 @@ const JobManage = (props) => {
                             slug={job.slug}
                             id={job.id}
                             title={job.title}
-                            location={job.location}
                             type={job.type}
                             icon={job.icon}
                           />

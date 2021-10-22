@@ -43,7 +43,6 @@ const AddTrainer = (props) => {
         const response = await storeApiData("trainers", formData);
         if (response.status === true) {
           notify(response.message, "success");
-          console.log(response);
           histry.push("/admin/manage-trainers");
         } else {
           console.log(response.message);

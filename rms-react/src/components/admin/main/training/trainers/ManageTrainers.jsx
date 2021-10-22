@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Sidebar from "../../../navigation/sidebar/Sidebar";
 import Header from "../../../navigation/navbar/Hedaer";
@@ -10,26 +10,24 @@ import TrainersItem from "./TrainersItem";
 const ManageTrainers = (props) => {
   const [loader, setloader] = useState(true);
   const [trainers, settrainers] = useState("");
-  const fetch = useCallback(() => {
-    const fetchData = async () => {
-      const response = await fetchApiData(`trainers`);
+  const fetch = async () => {
+    const response = await fetchApiData(`trainers`);
+    if (response !== "undefined") {
       if (response.status === true) {
         settrainers(response.data.trainers);
       } else {
         notify("Something is wrong! check console", "error");
         console.log(response);
       }
-    };
-    fetchData();
-  }, []);
+    }
+  };
 
   useEffect(() => {
     setTimeout(() => {
       fetch();
       setloader(false);
     }, 1000);
-    return () => {};
-  }, [trainers, fetch]);
+  }, []);
 
   return (
     <>
@@ -61,6 +59,7 @@ const ManageTrainers = (props) => {
                             status={item.status}
                             category={item.category}
                             user={item.user}
+                            fetch={fetch}
                           />
                         ))
                       ) : (
@@ -85,4 +84,4 @@ const ManageTrainers = (props) => {
   );
 };
 
-export default React.memo(ManageTrainers);
+export default ManageTrainers;

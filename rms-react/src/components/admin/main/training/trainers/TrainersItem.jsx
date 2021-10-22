@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import { deleteApiData } from "../../../../../api/ApiCall";
 
-const TrainersItem = ({ id, status, category, user }) => {
-  const jobDelete = (id) => {
+const TrainersItem = ({ id, status, category, user, fetch }) => {
+  const trainerDelete = (id) => {
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -24,7 +24,7 @@ const TrainersItem = ({ id, status, category, user }) => {
               showConfirmButton: false,
               timer: 1500,
             });
-            console.log(response);
+            fetch();
           } else {
             Swal.fire({
               position: "top-end",
@@ -63,7 +63,7 @@ const TrainersItem = ({ id, status, category, user }) => {
           <span
             aria-hidden="true"
             className="action-button close"
-            onClick={() => jobDelete(id)}
+            onClick={() => trainerDelete(id)}
           >
             <i className="fa fa-close" />
           </span>
@@ -73,4 +73,4 @@ const TrainersItem = ({ id, status, category, user }) => {
   );
 };
 
-export default React.memo(TrainersItem);
+export default TrainersItem;
