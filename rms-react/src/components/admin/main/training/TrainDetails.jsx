@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useHistory, useParams } from "react-router-dom";
+import { Link, useHistory, useParams } from "react-router-dom";
 import Sidebar from "../../navigation/sidebar/Sidebar";
 import Header from "../../navigation/navbar/Hedaer";
 import "./Training.scss";
@@ -10,9 +10,9 @@ import TraineeItem from "./TraineeItem";
 const TrainDetails = () => {
   const [loader, setloader] = useState(true);
   const [toggle, setToggle] = useState(false);
-  const [data, setData] = useState([]);
+  const [data, setData] = useState("");
   const history = useHistory();
-  const { slug } = useParams();
+  const { catename, slug } = useParams();
   useEffect(() => {
     setTimeout(() => {
       setloader(false);
@@ -21,7 +21,6 @@ const TrainDetails = () => {
       const response = await fetchApiData(`trainings/${slug}`);
       if (response.status === true) {
         setData(response.data);
-        console.log(response.data);
       } else {
         notify(response.message);
         console.log(response);
@@ -46,7 +45,16 @@ const TrainDetails = () => {
                       Trainers
                     </span>
                   </div>
-                  <div className="right text-red">
+                  <div className="right">
+                    {data.trainees && (
+                      <Link
+                        className="success"
+                        to={`/admin/manage-training/${catename.toLowerCase()}/${slug}/add-trainee`}
+                      >
+                        Add Trainee
+                      </Link>
+                    )}
+
                     <span onClick={() => history.goBack()}>Go Back</span>
                   </div>
                 </div>

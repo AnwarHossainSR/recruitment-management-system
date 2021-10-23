@@ -17,7 +17,8 @@ const Hero = ({ job, hero }) => {
         hero === "Not Found" ||
         hero === "Forgot Password" ||
         hero === "Change Password" ||
-        hero === "Login" ||
+        hero === "Sign Up" ||
+        hero === "Sign In" ||
         hero === "Provacy Policy" ||
         hero === job.name ? (
         <>

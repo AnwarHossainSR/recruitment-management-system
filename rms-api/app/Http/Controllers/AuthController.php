@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
+use App\Jobs\RegisterNotificationJob;
 use App\Jobs\ResetPasswordJob;
 use App\Traits\ApiResponseWithHttpStatus;
 use Illuminate\Support\Facades\Auth;
@@ -44,10 +45,34 @@ class AuthController extends Controller
     {
         $user = User::create([
             'name' => $request->name,
+            'slug' => Str::slug($request->name) . Str::random(6),
             'email' => $request->email,
-            'password' => Hash::make($request->password)
+            'password' => Hash::make($request->password),
+            'status' => 'active',
+            'is_admin' => false,
+            'token' => Str::random(30)
         ]);
-        return $this->apiResponse('register success', $user, Response::HTTP_OK, true);
+        $details = ['name' => $user->name, 'token' => $user->token, 'email' => Crypt::encryptString($user->email), 'nemail' => $user->email];
+        if ($user) {
+            dispatch(new RegisterNotificationJob($details));
+        }
+
+        return $this->apiResponse('registration success', null, Response::HTTP_CREATED, true);
+    }
+    public function verify($token, $email)
+    {
+        $user = User::where([['email', Crypt::decryptString($email)], ['token', $token]])->first();
+        if ($user->token == $token) {
+            $user->update([
+                'verify' => true,
+                'token' => null
+            ]);
+            return redirect()->to('http://localhost:3000');
+            //return $this->apiResponse('account verified !', null, Response::HTTP_OK, true);
+        } else {
+            return redirect()->to('http://localhost:3000');
+            //return $this->apiResponse('something is wrong !', null, Response::HTTP_OK, false);
+        }
     }
 
     public function logout()

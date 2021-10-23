@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\TraineeRequest;
 use App\Trainee;
 use App\Trainer;
+use App\Training;
 use App\Traits\ApiResponseWithHttpStatus;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Symfony\Component\HttpFoundation\Response;
 
 class TraineeController extends Controller
@@ -32,9 +35,12 @@ class TraineeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($slug)
     {
-        //
+        $trainee = Trainee::pluck('user_id');
+        $data['users'] = User::where('is_admin', false)->whereNotIn('id', $trainee)->get();
+        $data['training'] = Training::where('slug', $slug)->with('category')->first();
+        return $this->apiResponse('success', $data, Response::HTTP_OK, true);
     }
 
     /**
@@ -43,9 +49,14 @@ class TraineeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(TraineeRequest $request)
     {
-        //
+        Trainee::create([
+            'slug' => Str::random(15),
+            'training_id' => $request->training_id,
+            'user_id' => $request->user_id
+        ]);
+        return $this->apiResponse('created !', null, Response::HTTP_CREATED, true);
     }
 
     /**

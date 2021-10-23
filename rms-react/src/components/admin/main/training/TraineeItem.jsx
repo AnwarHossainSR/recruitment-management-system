@@ -1,7 +1,6 @@
-import React from "react";
 import { Link } from "react-router-dom";
 
-const TraineeItem = ({ trainee, path }) => {
+const TraineeItem = ({ trainee }) => {
   return (
     <tr className="alert">
       <td>

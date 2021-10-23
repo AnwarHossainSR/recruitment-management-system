@@ -10,6 +10,18 @@ import {
 import { storeApiData } from "../../../../api/ApiCall";
 import Gif from "../../images/spinner.gif";
 
+const nameReducer = (state, action) => {
+  if (action.val.length === 0) {
+    return {
+      value: action.val,
+      msg: "name is required",
+      type: action.type,
+      isValid: false,
+    };
+  }
+
+  return { value: action.val, isValid: true, type: action.type };
+};
 const emailReducer = (state, action) => {
   var pattern = new RegExp(
     /^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i
@@ -54,12 +66,30 @@ const passwordReducer = (state, action) => {
 
   return { value: action.val, isValid: true, type: action.type };
 };
+const confirmPasswordReducer = (state, action) => {
+  if (action.val !== action.password) {
+    return {
+      value: action.val,
+      msg: "Not matched with passwod",
+      type: action.type,
+      isValid: false,
+    };
+  }
 
-const LoginItem = () => {
+  return { value: action.val, isValid: true, type: action.type };
+};
+
+const SignUpItem = () => {
   const dispatch = useDispatch();
   const histry = useHistory();
   const { isLoading, isAuth, error } = useSelector((state) => state.login);
   const [formIsValid, setFormIsValid] = useState(false);
+  const [nameState, dispatchName] = useReducer(nameReducer, {
+    value: "",
+    isValid: false,
+    type: "",
+    msg: "",
+  });
   const [emailState, dispatchEmail] = useReducer(emailReducer, {
     value: "",
     isValid: false,
@@ -72,9 +102,24 @@ const LoginItem = () => {
     type: "",
     msg: "",
   });
+  const [confirmPasswordState, dispatchConfirmPassword] = useReducer(
+    confirmPasswordReducer,
+    {
+      value: "",
+      isValid: false,
+      type: "",
+      msg: "",
+      password: null,
+    }
+  );
+  const { isValid: nameIsValid } = nameState;
   const { isValid: emailIsValid } = emailState;
   const { isValid: passwordIsValid } = passwordState;
+  const { isValid: confirmPasswordIsValid } = confirmPasswordState;
 
+  const nameChangeHandler = (event) => {
+    dispatchName({ type: "name", val: event.target.value });
+  };
   const emailChangeHandler = (event) => {
     dispatchEmail({ type: "email", val: event.target.value });
   };
@@ -82,11 +127,20 @@ const LoginItem = () => {
   const passwordChangeHandler = (event) => {
     dispatchPassword({ type: "password", val: event.target.value });
   };
+  const confirmPasswordChangeHandler = (event) => {
+    dispatchConfirmPassword({
+      type: "cpassword",
+      val: event.target.value,
+      password: passwordState.value,
+    });
+  };
   useEffect(() => {
     setTimeout(() => {
-      setFormIsValid(emailIsValid && passwordIsValid);
+      setFormIsValid(
+        nameIsValid && emailIsValid && passwordIsValid && confirmPasswordIsValid
+      );
     }, 500);
-  }, [emailIsValid, passwordIsValid]);
+  }, [emailIsValid, passwordIsValid, confirmPasswordIsValid, nameIsValid]);
   useEffect(() => {}, [isAuth]);
 
   const handleSUbmit = async (e) => {
@@ -96,23 +150,26 @@ const LoginItem = () => {
     } else {
       dispatch(loginPending(true));
       const data = {
+        name: nameState.value,
         email: emailState.value,
         password: passwordState.value,
+        password_confirmation: confirmPasswordState.value,
       };
 
       const fetchData = async () => {
-        const response = await storeApiData("auth/login", data);
+        const response = await storeApiData("auth/register", data);
         if (response.status === true) {
-          localStorage.setItem("token", response.data);
           dispatch(loginSuccess(response.message));
           setTimeout(() => {
-            if (localStorage.getItem("token")) {
-              histry.push("/admin/dashboard");
-            }
             dispatch(loginPending(false));
           }, 2000);
+          histry.push("/user/sign-in");
         } else {
-          dispatch(loginFail(response.message));
+          dispatch(
+            loginFail(
+              response.errors ? response.errors.email : response.message
+            )
+          );
         }
       };
       fetchData();
@@ -128,7 +185,18 @@ const LoginItem = () => {
                 <h3 className="error">
                   {error} <br />
                 </h3>
-              )) || <h1>LOGIN</h1>}
+              )) || <h1>Sign Up</h1>}
+              <div>
+                <input
+                  type="text"
+                  className="form-control"
+                  name="name"
+                  value={nameState.value}
+                  onChange={nameChangeHandler}
+                  placeholder="user name"
+                />
+                {nameState.msg && <h3 className="error">{nameState.msg}</h3>}
+              </div>
               <div>
                 <input
                   type="email"
@@ -151,6 +219,18 @@ const LoginItem = () => {
                   <h3 className="error">{passwordState.msg}</h3>
                 )}
               </div>
+              <div>
+                <input
+                  type="password"
+                  className="form-control"
+                  value={confirmPasswordState.value}
+                  onChange={confirmPasswordChangeHandler}
+                  placeholder="Confirm password"
+                />
+                {confirmPasswordState.msg && (
+                  <h3 className="error">{confirmPasswordState.msg}</h3>
+                )}
+              </div>
               <button className="button">
                 {(isLoading && (
                   <div>
@@ -160,19 +240,14 @@ const LoginItem = () => {
                       width="15px"
                       height="15px"
                     />
-                    <span>Login</span>
+                    <span>Sign up</span>
                   </div>
                 )) ||
-                  "Login"}
+                  "Sign up"}
               </button>
-              <div className="flex justify-between">
-                <Link to="/user/sign-up" className="forgot">
-                  don't have any account ?
-                </Link>
-                <Link to="/user/forgot-password" className="forgot">
-                  forgot your password ?
-                </Link>
-              </div>
+              <Link to="/user/sign-in" className="forgot">
+                Already have an account ?
+              </Link>
             </div>
           </form>
         </div>
@@ -181,4 +256,4 @@ const LoginItem = () => {
   );
 };
 
-export default LoginItem;
+export default SignUpItem;

@@ -74,24 +74,25 @@ const Sidebar = (props) => {
         </div>
         <div
           className={`sidebar__link ${
-            props.cmp === "/admin/manage-training" ? "active_menu_link" : ""
-          }`}
-        >
-          <i className="fa fa-sign-out " />
-          <NavLink to="/admin/manage-training">Manage Training</NavLink>
-        </div>
-        <div
-          className={`sidebar__link ${
             props.cmp === "/admin/manage-trainers" ? "active_menu_link" : ""
           }`}
         >
           <i className="fa fa-user" />
           <NavLink to="/admin/manage-trainers">Manage Trainers</NavLink>
         </div>
+        <div
+          className={`sidebar__link ${
+            props.cmp === "/admin/manage-training" ? "active_menu_link" : ""
+          }`}
+        >
+          <i className="fa fa-sign-out " />
+          <NavLink to="/admin/manage-training">Manage Training</NavLink>
+        </div>
+
         <div className="sidebar__link">
           {/* <i className="fa fa-files-o" /> */}
-          <i className="fa fa-calendar-check-o" />
-          <Link to="#">Link</Link>
+          <i className="fa fa-bell" />
+          <Link to="#">Notifications</Link>
         </div>
         <div className="sidebar__logout">
           <i className="fa fa-power-off" />

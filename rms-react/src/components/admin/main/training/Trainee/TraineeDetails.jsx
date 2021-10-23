@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router";
+import { useHistory, useParams } from "react-router";
 import { fetchApiData } from "../../../../../api/ApiCall";
 import Loader from "../../../../../services/Loader";
 import { notify } from "../../../../../services/Notification";
@@ -11,6 +11,7 @@ import "./Trainee.scss";
 
 const TraineeDetails = () => {
   const [loader, setloader] = useState(true);
+  const history = useHistory();
   const [activeTab, setActiveTab] = useState("details");
   const [data, setData] = useState([]);
   const { userslug } = useParams();
@@ -29,7 +30,6 @@ const TraineeDetails = () => {
     };
     fetch();
   }, [userslug]);
-  console.log(data && data);
   return (
     <>
       <div className="admin-container">
@@ -87,7 +87,7 @@ const TraineeDetails = () => {
                       </span>
                     </div>
                     <div>
-                      <span className="error">Back</span>
+                      <span onClick={() => history.goBack()}>Go Back</span>
                     </div>
                   </div>
                   <div className="card-body-right">

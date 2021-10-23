@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import Logo from "../images/logo.svg";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logOut } from "../../../redux/LoginSlice";
 
 const Nav = ({ cmp }) => {
-  //const isAuthenticated = localStorage.getItem("token");
+  const histry = useHistory();
   const [isAuthenticated, setAuthenticated] = useState(
     localStorage.getItem("token")
   );
@@ -48,7 +48,10 @@ const Nav = ({ cmp }) => {
             to="/user/sign-in"
             className={cmp === "login" ? "active_menu" : ""}
           >
-            Sign in
+            {(histry.location.pathname === "/user/sign-up" && "Sign up") ||
+              (histry.location.pathname === "/user/forgot-password" &&
+                "Reset Password") ||
+              "Sign in"}
           </Link>
         )}
       </div>

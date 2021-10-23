@@ -65,9 +65,6 @@ const ManageTrainingItem = ({ url, training, fetch }) => {
           >
             <i className="fa fa-eye" />
           </Link>
-          <span aria-hidden="true" className="action-edit">
-            <i className="fa fa-edit" />
-          </span>
           <span
             aria-hidden="true"
             className="action-button close"

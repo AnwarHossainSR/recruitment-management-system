@@ -10,6 +10,7 @@ Route::middleware(['cors'])->group(function () {
     Route::get('/jobs/{query}/search', 'HomeController@searchJob');
     Route::post('/subscribe', 'CommonController@subscribe');
     Route::post('/contact', 'CommonController@contactStore');
+    Route::get('/verify/{token}/{email}', 'AuthController@verify');
     //home
     Route::get('/categories/cat-jobs/{slug}', 'HomeController@jobsByCategory');
 
@@ -29,6 +30,8 @@ Route::middleware(['cors'])->group(function () {
             //trainers
             Route::get('create/trainer', 'TrainerController@create');
             Route::get('create/trainings', 'TrainingController@create');
+            //trainee
+            Route::get('create/trainees/{slug}', 'TraineeController@create');
         });
     });
     Route::apiResources([

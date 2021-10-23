@@ -30,6 +30,8 @@ import EditTrainer from "./components/admin/main/training/trainers/EditTrainer";
 import ManageProfile from "./components/admin/main/profile/ManageProfile";
 import TraineeDetails from "./components/admin/main/training/Trainee/TraineeDetails";
 import AddTraining from "./components/admin/main/training/AddTraining";
+import AddTrainee from "./components/admin/main/training/Trainee/AddTrainee";
+import SignUp from "./components/user/pages/Authentication/SignUp";
 
 const App = () => {
   return (
@@ -51,7 +53,10 @@ const App = () => {
           <JobDetails hero="details" />
         </Route>
         <Route exact path="/user/sign-in">
-          <Login hero="Login" />
+          <Login hero="Sign In" />
+        </Route>
+        <Route exact path="/user/sign-up">
+          <SignUp hero="Sign Up" />
         </Route>
         <Route exact path="/user/forgot-password">
           <ForgotPassword hero="Forgot Password" />
@@ -143,6 +148,12 @@ const App = () => {
           exact
           path="/admin/manage-training/:catename/:catslug/trainee/:userslug"
           component={TraineeDetails}
+          cmp="train"
+        />
+        <ProtectedRoute
+          exact
+          path="/admin/manage-training/:catename/:catslug/add-trainee"
+          component={AddTrainee}
           cmp="train"
         />
         {/* end manageTraining */}

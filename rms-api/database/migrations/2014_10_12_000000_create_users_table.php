@@ -19,6 +19,8 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
+            $table->boolean('verify')->default(0);
+            $table->string('token')->nullable();
             $table->boolean('is_admin')->default(false);
             $table->string('image')->default('http://localhost:8000/files/users/default.png')->nullable();
             $table->string('status')->default('active');

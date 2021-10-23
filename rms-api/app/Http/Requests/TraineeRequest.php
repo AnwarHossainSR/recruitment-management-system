@@ -8,7 +8,7 @@ use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Symfony\Component\HttpFoundation\Response;
 
-class TrainerRequest extends FormRequest
+class TraineeRequest extends FormRequest
 {
     use ApiResponseWithHttpStatus;
 
@@ -30,8 +30,8 @@ class TrainerRequest extends FormRequest
     public function rules()
     {
         return [
-            'user_id' => 'required',
-            'cat_id' => 'required',
+            'training_id' => 'required',
+            'user_id' => 'required'
         ];
     }
 
