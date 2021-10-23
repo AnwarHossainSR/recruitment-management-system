@@ -44,6 +44,7 @@ const JobItemSection = ({ jobs }) => {
                   key={i}
                 />
               ))}
+          {jobs.length < 0 && <h1>No Jobs Found</h1>}
         </div>
         <div className="load-data">
           {(loading && (

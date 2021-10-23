@@ -3,6 +3,7 @@ import "./App.scss";
 import { Route, Switch } from "react-router-dom";
 import Main from "./components/user/Main";
 import AllJobs from "./components/user/pages/JobPage/AllJobs";
+import CatJob from "./components/user/categories/CatJob";
 import JobDetails from "./components/user/pages/JobPage/JobDetails";
 import NotFound from "./components/user/pages/NotFound";
 import Login from "./components/user/pages/Authentication/Login";
@@ -39,6 +40,9 @@ const App = () => {
         </Route>
         <Route exatc path="/jobs">
           <AllJobs hero="jobs" />
+        </Route>
+        <Route exatc path="/categories/jobs/:slug">
+          <CatJob hero="jobs" />
         </Route>
         <Route exact path="/search/jobs/:search">
           <SearchJob hero="search" />

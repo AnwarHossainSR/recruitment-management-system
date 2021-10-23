@@ -7,7 +7,13 @@ const NavBar = (props) => {
     <header className="header" style={{ background: "#F0F0F0" }}>
       <div className="container">
         <Nav cmp={props.cmp} />
-        <Hero job={props.job} hero={props.hero} />
+        {props.cmp === "catjob" ? (
+          <Hero job={props.job} hero={props.job.name} />
+        ) : props.cmp === "alljob" ? (
+          <Hero job={props.job} hero={props.hero} />
+        ) : (
+          <Hero hero={props.hero} />
+        )}
       </div>
     </header>
   );
