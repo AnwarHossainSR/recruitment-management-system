@@ -38,7 +38,9 @@ class AuthController extends Controller
 
     public function authenticatedUser()
     {
-        return $this->apiResponse('authenticated user', Auth::user(), Response::HTTP_OK, true);
+        $data['notifications'] = Auth::user()->unreadNotifications;
+        $data['user'] = Auth::user();
+        return $this->apiResponse('authenticated user', $data, Response::HTTP_OK, true);
     }
 
     public function register(RegisterRequest $request)

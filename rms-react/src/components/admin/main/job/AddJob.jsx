@@ -83,6 +83,7 @@ const AddJob = (props) => {
           })
         );
       } else {
+        console.log(response);
         notify("Job created successfully !", "success");
         histry.push("/admin/manage-job");
       }

@@ -13,7 +13,9 @@ Route::middleware(['cors'])->group(function () {
     Route::get('/verify/{token}/{email}', 'AuthController@verify');
     //home
     Route::get('/categories/cat-jobs/{slug}', 'HomeController@jobsByCategory');
-
+    //notifications
+    Route::get('/notifications', 'NotificationController@getUnreadNotifications');
+    Route::get('/notifications/marked', 'NotificationController@markedNotiAsRead');
     Route::middleware(['auth:api'])->group(function () {
         Route::post('/auth/logout', 'AuthController@logout');
         Route::get('user', 'AuthController@authenticatedUser');

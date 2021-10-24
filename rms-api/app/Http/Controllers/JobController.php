@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\JobFormRequest;
-use App\Job;
 use App\JobCategory;
 use App\MainJob;
+use App\Notifications\JobPostNotification;
 use App\Traits\ApiResponseWithHttpStatus;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Str;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -42,7 +44,6 @@ class JobController extends Controller
     public function store(JobFormRequest $request)
     {
         try {
-            //return $request;
             if ($request->hasFile('icon')) {
                 $file = $request->file('icon');
                 $fileName = time() . '.' . $file->extension();
@@ -65,15 +66,18 @@ class JobController extends Controller
                 "user_id" => Auth::user()->id,
                 "type" => $request->type,
                 "description" => $request->description,
-            ]);
+            ])->id;
             if ($response) {
                 $category = JobCategory::find($request->cat_id);
                 $category->update([
                     'job_count' => $category->job_count + 1
                 ]);
+                $notification = new JobPostNotification(MainJob::find($response));
+                $admin = new User();
+                Notification::send($admin->areAdmins(), $notification);
+                //User::find(1)->notify();
             }
-
-            return $this->apiResponse('success', null, Response::HTTP_CREATED, true);
+            return $this->apiResponse('success', $admin->areAdmins(), Response::HTTP_CREATED, true);
         } catch (\Throwable $th) {
             return $this->apiResponse($th->getMessage(), null, Response::HTTP_CREATED, true);
         }

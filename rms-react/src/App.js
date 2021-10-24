@@ -32,6 +32,7 @@ import TraineeDetails from "./components/admin/main/training/Trainee/TraineeDeta
 import AddTraining from "./components/admin/main/training/AddTraining";
 import AddTrainee from "./components/admin/main/training/Trainee/AddTrainee";
 import SignUp from "./components/user/pages/Authentication/SignUp";
+import Notifications from "./components/admin/main/notifications/Notifications";
 
 const App = () => {
   return (
@@ -177,6 +178,11 @@ const App = () => {
           exact
           path="/admin/profiles"
           component={ManageProfile}
+        />
+        <ProtectedRoute
+          exact
+          path="/admin/notifications"
+          component={Notifications}
         />
         <Route path="*">
           <NotFound hero="Not Found" />

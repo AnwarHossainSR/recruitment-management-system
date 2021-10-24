@@ -88,11 +88,14 @@ const Sidebar = (props) => {
           <i className="fa fa-sign-out " />
           <NavLink to="/admin/manage-training">Manage Training</NavLink>
         </div>
-
-        <div className="sidebar__link">
+        <div
+          className={`sidebar__link ${
+            props.cmp === "notifications" ? "active_menu_link" : ""
+          }`}
+        >
           {/* <i className="fa fa-files-o" /> */}
           <i className="fa fa-bell" />
-          <Link to="#">Notifications</Link>
+          <Link to="/admin/notifications">Notifications</Link>
         </div>
         <div className="sidebar__logout">
           <i className="fa fa-power-off" />

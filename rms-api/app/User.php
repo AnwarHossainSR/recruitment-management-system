@@ -34,4 +34,9 @@ class User extends Authenticatable
     {
         return Carbon::createFromFormat('Y-m-d H:i:s', $date)->diffForHumans();
     }
+
+    public function areAdmins()
+    {
+        return $this->where('is_admin', '=', true)->get();
+    }
 }

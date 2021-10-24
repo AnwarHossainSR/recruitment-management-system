@@ -7,7 +7,7 @@ import { logOut } from "../../../../redux/LoginSlice";
 import { fetchApiData } from "../../../../api/ApiCall";
 import { notify } from "../../../../services/Notification";
 
-const Hedaer = ({ sidebarOpen, openSidebar }) => {
+const Hedaer = () => {
   const [menu, setMenu] = useState(false);
   const [user, setUser] = useState({});
   const dispatch = useDispatch();
@@ -43,8 +43,16 @@ const Hedaer = ({ sidebarOpen, openSidebar }) => {
         </Link> */}
       </div>
       <div className="admin-navbar__right">
-        <Link to="/">
-          <i className="fa fa-bell-o" aria-hidden="true"></i>
+        <Link to="/admin/notifications" className="error">
+          <i
+            className={`fa fa-bell ${
+              user.notifications && user.notifications.length > 0 && "error"
+            }`}
+            aria-hidden="true"
+          ></i>
+          <span className="badge">
+            {user.notifications && user.notifications.length}
+          </span>
         </Link>
 
         <div className="dropdown-container" id="menu">
@@ -53,7 +61,7 @@ const Hedaer = ({ sidebarOpen, openSidebar }) => {
             className="dropbtn"
             width="30px"
             height="30px"
-            src={user && user.image}
+            src={user.user && user.user.image}
             alt="user"
           />
           <div className={menu ? "dropdown-content" : "dropdown-content hide"}>
