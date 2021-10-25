@@ -50,7 +50,7 @@ class HomeController extends Controller
      */
     public function show($slug)
     {
-        $data['job'] = MainJob::where([['slug', $slug], ['status', 'active']])->with('category')->first();
+        $data['job'] = MainJob::where([['slug', $slug]])->with('category')->first();
         $data['similar'] = MainJob::where([['status', 'active'], ['cat_id', $data['job']->cat_id]])->get()->random(3);
         return $this->apiResponse('success', $data, Response::HTTP_OK, true);
     }

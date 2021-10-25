@@ -29,7 +29,7 @@ class JobController extends Controller
     public function index()
     {
         $data['categories'] = JobCategory::where('status', 'active')->get();
-        $data['jobs'] = MainJob::where([['status', 'active']])->get();
+        $data['jobs'] = MainJob::where([['status', 'active']])->orderBy('id', 'DESC')->get();
         $data['main_jobs'] = MainJob::where([['status', 'active']])->latest()->paginate(10);
         return $this->apiResponse('success', $data, Response::HTTP_OK, true);
     }

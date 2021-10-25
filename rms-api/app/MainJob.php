@@ -12,7 +12,7 @@ class MainJob extends Model
     ];
     public function category()
     {
-        return $this->belongsTo('App\JobCategory');
+        return $this->belongsTo('App\JobCategory', 'cat_id');
     }
     public function applications()
     {

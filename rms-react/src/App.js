@@ -33,6 +33,8 @@ import AddTraining from "./components/admin/main/training/AddTraining";
 import AddTrainee from "./components/admin/main/training/Trainee/AddTrainee";
 import SignUp from "./components/user/pages/Authentication/SignUp";
 import Notifications from "./components/admin/main/notifications/Notifications";
+import ManageExam from "./components/admin/main/scores/ManageExam";
+import AddExam from "./components/admin/main/scores/AddExam";
 
 const App = () => {
   return (
@@ -184,6 +186,14 @@ const App = () => {
           path="/admin/notifications"
           component={Notifications}
         />
+
+        {/* Exams & scores */}
+        <ProtectedRoute
+          exact
+          path="/admin/manage-score"
+          component={ManageExam}
+        />
+        <ProtectedRoute exact path="/admin/add-exam" component={AddExam} />
         <Route path="*">
           <NotFound hero="Not Found" />
         </Route>

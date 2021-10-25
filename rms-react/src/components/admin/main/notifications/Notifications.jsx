@@ -10,16 +10,16 @@ import "./Notifications.scss";
 const Notifications = () => {
   const [loader, setloader] = useState(true);
   const [notifications, setNotifications] = useState([]);
+  const fetch = async () => {
+    const response = await fetchApiData("notifications");
+    if (response.status === true) {
+      setNotifications(response.data);
+    } else {
+      console.log(response);
+      notify("something is wrong ! please check console", "error");
+    }
+  };
   useEffect(() => {
-    const fetch = async () => {
-      const response = await fetchApiData("notifications");
-      if (response.status === true) {
-        setNotifications(response.data);
-      } else {
-        console.log(response);
-        notify("something is wrong ! please check console", "error");
-      }
-    };
     setTimeout(() => {
       setloader(false);
     }, 1000);
@@ -28,6 +28,7 @@ const Notifications = () => {
   const markedAsRead = async () => {
     const response = await fetchApiData("notifications/marked");
     if (response.status === true) {
+      fetch();
       notify("notifications cleared !", "success");
     } else {
       console.log(response);
@@ -87,7 +88,6 @@ const Notifications = () => {
             </div>
           </main>
         )}
-
         <Sidebar cmp="notifications" />
       </div>
     </>

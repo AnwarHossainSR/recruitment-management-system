@@ -71,7 +71,7 @@ const ManageProfile = () => {
               <div className="card-wraper">
                 <div className="card-left">
                   <div className="card-header-left">
-                    <img src={user.image} alt="user" />
+                    <img src={user.user.image} alt="user" />
                     <h2>Anwar Hossain</h2>
                     <p>Software Engineer</p>
                   </div>
@@ -133,7 +133,7 @@ const ManageProfile = () => {
                     )}
                     {activeTab === "settings" && (
                       <SettingsTab
-                        user={user}
+                        user={user.user}
                         onsubmit={onsubmit}
                         handleChange={handleChange}
                       />

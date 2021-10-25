@@ -25,6 +25,7 @@ const JobDetails = (props) => {
       fetchData();
     }, 1000);
   }, [slug]);
+
   return (
     <>
       {(loader && <Loader />) || (
