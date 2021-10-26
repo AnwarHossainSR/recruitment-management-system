@@ -3,13 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Exam;
-use App\Http\Requests\ExamRequets;
+use App\Score;
 use App\Traits\ApiResponseWithHttpStatus;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 use Symfony\Component\HttpFoundation\Response;
 
-class ExamController extends Controller
+class ScoreController extends Controller
 {
     use ApiResponseWithHttpStatus;
     public function __construct()
@@ -23,7 +22,7 @@ class ExamController extends Controller
      */
     public function index()
     {
-        $data['exams'] = Exam::with('training')->latest()->get();
+        $data['scores'] = Score::with('trainee.user', 'exam.training')->get();
         return $this->apiResponse('success', $data, Response::HTTP_OK, true);
     }
 
@@ -43,30 +42,31 @@ class ExamController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ExamRequets $request)
-    {
-        Exam::create(['name' => $request->name, 'slug' => Str::slug($request->name . Str::random(10)), 'training_id' => $request->training_id, 'exam_date' => $request->exam_date]);
-        return $this->apiResponse('created !', null, Response::HTTP_CREATED, true);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Exam  $exam
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Exam $exam)
+    public function store(Request $request)
     {
         //
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Display the specified resource.
      *
-     * @param  \App\Exam  $exam
+     * @param  \App\Score  $score
      * @return \Illuminate\Http\Response
      */
-    public function edit(Exam $exam)
+    public function show($slug)
+    {
+        $exam = Exam::where('slug', $slug)->first();
+        $data['scores'] = Score::where('exam_id', $exam->id)->with('trainee.user', 'exam.training')->get();
+        return $this->apiResponse('success', $data, Response::HTTP_OK, true);
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Score  $score
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Score $score)
     {
         //
     }
@@ -75,10 +75,10 @@ class ExamController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Exam  $exam
+     * @param  \App\Score  $score
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Exam $exam)
+    public function update(Request $request, Score $score)
     {
         //
     }
@@ -86,12 +86,11 @@ class ExamController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Exam  $exam
+     * @param  \App\Score  $score
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Exam $exam)
+    public function destroy(Score $score)
     {
-        $exam->delete();
-        return $this->apiResponse('deleted !', null, Response::HTTP_OK, true);
+        //
     }
 }

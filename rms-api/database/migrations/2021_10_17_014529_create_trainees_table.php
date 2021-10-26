@@ -16,7 +16,7 @@ class CreateTraineesTable extends Migration
         Schema::create('trainees', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('slug')->unique();
-            $table->unsignedBigInteger('user_id')->nullable();
+            $table->unsignedBigInteger('user_id')->unique()->nullable();
             $table->unsignedBigInteger('training_id')->nullable();
             $table->enum('status', ['active', 'inactive'])->default('active');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('SET NULL');

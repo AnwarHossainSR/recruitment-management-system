@@ -91,6 +91,6 @@ class UsersTableSeeder extends Seeder
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
         ]);
-        factory(App\User::class, 18)->create();
+        factory(App\User::class, 50)->create();
     }
 }

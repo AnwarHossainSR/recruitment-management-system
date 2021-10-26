@@ -26,14 +26,6 @@ const EditTrainer = (props) => {
           status: response.data.trainer.status,
           _method: "PUT",
         });
-        // setstate((state) => ({
-        //   ...state,
-        //   cat_id: response.data.trainer.cat_id,
-        // }));
-        // setstate((state) => ({
-        //   ...state,
-        //   _method: "PUT",
-        // }));
       } else {
         console.log(response);
         notify(response.message, "error");

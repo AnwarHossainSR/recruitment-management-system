@@ -44,6 +44,7 @@ Route::middleware(['cors'])->group(function () {
         'trainers' => 'TrainerController',
         'trainings' => 'TrainingController',
         'trainees' => 'TraineeController',
-        'exams' => 'ExamController'
+        'exams' => 'ExamController',
+        'scores' => 'ScoreController'
     ]);
 });
