@@ -34,6 +34,8 @@ Route::middleware(['cors'])->group(function () {
             Route::get('create/trainings', 'TrainingController@create');
             //trainee
             Route::get('create/trainees/{slug}', 'TraineeController@create');
+            //scores
+            Route::get('create/{slug}/score', 'ScoreController@create');
         });
     });
     Route::apiResources([

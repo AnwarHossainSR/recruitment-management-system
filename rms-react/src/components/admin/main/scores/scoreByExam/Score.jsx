@@ -12,19 +12,17 @@ const Score = () => {
   const [loader, setloader] = useState(true);
   const [scores, setScore] = useState([]);
   const { slug } = useParams();
-
+  const fetchData = async (pslug) => {
+    const response = await fetchApiData(`scores/${pslug}`);
+    if (response.status === true) {
+      setScore(response.data.scores);
+    } else {
+      console.log(response);
+      notify("something is wrong, check console !", "error");
+    }
+  };
   useEffect(() => {
-    const fetchData = async () => {
-      const response = await fetchApiData(`scores/${slug}`);
-      if (response.status === true) {
-        setScore(response.data.scores);
-        console.log(response);
-      } else {
-        console.log(response);
-        notify("something is wrong, check console !", "error");
-      }
-    };
-    fetchData();
+    fetchData(slug);
     setTimeout(() => {
       setloader(false);
     }, 1000);
@@ -39,10 +37,10 @@ const Score = () => {
             <div className="main__container">
               <div className="card-main">
                 <div className="header-div">
-                  <h1>Scores for {scores && scores[0].exam.name}</h1>
+                  <h1>Scores for {scores.length && scores[0].exam.name}</h1>
                   <div className="right">
                     <Link
-                      to="/admin/add-marks"
+                      to={`/admin/${slug}/add-marks`}
                       style={{ color: "green", marginRight: "1rem" }}
                     >
                       Add trainee marks
@@ -60,10 +58,13 @@ const Score = () => {
                         scores.map((item, i) => (
                           <ScoreItem
                             key={i}
+                            sid={item.id}
                             exam={item.exam}
                             trainee={item.trainee}
                             marks={item.marks}
                             total={item.total}
+                            fetch={fetchData}
+                            eslug={slug}
                           />
                         ))}
                     </tbody>

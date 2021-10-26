@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Exam;
+use App\Http\Requests\ScoreRequest;
 use App\Score;
+use App\Trainee;
 use App\Traits\ApiResponseWithHttpStatus;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -31,9 +33,11 @@ class ScoreController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($slug)
     {
-        //
+        $data['exam'] = Exam::where('slug', $slug)->first();
+        $data['trainees'] = Trainee::where('status', 'active')->with('user')->get();
+        return $this->apiResponse('success', $data, Response::HTTP_OK, true);
     }
 
     /**
@@ -42,9 +46,19 @@ class ScoreController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ScoreRequest $request)
     {
-        //
+        $check = Score::where([['exam_id', $request->exam_id], ['trainee_id', $request->trainee_id]])->get();
+        if (count($check) > 0) {
+            return $this->apiResponse('Trainee mark has already stored !', null, Response::HTTP_OK, true);
+        }
+        Score::create([
+            'marks' => $request->marks,
+            'total' => $request->total,
+            'exam_id' => $request->exam_id,
+            'trainee_id' => $request->trainee_id,
+        ]);
+        return $this->apiResponse('success', $request->all(), Response::HTTP_OK, true);
     }
 
     /**
@@ -68,7 +82,6 @@ class ScoreController extends Controller
      */
     public function edit(Score $score)
     {
-        //
     }
 
     /**
@@ -91,6 +104,7 @@ class ScoreController extends Controller
      */
     public function destroy(Score $score)
     {
-        //
+        $score->delete();
+        return $this->apiResponse('success', $score, Response::HTTP_OK, true);
     }
 }

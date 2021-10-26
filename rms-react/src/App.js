@@ -36,6 +36,7 @@ import Notifications from "./components/admin/main/notifications/Notifications";
 import ManageExam from "./components/admin/main/scores/ManageExam";
 import AddExam from "./components/admin/main/scores/AddExam";
 import Score from "./components/admin/main/scores/scoreByExam/Score";
+import AddScore from "./components/admin/main/scores/scoreByExam/AddScore";
 
 const App = () => {
   return (
@@ -199,6 +200,11 @@ const App = () => {
           exact
           path="/admin/manage-score/:slug"
           component={Score}
+        />
+        <ProtectedRoute
+          exact
+          path="/admin/:slug/add-marks"
+          component={AddScore}
         />
         <Route path="*">
           <NotFound hero="Not Found" />
