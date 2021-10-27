@@ -64,7 +64,7 @@ const AddScore = () => {
           <main>
             <div className="main__container">
               <div className="card-main">
-                <h1>Add Training</h1>
+                <h1>Add Score / marks</h1>
                 <div className="job-form">
                   <form onSubmit={handleSubmit}>
                     <h2 className="error flex content-center items-center">

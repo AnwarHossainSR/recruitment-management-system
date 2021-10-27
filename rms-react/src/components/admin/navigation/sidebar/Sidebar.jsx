@@ -70,7 +70,7 @@ const Sidebar = (props) => {
           }`}
         >
           <i className="fa fa-question" />
-          <NavLink to="/admin/manage-categories">Categories</NavLink>
+          <NavLink to="/admin/manage-categories">Manage Categories</NavLink>
         </div>
         <div
           className={`sidebar__link ${
@@ -94,7 +94,7 @@ const Sidebar = (props) => {
           }`}
         >
           <i className="fa fa-money" />
-          <Link to="/admin/manage-score">Score</Link>
+          <Link to="/admin/manage-score">Manage Score</Link>
         </div>
         <div
           className={`sidebar__link ${
