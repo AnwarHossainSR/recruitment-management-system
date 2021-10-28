@@ -11,6 +11,11 @@ Route::middleware(['cors'])->group(function () {
     Route::post('/subscribe', 'CommonController@subscribe');
     Route::post('/contact', 'CommonController@contactStore');
     Route::get('/verify/{token}/{email}', 'AuthController@verify');
+    //github
+    Route::middleware(['web'])->group(function () {
+        Route::get('auth/github', 'SocialAuthController@gitRedirect');
+        Route::get('auth/callback/github', 'SocialAuthController@gitCallback');
+    });
     //home
     Route::get('/categories/cat-jobs/{slug}', 'HomeController@jobsByCategory');
     //notifications

@@ -78,29 +78,22 @@ const ManageProfile = () => {
                   <hr />
                   <div className="card-body-left">
                     <div className="item-pro flex justify-between">
-                      <h4>Followers</h4>
-                      <p>34543</p>
+                      <h4>Joined at </h4>
+                      <p>{user.user.created_at}</p>
+                    </div>
+                  </div>
+                  <hr />
+                  <div className="card-body-left">
+                    <div className="item-pro flex justify-between">
+                      <h4>Current Status</h4>
+                      <p>{user.user.status}</p>
                     </div>
                   </div>
                   <hr />
                   <div className="card-body-left">
                     <div className="item-pro flex justify-between">
                       <h4>Followers</h4>
-                      <p>34543</p>
-                    </div>
-                  </div>
-                  <hr />
-                  <div className="card-body-left">
-                    <div className="item-pro flex justify-between">
-                      <h4>Following</h4>
-                      <p>34543</p>
-                    </div>
-                  </div>
-                  <hr />
-                  <div className="card-body-left">
-                    <div className="item-pro flex justify-between">
-                      <h4>Following</h4>
-                      <p>34543</p>
+                      <p>0</p>
                     </div>
                   </div>
                 </div>

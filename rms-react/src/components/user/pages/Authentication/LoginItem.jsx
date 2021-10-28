@@ -7,8 +7,10 @@ import {
   loginFail,
   loginSuccess,
 } from "../../../../redux/LoginSlice";
-import { storeApiData } from "../../../../api/ApiCall";
+import { fetchApiData, storeApiData } from "../../../../api/ApiCall";
 import Gif from "../../images/spinner.gif";
+import github from "../../images/github.svg";
+import google from "../../images/google.svg";
 
 const emailReducer = (state, action) => {
   var pattern = new RegExp(
@@ -118,6 +120,10 @@ const LoginItem = () => {
       fetchData();
     }
   };
+  const socialAuth = async () => {
+    const response = await fetchApiData(`auth/github`);
+    console.log(response);
+  };
   return (
     <section className="login">
       <div className="container">
@@ -172,6 +178,10 @@ const LoginItem = () => {
                 <Link to="/user/forgot-password" className="forgot">
                   forgot your password ?
                 </Link>
+              </div>
+              <div className="flex content-center social">
+                <img src={github} alt="github logo" onClick={socialAuth} />
+                <img src={google} alt="google logo" />
               </div>
             </div>
           </form>

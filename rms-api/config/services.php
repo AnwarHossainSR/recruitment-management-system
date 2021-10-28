@@ -33,5 +33,9 @@ return [
     'sparkpost' => [
         'secret' => env('SPARKPOST_SECRET'),
     ],
-
+    'github' => [
+        'client_id' => 'a1c9cbffdb6a40760ab7',
+        'client_secret' => 'ed22f2136cd006f84ce56bd32655ed2c6e6a213d',
+        'redirect' => 'http://127.0.0.1:8000/api/auth/callback/github',
+    ],
 ];

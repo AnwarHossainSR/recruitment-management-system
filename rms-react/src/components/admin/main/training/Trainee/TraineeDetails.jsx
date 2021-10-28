@@ -65,8 +65,8 @@ const TraineeDetails = () => {
                   <hr />
                   <div className="card-body-left">
                     <div className="item-pro flex justify-between">
-                      <h4>Following</h4>
-                      <p className="success">34543</p>
+                      <h4>Followers</h4>
+                      <p className="success">0</p>
                     </div>
                   </div>
                 </div>
