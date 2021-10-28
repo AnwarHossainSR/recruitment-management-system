@@ -3,14 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Application;
-use App\JobCategory;
 use App\MainJob;
 use App\Traits\ApiResponseWithHttpStatus;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Str;
-
+use App\Http\Helpers\Helper;
 
 class ApplicationController extends Controller
 {
@@ -69,11 +68,13 @@ class ApplicationController extends Controller
         if ($validator->fails()) {
             return response(["status" => false, 'message' => $validator->errors()->all()]);
         }
+
         try {
             if ($request->hasFile('cv')) {
                 $file = $request->file('cv');
-                $fileName = time() . '.' . $file->extension();
-                $file->move(public_path('files/applications'), $fileName);
+                $cvName = time() . '.' . $file->extension();
+                $file->move(public_path('files/applications'), $cvName);
+                $fileName = "http://localhost:8000/files/applications/" . $cvName;
             } else {
                 $fileName = null;
             }
@@ -134,6 +135,7 @@ class ApplicationController extends Controller
      */
     public function destroy(Application $application)
     {
+        Helper::removeCV($application);
         $application->delete();
         return $this->apiResponse('deleted !', null, Response::HTTP_OK, true);
     }

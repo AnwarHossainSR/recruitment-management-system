@@ -5,8 +5,6 @@ namespace App\Http\Controllers\admin;
 use App\Application;
 use App\Http\Controllers\Controller;
 use App\Http\Helpers\Helper;
-use App\Http\Requests\ProfileUpdateRequest;
-use App\JobCategory;
 use App\MainJob;
 use App\Trainee;
 use App\Trainer;

@@ -8,6 +8,7 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Symfony\Component\HttpFoundation\Response;
+use App\Http\Helpers\Helper;
 
 class JobCategoryController extends Controller
 {
@@ -86,6 +87,7 @@ class JobCategoryController extends Controller
         try {
             $category = JobCategory::find($JobCategory);
             if ($request->hasFile('icon')) {
+                Helper::removeIcon($category);
                 $image = $request->file('icon');
                 $imageName = time() . '.' . $image->extension();
                 $image->move(public_path('files/categories'), $imageName);
@@ -109,15 +111,7 @@ class JobCategoryController extends Controller
     public function destroy($jobCategory)
     {
         $job = JobCategory::findOrFail($jobCategory);
-        $array = explode("/", $job->icon);
-        $photo = last($array);
-        $existPhoto = '/files/categories/' . $photo;
-        $path = str_replace('\\', '/', public_path());
-        if ($photo != "default.png" && $photo != "default1.png" && $photo != "default2.png" && $photo != "default3.png") {
-            if (file_exists($path . $existPhoto)) {
-                \unlink($path . $existPhoto);
-            }
-        }
+        Helper::removeIcon($job);
         if ($job->delete()) {
             return $this->apiResponse('deleted !', null, Response::HTTP_OK, true);
         }

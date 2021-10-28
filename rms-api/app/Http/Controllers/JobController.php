@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Str;
 use Symfony\Component\HttpFoundation\Response;
+use App\Http\Helpers\Helper;
 
 class JobController extends Controller
 {
@@ -140,15 +141,7 @@ class JobController extends Controller
      */
     public function destroy(MainJob $job)
     {
-        $array = explode("/", $job->icon);
-        $photo = last($array);
-        $existPhoto = '/files/jobs/' . $photo;
-        $path = str_replace('\\', '/', public_path());
-        if ($photo != "default.png" && $photo != "default1.png" && $photo != "default2.png" && $photo != "default3.png") {
-            if (file_exists($path . $existPhoto)) {
-                \unlink($path . $existPhoto);
-            }
-        }
+        Helper::removeIcon($job);
         if ($job->delete()) {
             return $this->apiResponse('Successfully deleted !', null, Response::HTTP_OK, true);
         }

@@ -18,4 +18,33 @@ class Helper
         }
         return false;
     }
+
+    public static function removeIcon($object)
+    {
+        $array = explode("/", $object->icon);
+        $photo = last($array);
+        $existPhoto = '/files/' . $array[4] . '/' . $photo;
+        $path = str_replace('\\', '/', public_path());
+        if ($photo != "default.png" && $photo != "default1.png" && $photo != "default2.png" && $photo != "default3.png") {
+            if (file_exists($path . $existPhoto)) {
+                \unlink($path . $existPhoto);
+                return true;
+            }
+        }
+        return false;
+    }
+    public static function removeCV($object)
+    {
+        $array = explode("/", $object->cv);
+        $photo = last($array);
+        $existPhoto = '/files/' . $array[4] . '/' . $photo;
+        $path = str_replace('\\', '/', public_path());
+        if ($photo != "default.pdf") {
+            if (file_exists($path . $existPhoto)) {
+                \unlink($path . $existPhoto);
+                return true;
+            }
+        }
+        return false;
+    }
 }
