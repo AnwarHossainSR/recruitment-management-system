@@ -59,8 +59,8 @@ const ManageApplication = (props) => {
       location.pathname === `/admin/manage-application/${slug}/rejected`
     ) {
       dispatch(acceptHandle({ type: "pending", id: id }));
-      fetch();
     }
+    fetch();
   };
   const handleReject = (id) => {
     if (

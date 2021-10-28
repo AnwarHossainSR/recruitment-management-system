@@ -104,6 +104,7 @@ class TraineeController extends Controller
      */
     public function destroy(Trainee $trainee)
     {
-        //
+        $trainee->delete();
+        return $this->apiResponse('deleted !', null, Response::HTTP_CREATED, true);
     }
 }

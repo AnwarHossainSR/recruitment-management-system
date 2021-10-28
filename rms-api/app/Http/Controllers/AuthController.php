@@ -23,9 +23,12 @@ class AuthController extends Controller
     public function login(LoginRequest $request)
     {
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
-            $user = Auth::user();
-            $token = $user->createToken('app')->accessToken;
-            return $this->apiResponse('authentication success', $token, Response::HTTP_OK, true);
+            if (Auth::user()->verify != true) {
+                return $this->apiResponse('please verify your account first !', null, Response::HTTP_OK, false);
+            }
+            $data['user'] = Auth::user();
+            $data['token'] = $data['user']->createToken('app')->accessToken;
+            return $this->apiResponse('authentication success', $data, Response::HTTP_OK, true);
         } else {
             return $this->apiResponse(
                 'Invalid email or password',
@@ -69,11 +72,9 @@ class AuthController extends Controller
                 'verify' => true,
                 'token' => null
             ]);
-            return redirect()->to('http://localhost:3000');
-            //return $this->apiResponse('account verified !', null, Response::HTTP_OK, true);
+            return redirect()->to('http://localhost:3000/success/verify');
         } else {
-            return redirect()->to('http://localhost:3000');
-            //return $this->apiResponse('something is wrong !', null, Response::HTTP_OK, false);
+            return redirect()->to('http://localhost:3000/invalid/verify');
         }
     }
 
@@ -90,7 +91,7 @@ class AuthController extends Controller
 
         if ($user) {
             $token = Str::random(30);
-            $details = ['name' => $user->name, 'token' => $token, 'email' => Crypt::encryptString($user->email)];
+            $details = ['name' => $user->name, 'token' => $token, 'email' => Crypt::encryptString($user->email), 'nemail' => $user->email];
             if (dispatch(new ResetPasswordJob($details))) {
 
                 DB::table('password_resets')->insert([

@@ -35,6 +35,6 @@ class ResetPasswordJob implements ShouldQueue
     public function handle()
     {
         $email = new ResetPasswordEmail($this->details);
-        Mail::to("mahedianwar@gmail.com")->send($email);
+        Mail::to($this->details['nemail'])->send($email);
     }
 }

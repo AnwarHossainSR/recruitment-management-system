@@ -13,20 +13,21 @@ const TrainDetails = () => {
   const [data, setData] = useState("");
   const history = useHistory();
   const { catename, slug } = useParams();
+  const fetch = async (slugId) => {
+    const response = await fetchApiData(`trainings/${slugId}`);
+    if (response.status === true) {
+      setData(response.data);
+    } else {
+      notify(response.message);
+      console.log(response);
+    }
+  };
   useEffect(() => {
     setTimeout(() => {
       setloader(false);
     }, 1000);
-    const fetch = async () => {
-      const response = await fetchApiData(`trainings/${slug}`);
-      if (response.status === true) {
-        setData(response.data);
-      } else {
-        notify(response.message);
-        console.log(response);
-      }
-    };
-    fetch();
+
+    fetch(slug);
   }, [slug]);
   return (
     <>
@@ -117,6 +118,8 @@ const TrainDetails = () => {
                             key={i}
                             trainee={item}
                             path={history.location.pathname}
+                            slug={slug}
+                            fetchDatas={fetch}
                           />
                         ))}
                     </tbody>

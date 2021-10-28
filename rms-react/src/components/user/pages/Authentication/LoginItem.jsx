@@ -11,6 +11,7 @@ import { fetchApiData, storeApiData } from "../../../../api/ApiCall";
 import Gif from "../../images/spinner.gif";
 import github from "../../images/github.svg";
 import google from "../../images/google.svg";
+import { notify } from "../../../../services/Notification";
 
 const emailReducer = (state, action) => {
   var pattern = new RegExp(
@@ -104,15 +105,20 @@ const LoginItem = () => {
 
       const fetchData = async () => {
         const response = await storeApiData("auth/login", data);
+        console.log(response.data);
         if (response.status === true) {
-          localStorage.setItem("token", response.data);
-          dispatch(loginSuccess(response.message));
-          setTimeout(() => {
-            if (localStorage.getItem("token")) {
+          if (response.data.user.is_admin === 1) {
+            localStorage.setItem("token", response.data.token);
+            localStorage.setItem("type", response.data.user.is_admin);
+            dispatch(loginSuccess(response.message));
+            setTimeout(() => {
+              //var admin = JSON.parse(localStorage.getItem("is_admin"));
               histry.push("/admin/dashboard");
-            }
-            dispatch(loginPending(false));
-          }, 2000);
+              dispatch(loginPending(false));
+            }, 2000);
+          } else {
+            notify("you have not permission to access admin page !");
+          }
         } else {
           dispatch(loginFail(response.message));
         }

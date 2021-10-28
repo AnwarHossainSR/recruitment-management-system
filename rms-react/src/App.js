@@ -37,6 +37,8 @@ import ManageExam from "./components/admin/main/scores/ManageExam";
 import AddExam from "./components/admin/main/scores/AddExam";
 import Score from "./components/admin/main/scores/scoreByExam/Score";
 import AddScore from "./components/admin/main/scores/scoreByExam/AddScore";
+import VerifySuccess from "./services/VerifySuccess";
+import InvalidVerify from "./services/InvalidVerify";
 
 const App = () => {
   return (
@@ -62,6 +64,12 @@ const App = () => {
         </Route>
         <Route exact path="/user/sign-up">
           <SignUp hero="Sign Up" />
+        </Route>
+        <Route exact path="/success/verify">
+          <VerifySuccess />
+        </Route>
+        <Route exact path="/invalid/verify">
+          <InvalidVerify />
         </Route>
         <Route exact path="/user/forgot-password">
           <ForgotPassword hero="Forgot Password" />

@@ -20,6 +20,7 @@ class UsersTableSeeder extends Seeder
             'email' => 'mahedisr@gmail.com',
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'is_admin' => true,
+            'verify' => true,
             'image' => 'http://localhost:8000/files/users/default.png',
             'status' => 'active',
             'created_at' => Carbon::now(),
@@ -31,6 +32,7 @@ class UsersTableSeeder extends Seeder
             'email' => 'nani@gmail.com',
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'is_admin' => true,
+            'verify' => true,
             'image' => 'http://localhost:8000/files/users/default.png',
             'status' => 'active',
             'created_at' => Carbon::now(),
@@ -42,6 +44,7 @@ class UsersTableSeeder extends Seeder
             'email' => 'salehin@gmail.com',
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'is_admin' => true,
+            'verify' => true,
             'image' => 'http://localhost:8000/files/users/default.png',
             'status' => 'active',
             'created_at' => Carbon::now(),
@@ -53,6 +56,7 @@ class UsersTableSeeder extends Seeder
             'email' => 'mahbub@gmail.com',
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'is_admin' => true,
+            'verify' => true,
             'image' => 'http://localhost:8000/files/users/default.png',
             'status' => 'active',
             'created_at' => Carbon::now(),

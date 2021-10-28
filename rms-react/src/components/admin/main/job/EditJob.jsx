@@ -313,7 +313,7 @@ const EditJob = (props) => {
                     </div>
 
                     <div className="input-row flex content-center items-center">
-                      <button className="button">Add Job</button>
+                      <button className="button">Update Job</button>
                     </div>
                   </form>
                 </div>
