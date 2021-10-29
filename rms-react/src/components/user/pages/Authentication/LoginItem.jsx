@@ -105,7 +105,6 @@ const LoginItem = () => {
 
       const fetchData = async () => {
         const response = await storeApiData("auth/login", data);
-        console.log(response.data);
         if (response.status === true) {
           if (response.data.user.is_admin === 1) {
             localStorage.setItem("token", response.data.token);

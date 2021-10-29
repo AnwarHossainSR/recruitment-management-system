@@ -34,8 +34,6 @@ class JobController extends Controller
         $data['main_jobs'] = MainJob::where([['status', 'active']])->latest()->paginate(10);
         return $this->apiResponse('success', $data, Response::HTTP_OK, true);
     }
-
-
     /**
      * Store a newly created resource in storage.
      *
@@ -76,7 +74,6 @@ class JobController extends Controller
                 $notification = new JobPostNotification(MainJob::find($response));
                 $admin = new User();
                 Notification::send($admin->areAdmins(), $notification);
-                //User::find(1)->notify();
             }
             return $this->apiResponse('success', $admin->areAdmins(), Response::HTTP_CREATED, true);
         } catch (\Throwable $th) {
